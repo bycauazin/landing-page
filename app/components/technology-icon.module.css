@@ -1,0 +1,21 @@
+.technology { display: inline-flex; align-items: center; justify-content: center; gap: 9px; color: var(--paper); font-family: var(--font-ui); }
+.iconFrame { display: grid; width: 34px; height: 34px; flex: 0 0 auto; place-items: center; border-radius: 8px; }
+.graphic { display: block; width: 30px; height: 30px; object-fit: contain; }
+.sm .iconFrame { width: 29px; height: 29px; }
+.sm .graphic { width: 25px; height: 25px; }
+.lg .iconFrame { width: 56px; height: 56px; }
+.lg .graphic { width: 50px; height: 50px; }
+.label { font-family: var(--font-ui); font-size: 13px; font-weight: 500; letter-spacing: -.01em; }
+.technology[data-technology="nodejs"] .graphic,
+.technology[data-technology="postgresql"] .graphic { width: 94%; height: 94%; }
+.technology[data-technology="nodejs"] .graphic { color: #68b447 !important; }
+.technology[data-technology="postgresql"] .graphic { color: #5b86e5 !important; }
+.technology[data-technology="power-bi"] .graphic { width: 72%; height: 72%; }
+.technology[data-technology="power-automate"] .graphic { width: 82%; height: 82%; }
+
+@media (max-width: 760px) {
+  .iconFrame { width: 31px; height: 31px; }
+  .graphic { width: 27px; height: 27px; }
+  .lg .iconFrame { width: 48px; height: 48px; }
+  .lg .graphic { width: 43px; height: 43px; }
+}

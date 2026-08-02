@@ -1,0 +1,10 @@
+<svg viewBox="0 0 1200 1600" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="pbi0" x1="758" y1="0" x2="1448" y2="1507" gradientUnits="userSpaceOnUse"><stop stop-color="#E6AD10"/><stop offset="1" stop-color="#C87E0E"/></linearGradient>
+    <linearGradient id="pbi1" x1="525" y1="400" x2="1106" y2="1562" gradientUnits="userSpaceOnUse"><stop stop-color="#F6D751"/><stop offset="1" stop-color="#E6AD10"/></linearGradient>
+    <linearGradient id="pbi2" x1="200" y1="800" x2="520" y2="1582" gradientUnits="userSpaceOnUse"><stop stop-color="#F9E589"/><stop offset="1" stop-color="#F6D751"/></linearGradient>
+  </defs>
+  <path d="M1200 66.75v1466.5c0 36.86-29.89 66.75-66.75 66.75h-416.5C679.885 1600 650 1570.11 650 1533.25V66.75C650 29.885 679.885 0 716.75 0h416.5C1170.12 0 1200 29.885 1200 66.75Z" fill="url(#pbi0)"/>
+  <path d="M875 466.667V1600H325V466.667C325 429.848 354.848 400 391.667 400H808.33C845.152 400 875 429.848 875 466.667Z" fill="url(#pbi1)"/>
+  <path d="M0 866.667v666.663C0 1570.15 29.848 1600 66.667 1600H550V866.667C550 829.848 520.152 800 483.333 800H66.667C29.848 800 0 829.848 0 866.667Z" fill="url(#pbi2)"/>
+</svg>
