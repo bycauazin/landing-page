@@ -107,7 +107,7 @@ export const projects = [
     type: "Estudo de caso",
     status: "a-documentar",
     category: "desenvolvimento",
-    technologies: ["nodejs", "postgresql"],
+    technologies: ["react", "nodejs", "postgresql"],
     featured: false,
     description: "Endpoint que identifica contratos encerrados, remove o acesso dos alunos e é executado diariamente por meio de um fluxo automatizado.",
     flow: ["Contratos encerrados", "Validações", "Remoção de acesso"],

@@ -2,8 +2,8 @@
 .projectsHero { padding: 110px 0 88px; }
 .projectsHero::before { position: absolute; top: 52px; right: 0; width: 150px; height: 150px; border-top: 1px solid rgba(87, 140, 255, .36); border-right: 1px solid rgba(87, 140, 255, .36); content: ""; pointer-events: none; }
 .projectsHero h1 { max-width: 850px; margin: 18px 0 28px; color: var(--paper); font-size: clamp(58px, 9vw, 112px); font-weight: 480; letter-spacing: -.055em; line-height: .92; }
-.projectsHero > p:not(:first-child) { max-width: 610px; color: var(--muted); font-size: 18px; line-height: 1.65; }
-.projectsHero > span { display: block; margin-top: 16px; color: var(--blue-light); font-size: 12px; }
+.projectsHero > p:not(:first-child) { max-width: 650px; color: var(--muted); font-size: 20px; font-weight: 420; line-height: 1.72; }
+.projectsHero > span { display: block; margin-top: 18px; color: var(--blue-light); font-size: 14px; font-weight: 500; }
 .catalogSection { padding: 68px 0 120px; border-top: 1px solid var(--line); }
 
 @media (max-width: 760px) {
@@ -11,6 +11,7 @@
   .projectsHero { padding: 75px 0 68px; }
   .projectsHero::before { display: none; }
   .projectsHero h1 { font-size: clamp(54px, 18vw, 80px); }
-  .projectsHero > p:not(:first-child) { font-size: 16px; }
+  .projectsHero > p:not(:first-child) { font-size: 18px; }
+  .projectsHero > span { font-size: 13px; }
   .catalogSection { padding: 52px 0 84px; }
 }
