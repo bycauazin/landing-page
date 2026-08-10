@@ -14,7 +14,7 @@ const services = [
   { number: "03", icon: "data", title: "Dados e dashboards", description: "Organização de dados e painéis que ajudam equipes a acompanhar o que importa.", items: ["Power BI", "Indicadores comerciais", "Organização de dados"] },
 ];
 
-const homepageTechnologies = ["javascript", "react", "nextjs", "nodejs", "python", "postgresql", "power-bi", "power-automate", "sharepoint", "excel"];
+const homepageTechnologies = ["html", "css", "javascript", "react", "nextjs", "nodejs", "python", "postgresql", "power-bi", "power-automate", "sharepoint", "excel"];
 
 export default function Home() {
   const [lightMode, setLightMode] = useState(false);

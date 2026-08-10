@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { categoryLabels, getProject, projectPagesEnabled, projects, statusLabels } from "../../data/projects";
+import { categoryLabels, getProject, projects, statusLabels } from "../../data/projects";
 import TechnologyIcon from "../../components/technology-icon";
 import styles from "./project.module.css";
 
@@ -26,7 +26,7 @@ export default async function ProjectPage({ params }) {
   const { slug } = await params;
   const project = getProject(slug);
 
-  if (!project || !projectPagesEnabled) notFound();
+  if (!project) notFound();
 
   const relatedProjects = (project.related ?? [])
     .map((relatedSlug) => getProject(relatedSlug))
@@ -44,7 +44,7 @@ export default async function ProjectPage({ params }) {
     <div className={styles.page}>
       <header className={styles.header}>
         <Link className={styles.brand} href="/#projetos"><span>C</span> bycauazin</Link>
-        <Link className={styles.backLink} href="/#projetos">← Todos os projetos</Link>
+        <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
       </header>
 
       <main>
@@ -117,7 +117,7 @@ export default async function ProjectPage({ params }) {
 
       <footer className={styles.footer}>
         <span>© {new Date().getFullYear()} Cauã · bycauazin</span>
-        <Link href="/#projetos">Voltar ao portfólio ↑</Link>
+        <Link href="/projetos">Voltar aos projetos ↑</Link>
       </footer>
     </div>
   );

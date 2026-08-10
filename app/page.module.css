@@ -92,6 +92,10 @@
 .filterPopoverWrap { position: relative; }
 .filterPopover { position: absolute; top: calc(100% + 9px); left: 0; display: grid; width: min(430px, calc(100vw - 64px)); grid-template-columns: repeat(2, 1fr); gap: 6px; padding: 10px; border: 1px solid var(--line); background: var(--ink); box-shadow: 0 22px 55px rgba(0, 0, 0, .38); }
 .filterPopover button { width: 100%; }
+.projectGroup + .projectGroup { margin-top: 88px; }
+.projectGroupHeader { display: flex; align-items: end; justify-content: space-between; gap: 32px; margin-bottom: 26px; }
+.projectGroupHeader h2 { color: var(--paper); font-size: clamp(30px, 4vw, 44px); font-weight: 480; letter-spacing: -.035em; }
+.projectGroupHeader p { max-width: 430px; color: var(--muted); font-size: 14px; line-height: 1.6; }
 .caseItem { display: grid; width: 100%; grid-template-columns: 54px 290px 1fr 28px; gap: 22px; padding: 30px 0; border: 0; border-top: 1px solid var(--line); color: inherit; background: transparent; font: inherit; text-align: left; cursor: pointer; transition: padding 200ms ease; }
 .caseItem:last-child { border-bottom: 1px solid var(--line); }
 .caseItem:hover { padding-right: 10px; padding-left: 10px; background: rgba(87, 140, 255, 0.04); }
@@ -115,12 +119,6 @@
 .projectsCtaWrap { display: flex; justify-content: flex-end; margin-top: 36px; }
 .tags { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 20px; }
 .caseArrow { align-self: center; font-size: 20px; }
-.projectNotice { position: fixed; right: 24px; bottom: 24px; z-index: 20; display: flex; width: min(390px, calc(100% - 48px)); align-items: center; justify-content: space-between; gap: 20px; padding: 18px 20px; border: 1px solid var(--blue); color: var(--paper); background: var(--ink); box-shadow: 0 20px 60px rgba(0, 0, 0, .42); font-family: var(--font-ui); }
-.projectNotice div { display: flex; flex-direction: column; gap: 5px; }
-.projectNotice span { color: var(--muted); font-size: 11px; }
-.projectNotice strong { color: var(--blue-light); font-size: 14px; font-weight: 550; }
-.projectNotice > button { border: 0; color: var(--paper); background: transparent; font-size: 22px; cursor: pointer; }
-.projectNotice > button:focus-visible { outline: 2px solid var(--blue-light); outline-offset: 4px; }
 
 .brand, .nav a, .headerCta, .buttonPrimary, .contactButton, .textLink, .socialLink, .socials a, .techItem, .serviceCard li, .filterControls button, .projectMeta, .tags span, .footer {
   font-family: var(--font-ui);
@@ -237,8 +235,10 @@
   .caseContent { grid-column: 2; }
   .caseArrow { grid-column: 3; grid-row: 1 / span 2; }
   .caseContent h3 { font-size: 23px; }
+  .projectGroup + .projectGroup { margin-top: 68px; }
+  .projectGroupHeader { display: block; margin-bottom: 22px; }
+  .projectGroupHeader p { margin-top: 10px; }
   .filterPopover { width: min(340px, calc(100vw - 40px)); grid-template-columns: 1fr; }
-  .projectNotice { right: 20px; bottom: 20px; width: calc(100% - 40px); }
   .projectsCtaWrap { justify-content: stretch; }
   .projectsCtaWrap .buttonPrimary { justify-content: space-between; width: 100%; }
   .aboutSection { gap: 45px; padding: 90px 0; }

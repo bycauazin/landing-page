@@ -1,4 +1,4 @@
-import { siJavascript, siNextdotjs, siNodedotjs, siPostgresql, siReact } from "simple-icons";
+import { siCss, siHtml5, siJavascript, siNextdotjs, siNodedotjs, siPostgresql, siReact } from "simple-icons";
 
 export const categoryLabels = {
   desenvolvimento: "Desenvolvimento",
@@ -12,9 +12,9 @@ export const statusLabels = {
   "em-desenvolvimento": "Em desenvolvimento",
 };
 
-export const projectPagesEnabled = false;
-
 export const technologies = {
+  html: { id: "html", label: "HTML", icon: siHtml5, filterable: true },
+  css: { id: "css", label: "CSS", icon: siCss, filterable: true },
   javascript: { id: "javascript", label: "JavaScript", icon: siJavascript, filterable: true },
   react: { id: "react", label: "React", icon: siReact, filterable: true },
   nextjs: { id: "nextjs", label: "Next.js", icon: siNextdotjs, filterable: true },
@@ -85,6 +85,7 @@ export const projects = [
     type: "Estudo de caso",
     status: "a-documentar",
     category: "desenvolvimento",
+    portfolioSection: "evolucoes-produto",
     technologies: ["nodejs", "postgresql", "excel"],
     featured: false,
     description: "Endpoint que consulta dados do banco, gera um arquivo Excel e é executado diariamente por meio de um fluxo automatizado.",
@@ -107,6 +108,7 @@ export const projects = [
     type: "Estudo de caso",
     status: "a-documentar",
     category: "desenvolvimento",
+    portfolioSection: "evolucoes-produto",
     technologies: ["react", "nodejs", "postgresql"],
     featured: false,
     description: "Endpoint que identifica contratos encerrados, remove o acesso dos alunos e é executado diariamente por meio de um fluxo automatizado.",

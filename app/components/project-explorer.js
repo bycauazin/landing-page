@@ -1,15 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { categoryLabels, projects, statusLabels, technologies, technologyFilters } from "../data/projects";
 import TechnologyIcon from "./technology-icon";
 import styles from "../page.module.css";
-
-const availabilityLabels = {
-  documentado: "Em espera",
-  "a-documentar": "A documentar",
-  "em-desenvolvimento": "Em desenvolvimento",
-};
 
 function TechnologyGroup({ technologyIds }) {
   const visibleTechnologyIds = technologyIds.slice(0, 4);
@@ -27,10 +22,22 @@ function TechnologyGroup({ technologyIds }) {
   );
 }
 
+const portfolioSections = [
+  {
+    id: "projetos",
+    title: "Projetos",
+    description: "Projetos autorais, automações, integrações, dashboards e soluções de dados.",
+  },
+  {
+    id: "evolucoes-produto",
+    title: "Evoluções de Produtos",
+    description: "Funcionalidades e melhorias desenvolvidas para sistemas existentes.",
+  },
+];
+
 export default function ProjectExplorer({ featuredOnly = false, showFilters = true }) {
   const [activeTechnology, setActiveTechnology] = useState("todos");
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const [projectNotice, setProjectNotice] = useState(null);
   const filterControlsRef = useRef(null);
   const filterButtonRef = useRef(null);
   const visibleProjects = featuredOnly
@@ -41,6 +48,14 @@ export default function ProjectExplorer({ featuredOnly = false, showFilters = tr
     : activeTechnology === "todos"
       ? projects
       : projects.filter((project) => project.technologies.includes(activeTechnology));
+  const visibleSections = featuredOnly
+    ? [{ id: "destaques", projects: visibleProjects }]
+    : portfolioSections
+      .map((section) => ({
+        ...section,
+        projects: visibleProjects.filter((project) => (project.portfolioSection ?? "projetos") === section.id),
+      }))
+      .filter((section) => section.projects.length > 0);
 
   useEffect(() => {
     if (!filtersOpen) return undefined;
@@ -114,30 +129,36 @@ export default function ProjectExplorer({ featuredOnly = false, showFilters = tr
         </div>
       )}
 
-      <div className={`${styles.caseList} ${styles.filterResults}`} key={featuredOnly ? "featured" : activeTechnology} aria-live={showFilters ? "polite" : undefined}>
-        {visibleProjects.map((project) => (
-          <button className={styles.caseItem} type="button" onClick={() => setProjectNotice(project)} aria-label={`${project.title}. Ver status do projeto.`} key={project.slug}>
-            <span className={styles.caseIndex}>{String(projects.indexOf(project) + 1).padStart(2, "0")}</span>
-            <TechnologyGroup technologyIds={project.technologies} />
-            <div className={styles.caseContent}>
-              <div className={styles.projectMeta}>
-                <p className={styles.caseType}>{categoryLabels[project.category]}</p>
-                <span className={`${styles.projectStatus} ${project.status === "em-desenvolvimento" ? styles.developmentStatus : ""}`}>{statusLabels[project.status]}</span>
+      <div className={styles.filterResults} key={featuredOnly ? "featured" : activeTechnology} aria-live={showFilters ? "polite" : undefined}>
+        {visibleSections.map((section) => (
+          <section className={styles.projectGroup} aria-labelledby={featuredOnly ? undefined : `portfolio-section-${section.id}`} key={section.id}>
+            {!featuredOnly && (
+              <div className={styles.projectGroupHeader}>
+                <h2 id={`portfolio-section-${section.id}`}>{section.title}</h2>
+                <p>{section.description}</p>
               </div>
-              <h3>{project.title}</h3>
-              <p>{project.description}</p>
-              <div className={styles.tags}>{project.technologies.map((technologyId) => <span key={technologyId}>{technologies[technologyId].label}</span>)}</div>
+            )}
+            <div className={styles.caseList}>
+              {section.projects.map((project) => (
+                <Link className={styles.caseItem} href={`/projetos/${project.slug}`} aria-label={`${project.title}. Ver página do projeto.`} key={project.slug}>
+                  <span className={styles.caseIndex}>{String(projects.indexOf(project) + 1).padStart(2, "0")}</span>
+                  <TechnologyGroup technologyIds={project.technologies} />
+                  <div className={styles.caseContent}>
+                    <div className={styles.projectMeta}>
+                      <p className={styles.caseType}>{categoryLabels[project.category]}</p>
+                      <span className={`${styles.projectStatus} ${project.status === "em-desenvolvimento" ? styles.developmentStatus : ""}`}>{statusLabels[project.status]}</span>
+                    </div>
+                    <h3>{project.title}</h3>
+                    <p>{project.description}</p>
+                    <div className={styles.tags}>{project.technologies.map((technologyId) => <span key={technologyId}>{technologies[technologyId].label}</span>)}</div>
+                  </div>
+                  <span className={styles.caseArrow} aria-hidden="true">→</span>
+                </Link>
+              ))}
             </div>
-            <span className={styles.caseArrow} aria-hidden="true">→</span>
-          </button>
+          </section>
         ))}
       </div>
-      {projectNotice && (
-        <div className={styles.projectNotice} role="status">
-          <div><span>{projectNotice.title}</span><strong>{availabilityLabels[projectNotice.status]}</strong></div>
-          <button type="button" onClick={() => setProjectNotice(null)} aria-label="Fechar mensagem">×</button>
-        </div>
-      )}
     </>
   );
 }
