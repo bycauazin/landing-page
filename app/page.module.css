@@ -151,9 +151,6 @@
 .socialLink { display: flex; align-items: center; gap: 16px; min-height: 104px; padding: 0 24px; border-right: 1px solid var(--line); color: var(--paper); font-size: 16px; font-weight: 600; transition: color 180ms ease, background 180ms ease, transform 180ms ease; }
 .socialLink:first-child { border-left: 1px solid var(--line); }
 .socialLink:hover { z-index: 1; color: var(--blue-light); background: rgba(87, 140, 255, 0.1); transform: translateY(-3px); }
-.disabledSocialLink { cursor: default; opacity: .48; }
-.disabledSocialLink:hover { color: var(--paper); background: transparent; transform: none; }
-.socialUnavailable { margin-left: auto; color: var(--muted); font-size: 10px; letter-spacing: .04em; text-transform: uppercase; }
 .socialIcon, .socialImageIcon { display: grid; width: 42px; height: 42px; place-items: center; color: var(--paper); font-size: 20px; font-weight: 700; }
 .socialIcon { border: 1px solid var(--blue); border-radius: 50%; background: rgba(87, 140, 255, 0.12); }
 .socialImageIcon { flex: 0 0 auto; width: 42px; height: 42px; padding: 9px; border: 1px solid rgba(214, 41, 118, 0.7); border-radius: 50%; background: rgba(214, 41, 118, 0.08); }
@@ -215,7 +212,10 @@
   .header, .footer, .hero, .servicesSection, .casesSection, .aboutSection, .techSection { width: min(100% - 40px, 560px); }
   .header { height: 74px; }
   .nav { display: none; }
-  .headerActions { gap: 8px; }
+  .headerAc
+  
+  
+  tions { gap: 8px; }
   .headerCta { padding: 10px 12px; font-size: 10px; }
   .hero { display: flex; flex-direction: column; align-items: stretch; gap: 58px; min-height: auto; padding: 75px 0 90px; }
   .hero h1 { font-size: clamp(44px, 13vw, 68px); }

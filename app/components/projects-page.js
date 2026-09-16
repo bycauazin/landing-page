@@ -35,7 +35,7 @@ export default function ProjectsPage() {
 
       <footer className={homeStyles.footer}>
         <span>© {new Date().getFullYear()} Cauã · bycauazin</span>
-        <div className={homeStyles.socials} aria-label="Redes sociais"><a href="https://github.com/caua-dev-2004" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.instagram.com/bycauazin/" target="_blank" rel="noreferrer">Instagram</a><a href="https://www.tiktok.com/@bycauazin" target="_blank" rel="noreferrer">TikTok</a></div>
+        <div className={homeStyles.socials} aria-label="Redes sociais"><a href="https://github.com/bycauazin" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.linkedin.com/in/caua-santana-dev/" target="_blank" rel="noreferrer">LinkedIn</a><a href="https://www.instagram.com/bycauazin/" target="_blank" rel="noreferrer">Instagram</a><a href="https://www.tiktok.com/@bycauazin" target="_blank" rel="noreferrer">TikTok</a></div>
         <span>feito com Next.js</span>
       </footer>
     </div>

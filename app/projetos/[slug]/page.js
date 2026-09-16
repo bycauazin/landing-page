@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { categoryLabels, getProject, projects, statusLabels } from "../../data/projects";
 import TechnologyIcon from "../../components/technology-icon";
+import CourseAccessCase from "./course-access-case";
+import FolderCreationCase from "./folder-creation-case";
 import styles from "./project.module.css";
 
 export function generateStaticParams() {
@@ -27,6 +29,14 @@ export default async function ProjectPage({ params }) {
   const project = getProject(slug);
 
   if (!project) notFound();
+
+  if (project.slug === "atalho-acesso-cursos") {
+    return <CourseAccessCase />;
+  }
+
+  if (project.slug === "criador-pastas-alunos") {
+    return <FolderCreationCase />;
+  }
 
   const relatedProjects = (project.related ?? [])
     .map((relatedSlug) => getProject(relatedSlug))

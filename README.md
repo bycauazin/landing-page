@@ -72,7 +72,7 @@ app/
 ### Instalação
 
 ```bash
-git clone https://github.com/caua-dev-2004/landing-page.git
+git clone https://github.com/bycauazin/landing-page.git
 cd landing-page
 npm install
 npm run dev
@@ -150,9 +150,9 @@ Outras opções para avaliar no futuro:
 Se você tem um projeto, uma oportunidade ou quer conversar sobre tecnologia:
 
 - [Portfólio](https://bycauazin.web.app)
-- [GitHub](https://github.com/caua-dev-2004)
+- [GitHub](https://github.com/bycauazin)
+- [LinkedIn](https://www.linkedin.com/in/caua-santana-dev/)
 - [WhatsApp](https://wa.me/5521988120757)
-- **LinkedIn:** adicionar endereço do perfil
 - **E-mail:** adicionar endereço profissional
 
 ---
