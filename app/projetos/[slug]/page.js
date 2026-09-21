@@ -4,6 +4,7 @@ import { categoryLabels, getProject, projects, statusLabels } from "../../data/p
 import TechnologyIcon from "../../components/technology-icon";
 import CourseAccessCase from "./course-access-case";
 import FolderCreationCase from "./folder-creation-case";
+import PlannerPowerBICase from "./planner-power-bi-case";
 import styles from "./project.module.css";
 
 export function generateStaticParams() {
@@ -36,6 +37,10 @@ export default async function ProjectPage({ params }) {
 
   if (project.slug === "criador-pastas-alunos") {
     return <FolderCreationCase />;
+  }
+
+  if (project.slug === "planner-power-bi") {
+    return <PlannerPowerBICase />;
   }
 
   const relatedProjects = (project.related ?? [])
@@ -96,10 +101,10 @@ export default async function ProjectPage({ params }) {
 
         <section className={styles.detailsSection} aria-labelledby="details-title">
           <div className={styles.sectionLabel}><span>{project.chapters ? "03" : "02"}</span><h2 id="details-title">Estrutura do estudo de caso</h2></div>
-          <p className={styles.sectionIntro}>Os campos já estão no lugar. Os textos abaixo indicam exatamente o que falta levantar antes da publicação final.</p>
+          <p className={styles.sectionIntro}>A estrutura de cada estudo de caso foi organizada para apresentar o problema, a solução, a participação e o impacto de forma direta.</p>
           <div className={styles.detailGrid}>
             {details.map(([title, content]) => (
-              <article key={title}><p>A documentar</p><h3>{title}</h3><div>{content}</div></article>
+              <article key={title}><h3>{title}</h3><div>{content}</div></article>
             ))}
           </div>
         </section>
