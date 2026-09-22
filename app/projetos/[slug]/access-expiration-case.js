@@ -147,7 +147,7 @@ export default function AccessExpirationCase() {
             </div>
           </div>
           <div className={styles.tags} aria-label="Tecnologias do projeto">
-            {["Node.js", "JavaScript", "Sequelize", "PostgreSQL", "Moodle"].map((tag) => <span key={tag}>{tag}</span>)}
+            {["Node.js", "JavaScript", "React.js", "Sequelize", "PostgreSQL", "Moodle"].map((tag) => <span key={tag}>{tag}</span>)}
           </div>
         </section>
 
@@ -248,7 +248,7 @@ export default function AccessExpirationCase() {
         <section className={`${styles.section} ${styles.resultSection}`} aria-labelledby="result-title">
           <SectionHeading number="07" eyebrow="Participação e resultado" title="Regra operacional transformada em processo controlado" id="result-title" />
           <div className={styles.roleResultGrid}>
-            <article><span>Minha participação</span><p>Atuei na análise da regra de negócio, na modelagem da expiração por relação e na implementação backend com Node.js e Sequelize. O trabalho incluiu a separação entre Service e DAO, o modo preview, o tratamento do Tier Open, o histórico, as transactions e a integração com cohorts do Moodle.</p></article>
+            <article><span>Minha participação</span><p>Atuei na análise da regra de negócio, na modelagem da expiração por relação e na implementação backend com Node.js e Sequelize. O trabalho incluiu a separação entre Service e DAO, o modo preview, o tratamento do Tier Open, o histórico, as transactions e a integração com cohorts do Moodle. Também implementei a interface de cadastro em React.js — nesta tela o usuário, ao cadastrar um aluno ou empresa, informa a data de expiração do vínculo.</p></article>
             <article><span>Resultado</span><p>A expiração passou a considerar o prazo de cada vínculo individualmente, com um fluxo mais previsível e auditável. A automação reduz o tratamento manual, preserva o histórico e permite validar o impacto antes de aplicar mudanças.</p></article>
           </div>
           <div className={styles.outcomeGrid}>
@@ -260,7 +260,7 @@ export default function AccessExpirationCase() {
             <div><article><strong>Modelagem importa</strong><p>A data precisava pertencer ao vínculo para representar a regra real.</p></article><article><strong>Reexecutar faz parte do desenho</strong><p>Uma automação precisa reconhecer estados já tratados sem gerar duplicidade.</p></article><article><strong>Sistemas têm limites diferentes</strong><p>Banco local e API externa não compartilham o mesmo rollback.</p></article><article><strong>Preview reduz risco</strong><p>Separar análise de aplicação torna a operação mais segura.</p></article></div>
           </div>
           <div className={styles.techGrid} aria-label="Tecnologias confirmadas no projeto">
-            {["Node.js", "JavaScript", "Express", "Sequelize", "PostgreSQL", "REST APIs", "Moodle Web Services"].map((tech) => <span key={tech}>{tech}</span>)}
+            {["Node.js", "JavaScript", "React.js", "Express", "Sequelize", "PostgreSQL", "REST APIs", "Moodle Web Services"].map((tech) => <span key={tech}>{tech}</span>)}
           </div>
         </section>
       </main>
