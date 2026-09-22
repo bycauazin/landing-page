@@ -66,6 +66,11 @@
 .pythonBadge { display:flex; min-height:96px; padding:18px 20px; align-items:center; gap:18px; border-left:2px solid var(--blue); background:rgba(87,140,255,.07); }
 .pythonBadge img { flex:0 0 auto; }
 .pythonBadge strong { font-size:18px; font-weight:520; line-height:1.45; }
+
+/* Alias for non-Python tech badges (keeps backward compatibility) */
+.nodeBadge { display:flex; min-height:96px; padding:18px 20px; align-items:center; gap:18px; border-left:2px solid var(--blue); background:rgba(87,140,255,.07); }
+.nodeBadge img { flex:0 0 auto; }
+.nodeBadge strong { font-size:18px; font-weight:520; line-height:1.45; }
 .operationGrid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; margin:28px 0 0 54px; padding:1px; background:var(--line); list-style:none; }
 .operationGrid li { display:grid; grid-template-columns:38px 1fr; min-height:126px; padding:22px; background:var(--ink); }
 .operationGrid li>span { color:var(--blue); font-size:11px; }

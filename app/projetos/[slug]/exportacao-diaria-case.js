@@ -160,14 +160,20 @@ export default function ExportacaoDiariaCase() {
           <SectionHeading number="03" eyebrow="Objetivo" title="Tornar o fluxo recorrente e confiável" id="objective-title" icon="challenge" />
           <div className={styles.solutionIntro}>
             <p>O objetivo foi criar uma rotina automatizada no backend para consultar as fontes necessárias, consolidar os dados, aplicar os tratamentos necessários e disponibilizar o arquivo final em um local centralizado para uso posterior.</p>
-            <div className={styles.pythonBadge}><Image src="/technology-icons/nodejs.svg" width={52} height={52} alt="Node.js" /><strong>Backend em Node.js<br />com geração recorrente de Excel.</strong></div>
+            <div className={styles.nodeBadge}><Image src="/technology-icons/nodejs.svg" width={52} height={52} alt="Node.js" /><strong>Backend em Node.js<br />com geração recorrente de Excel.</strong></div>
           </div>
           <div className={styles.interfaceLayout}>
             <div className={styles.desktopScene}>
               <div className={styles.desktopWindow} aria-label="Arquitetura conceitual da exportação diária para Excel">
-                <div className={styles.titleBar}><span className={styles.appIcon}>A</span><span>Arquitetura de exportação</span><div aria-hidden="true"><i>—</i><i>□</i><i>×</i></div></div>
+                <div className={styles.titleBar}><span className={styles.appIcon}>E</span><span>Arquitetura de exportação</span><div aria-hidden="true"><i>—</i><i>□</i><i>×</i></div></div>
                 <div className={styles.windowBody}>
-                  <div className={styles.logoPlaceholder}><span>Fontes</span><small>múltiplas</small></div>
+                  <div className={styles.logoPlaceholder}>
+                    <div style={{display:'flex',gap:10,alignItems:'center',marginBottom:8}}>
+                      <Image src="/technology-icons/excel.svg" alt="Excel" width={36} height={36} />
+                      <Image src="/technology-icons/sharepoint.svg" alt="SharePoint" width={36} height={36} />
+                    </div>
+                    <small>Fontes: Excel, SharePoint, Banco de Dados</small>
+                  </div>
                   <div className={styles.fakeSelect}>Coleta → Processamento → Consolidação</div>
                   <small>Fluxo simplificado do processo</small>
                   <button type="button">Excel final</button>
