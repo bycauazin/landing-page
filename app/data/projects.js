@@ -110,7 +110,8 @@ export const projects = [
     status: "documentado",
     category: "desenvolvimento",
     portfolioSection: "evolucoes-produto",
-    technologies: ["nodejs", "postgresql"],
+    // tecnologias: inclui React para indicar uso da interface de cadastro
+    technologies: ["nodejs", "postgresql", "react"],
     featured: false,
     description: "Automação backend que controla a validade de diferentes vínculos dos alunos e sincroniza mudanças de acesso com o Moodle.",
     flow: ["Relações vencidas", "Regras de negócio", "Histórico", "Sincronização Moodle"],
