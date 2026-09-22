@@ -15,6 +15,27 @@ const geistMono = Geist_Mono({
 export const metadata = {
   title: "Cauã | Soluções digitais para negócios",
   description: "Desenvolvimento web, automação e dados para transformar ideias e problemas de negócio em soluções digitais.",
+  openGraph: {
+    title: "Cauã | Soluções digitais para negócios",
+    description: "Desenvolvimento web, automação e dados para transformar ideias e problemas de negócio em soluções digitais.",
+    url: "https://bycauazin.web.app/",
+    siteName: "Cauã | bycauazin",
+    images: [
+      {
+        url: "/foto-perfil.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Cauã | Soluções digitais",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Cauã | Soluções digitais para negócios",
+    description: "Desenvolvimento web, automação e dados para transformar ideias e problemas de negócio em soluções digitais.",
+    images: ["/foto-perfil.jpg"],
+  },
 };
 
 export default function RootLayout({ children }) {
