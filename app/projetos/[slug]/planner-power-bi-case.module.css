@@ -227,6 +227,28 @@
   line-height: 1.08;
 }
 
+.statusBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 9px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+.statusBadge::before {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  margin-right: 8px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 0 3px rgba(87, 140, 255, .12);
+  content: "";
+}
+
 .problemGrid,
 .solutionIntro,
 .dashboardSummary,
@@ -306,6 +328,153 @@
   border: 1px solid var(--line);
   color: var(--muted);
   font-size: 11px;
+}
+
+.statusGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 30px;
+}
+
+.statusCard {
+  display: flex;
+  flex-direction: column;
+  min-height: 220px;
+  padding: 22px;
+  border: 1px solid var(--line);
+  background: rgba(87, 140, 255, .04);
+}
+
+.statusCard span {
+  color: var(--blue-light);
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.statusCard strong {
+  margin-top: 12px;
+  margin-bottom: 18px;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.statusCard ul {
+  margin: 0;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.done {
+  border-color: rgba(87, 140, 255, .32);
+}
+
+.progress {
+  border-color: rgba(184, 204, 255, .28);
+}
+
+.planned {
+  border-color: rgba(243, 242, 237, .18);
+}
+
+.listGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 8px;
+}
+
+.listCard {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 180px;
+  padding: 24px;
+  border: 1px solid var(--line);
+  background: rgba(87, 140, 255, .04);
+}
+
+.listCard span {
+  color: var(--blue-light);
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.listCard p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.tableWrap {
+  overflow-x: auto;
+  margin-top: 10px;
+}
+
+.simpleTable {
+  width: 100%;
+  min-width: 480px;
+  border-collapse: collapse;
+  border: 1px solid var(--line);
+}
+
+.simpleTable th,
+.simpleTable td {
+  padding: 16px 18px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+.simpleTable th {
+  color: var(--blue-light);
+  font-size: 10px;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+
+.simpleTable td {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.futureFlow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+.futureNode {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 110px;
+  padding: 18px 14px;
+  border: 1px solid var(--line);
+  background: rgba(87, 140, 255, .04);
+}
+
+.futureNode span {
+  color: var(--blue);
+  font-size: 9px;
+}
+
+.futureNode strong {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.technicalNote {
+  margin-top: 24px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
 }
 
 .flowBlock {

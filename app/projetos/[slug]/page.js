@@ -3,9 +3,74 @@ import { notFound } from "next/navigation";
 import { categoryLabels, getProject, projects, statusLabels } from "../../data/projects";
 import TechnologyIcon from "../../components/technology-icon";
 import CourseAccessCase from "./course-access-case";
+import ExportacaoDiariaCase from "./exportacao-diaria-case";
 import FolderCreationCase from "./folder-creation-case";
+import GovernancaTeamsCase from "./governanca-teams-case";
 import PlannerPowerBICase from "./planner-power-bi-case";
 import styles from "./project.module.css";
+
+function ProjectUnderDevelopment({ project }) {
+  return (
+    <div className={styles.page}>
+      <header className={styles.header}>
+        <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><span>C</span> bycauazin</Link>
+        <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
+      </header>
+
+      <main>
+        <section className={styles.developmentHero} aria-labelledby="project-title">
+          <div className={styles.developmentBadgeWrap}>
+            <p className={styles.kicker}>{categoryLabels[project.category]}</p>
+            <span className={`${styles.projectStatus} ${styles.developmentStatus}`}>
+              {statusLabels[project.status]}
+            </span>
+          </div>
+
+          <div className={styles.developmentVisual} aria-hidden="true">
+            <div className={styles.devOrb} />
+            <div className={styles.devSignal} />
+          </div>
+
+          <div className={styles.developmentText}>
+            <h1 id="project-title">{project.title}</h1>
+            <p className={styles.projectGroup}>{project.group}</p>
+            <p className={styles.summary}>{project.description}</p>
+            <div className={styles.devIndicator}>
+              <span className={styles.devDot} />
+              <span>Desenvolvimento em andamento</span>
+            </div>
+          </div>
+        </section>
+
+        <section className={styles.developmentMessage}>
+          <div className={styles.messageHeader}>
+            <span>01</span>
+            <h2>Em desenvolvimento</h2>
+          </div>
+
+          <div className={styles.messageBody}>
+            <p>
+              {project.title} está sendo desenvolvido e ainda não possui uma versão completa disponível para apresentação.
+            </p>
+            <p>
+              {project.title === "Finance App"
+                ? "Aplicação pessoal criada com o objetivo de explorar o desenvolvimento de uma solução para organização financeira e acompanhamento de receitas e despesas."
+                : "Aplicação pessoal criada com o objetivo de explorar uma solução para organização de hábitos, atividades e acompanhamento da rotina."}
+            </p>
+            <p>
+              O projeto ainda está em desenvolvimento. À medida que novas etapas forem concluídas, esta página será atualizada com detalhes técnicos, decisões de interface e evolução do produto.
+            </p>
+          </div>
+        </section>
+      </main>
+
+      <footer className={styles.footer}>
+        <span>© {new Date().getFullYear()} Cauã · bycauazin</span>
+        <Link href="/projetos">Voltar aos projetos ↑</Link>
+      </footer>
+    </div>
+  );
+}
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
@@ -31,6 +96,14 @@ export default async function ProjectPage({ params }) {
 
   if (!project) notFound();
 
+  if (project.slug === "governanca-corporativa") {
+    return <GovernancaTeamsCase />;
+  }
+
+  if (project.status === "em-desenvolvimento") {
+    return <ProjectUnderDevelopment project={project} />;
+  }
+
   if (project.slug === "atalho-acesso-cursos") {
     return <CourseAccessCase />;
   }
@@ -41,6 +114,10 @@ export default async function ProjectPage({ params }) {
 
   if (project.slug === "planner-power-bi") {
     return <PlannerPowerBICase />;
+  }
+
+  if (project.slug === "account-manager-exportacao-excel") {
+    return <ExportacaoDiariaCase />;
   }
 
   const relatedProjects = (project.related ?? [])

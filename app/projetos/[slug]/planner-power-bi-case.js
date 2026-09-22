@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BeforeAfter, FlowDiagram, ImpactCards, LeadQuote } from "./case-shared";
 import styles from "./planner-power-bi-case.module.css";
 
 const oldProcess = [
@@ -115,6 +116,27 @@ export default function PlannerPowerBICase() {
             ))}
           </div>
         </section>
+
+        <LeadQuote text="O dashboard deixou de depender de uma planilha atualizada manualmente e passou a receber os dados automaticamente, mantendo o acompanhamento mais confiável." />
+
+        <ImpactCards cards={[
+          { title: "Problema", text: "Tarefas registradas no Planner precisavam ser copiadas manualmente para uma planilha usada como base do dashboard." },
+          { title: "Solução", text: "Desenvolvi uma automação para consultar os dados do ambiente Microsoft e organizar a base para o painel." },
+          { title: "Impacto", text: "O acompanhamento deixou de depender de atualização manual e passou a refletir melhor a realidade operacional." },
+        ]} />
+
+        <BeforeAfter
+          before={["Planner", "Pessoa atualiza planilha", "Power BI", "Dados dependem de revisão manual"]}
+          after={["Planner", "Automação coleta dados", "Base estruturada", "Power BI com visão atualizada"]}
+        />
+
+        <FlowDiagram steps={[
+          { label: "Planner", text: "Fonte operacional das tarefas." },
+          { label: "Microsoft Graph", text: "Consulta os dados no ambiente Microsoft." },
+          { label: "Power Automate", text: "Executa a automação e organiza o processo." },
+          { label: "SharePoint", text: "Armazena a base estruturada para uso posterior." },
+          { label: "Power BI", text: "Transforma os dados em indicadores e visão gerencial." },
+        ]} />
 
         <nav className={styles.caseNav} aria-label="Etapas do estudo de caso">
           {[

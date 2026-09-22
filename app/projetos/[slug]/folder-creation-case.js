@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BeforeAfter, FlowDiagram, ImpactCards, LeadQuote } from "./case-shared";
 import styles from "./course-access-case.module.css";
 
 const manualFlow = ["Consultar dados", "Identificar cursos", "Criar pasta", "Localizar a base", "Copiar módulos", "Conferir estrutura"];
@@ -52,6 +53,25 @@ export default function FolderCreationCase() {
           </div>
           <div className={styles.tags} aria-label="Tecnologias e características do projeto">{[["Py", "Python"], ["Tk", "Tkinter"], ["Au", "Automação"], ["PC", "Desktop"]].map(([mark, label]) => <span key={label}><b aria-hidden="true">{mark}</b>{label}</span>)}</div>
         </section>
+
+        <LeadQuote text="Em vez de preparar cada pasta manualmente, a estrutura do aluno passou a ser gerada automaticamente, com menos retrabalho e mais consistência." />
+
+        <ImpactCards cards={[
+          { title: "Problema", text: "Cada aluno exigia uma estrutura específica de arquivos e módulos, e a preparação dependia de trabalho manual repetitivo." },
+          { title: "Solução", text: "Criei uma aplicação para validar os dados, criar a pasta e copiar a estrutura correta automaticamente." },
+          { title: "Impacto", text: "A operação ficou mais padronizada e ficou menos sujeito a erro humano ou cópia manual de módulos." },
+        ]} />
+
+        <BeforeAfter
+          before={["Consulta dados", "Identifica curso", "Cria pasta manual", "Copia módulos", "Confere estrutura"]}
+          after={["Informar dados", "Validar entrada", "Estrutura criada", "Módulos copiados", "Ambiente pronto"]}
+        />
+
+        <FlowDiagram steps={[
+          { label: "Dados", text: "O professor informa nome, matrícula e curso." },
+          { label: "Validação", text: "A aplicação verifica campos e conflitos." },
+          { label: "Criação", text: "A pasta e a estrutura base são geradas." },
+        ]} />
 
         <nav className={styles.caseNav} aria-label="Etapas do estudo de caso">
           {[["01", "Problema", "folder-problem"], ["02", "Solução", "folder-solution"], ["03", "Personalização", "folder-custom"], ["04", "Interface", "folder-interface"], ["05", "Resultado", "folder-result"]].map(([number, label, target]) => <a href={`#${target}`} key={number}><span>{number}</span><strong>{label}</strong><b aria-hidden="true">↓</b></a>)}

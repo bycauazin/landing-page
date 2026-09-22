@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { BeforeAfter, FlowDiagram, ImpactCards, LeadQuote } from "./case-shared";
 import styles from "./course-access-case.module.css";
 
 const oldFlow = ["Entrar no diretório", "Navegar por pastas", "Localizar a matrícula", "Abrir os arquivos", "Acessar as aulas"];
@@ -59,7 +60,24 @@ export default function CourseAccessCase() {
             {[["Py", "Python"], ["Tk", "Tkinter"], ["Au", "Automação"], ["PC", "Desktop"]].map(([mark, label]) => <span key={label}><b aria-hidden="true">{mark}</b>{label}</span>)}
           </div>
         </section>
+        <LeadQuote text="O aluno passou a acessar seus arquivos informando apenas sua matrícula, sem navegar por vários diretórios e sem depender da orientação manual da equipe." />
 
+        <ImpactCards cards={[
+          { title: "Problema", text: "Os alunos precisavam localizar arquivos em vários níveis de pastas antes mesmo de começar a aula." },
+          { title: "Solução", text: "Desenvolvi uma aplicação para localizar a pasta correta a partir da matrícula e abrir o material necessário." },
+          { title: "Impacto", text: "O processo ficou mais rápido, mais simples e menos dependente de ajuda manual durante o horário de pico." },
+        ]} />
+
+        <BeforeAfter
+          before={["Aluno procura diretório", "Navega entre pastas", "Solicita ajuda", "Acesso atrasa a aula"]}
+          after={["Informa matrícula", "Sistema localiza a pasta", "Arquivo e aulas abrem", "O aluno entra direto no conteúdo"]}
+        />
+
+        <FlowDiagram steps={[
+          { label: "Matrícula", text: "O aluno informa a sua identificação." },
+          { label: "Busca", text: "A aplicação localiza a estrutura correta." },
+          { label: "Acesso", text: "A pasta e as aulas ficam disponíveis em poucos segundos." },
+        ]} />
         <nav className={styles.caseNav} aria-label="Etapas do estudo de caso">
           {[
             ["01", "Problema", "problem-title"], ["02", "Solução", "solution-title"], ["03", "Interface", "interface-title"], ["04", "Desafio", "challenge-title"], ["05", "Resultado", "result-title"],

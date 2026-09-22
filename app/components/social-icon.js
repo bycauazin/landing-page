@@ -1,10 +1,9 @@
 import Image from "next/image";
-import { siGithub, siInstagram, siTiktok } from "simple-icons";
+import { siGithub, siInstagram } from "simple-icons";
 import styles from "./social-icon.module.css";
 
 const socialIcons = {
   github: { icon: siGithub, color: "var(--paper)" },
-  tiktok: { icon: siTiktok, color: "var(--paper)" },
   instagram: { icon: siInstagram, color: "#E4405F" },
   linkedin: { asset: "/social-icons/linkedin.svg", color: "#0A66C2" },
 };
