@@ -163,23 +163,6 @@ export default function ExportacaoDiariaCase() {
             <div className={styles.nodeBadge}><Image src="/technology-icons/nodejs.svg" width={52} height={52} alt="Node.js" /><strong>Backend em Node.js<br />com geração recorrente de Excel.</strong></div>
           </div>
           <div className={styles.interfaceLayout}>
-            <div className={styles.desktopScene}>
-              <div className={styles.desktopWindow} aria-label="Arquitetura conceitual da exportação diária para Excel">
-                <div className={styles.titleBar}><span className={styles.appIcon}>E</span><span>Arquitetura de exportação</span><div aria-hidden="true"><i>—</i><i>□</i><i>×</i></div></div>
-                <div className={styles.windowBody}>
-                  <div className={styles.logoPlaceholder}>
-                    <div style={{display:'flex',gap:10,alignItems:'center',marginBottom:8}}>
-                      <Image src="/technology-icons/excel.svg" alt="Excel" width={36} height={36} />
-                      <Image src="/technology-icons/sharepoint.svg" alt="SharePoint" width={36} height={36} />
-                    </div>
-                    <small>Fontes: Excel, SharePoint, Banco de Dados</small>
-                  </div>
-                  <div className={styles.fakeSelect}>Coleta → Processamento → Consolidação</div>
-                  <small>Fluxo simplificado do processo</small>
-                  <button type="button">Excel final</button>
-                </div>
-              </div>
-            </div>
             <div className={styles.interfaceCopy}>
               <p>A rotina foi pensada para organizar esse pipeline em etapas claras: coletar, processar, consolidar e publicar o resultado final.</p>
               <div><span>Visão do objetivo</span><p>Uma base estruturada, pronta para consumo por outros processos e por análises futuras.</p></div>
