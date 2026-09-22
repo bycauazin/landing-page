@@ -17,6 +17,16 @@
 .heroAside { padding:0 0 4px 18px; border-left:2px solid var(--blue); }
 .heroPhoto { position:relative; width:100%; aspect-ratio:1.6; margin-bottom:17px; overflow:hidden; border:1px solid var(--line); background:var(--surface); }
 .heroPhoto img { object-fit:cover; filter:saturate(.82) contrast(1.04); }
+.accessHeroVisual,.folderHeroVisual { display:flex; min-height:180px; padding:22px; justify-content:center; flex-direction:column; background:linear-gradient(145deg,rgba(87,140,255,.14),transparent),var(--ink); font-family:var(--font-ui); }
+.accessHeroVisual>span { color:var(--blue-light); font-size:10px; letter-spacing:.08em; text-transform:uppercase; }
+.accessHeroVisual>strong { margin-top:9px; padding:10px 12px; border:1px solid var(--line); background:var(--surface); font:500 22px var(--font-geist-mono),monospace; }
+.accessHeroVisual>b { margin-top:8px; padding:10px 12px; color:#fff; background:var(--blue); font-size:11px; font-weight:600; text-align:center; }
+.accessHeroVisual>div { display:flex; margin-top:12px; align-items:center; gap:8px; color:var(--muted); font-size:10px; }
+.accessHeroVisual i { width:7px; height:7px; border-radius:50%; background:#70d6a0; box-shadow:0 0 0 4px rgba(112,214,160,.09); }
+.folderHeroVisual>div { display:flex; padding:11px 13px; align-items:center; justify-content:space-between; border-left:2px solid var(--blue); background:rgba(87,140,255,.1); }
+.folderHeroVisual div span { font:500 12px var(--font-geist-mono),monospace; }
+.folderHeroVisual div small { color:var(--blue-light); font-size:8px; text-transform:uppercase; }
+.folderHeroVisual>p { margin:10px 0 0 24px; color:var(--muted); font:11px var(--font-geist-mono),monospace; }
 .heroAside>span { color:var(--blue); font-size:11px; letter-spacing:.07em; text-transform:uppercase; }
 .heroAside>p { margin-top:8px; color:var(--paper); font-size:15px; line-height:1.5; }
 .heroAside>small { display:block; margin-top:9px; color:var(--muted); font-size:10px; line-height:1.4; }
@@ -31,7 +41,7 @@
 .caseNav span,.caseNav b { color:var(--blue); font-size:11px; font-weight:500; }
 .caseNav strong { font-size:15px; font-weight:550; }
 
-.section { padding:64px 0 70px; border-top:1px solid var(--line); }
+.section { padding:48px 0 56px; border-top:1px solid var(--line); }
 .caseNav+.section { border-top:0; }
 .sectionHeading { display:grid; grid-template-columns:54px minmax(0,1fr) 72px; column-gap:18px; margin-bottom:34px; align-items:start; }
 .sectionNumber { grid-column:1; grid-row:1; padding-top:6px; color:var(--blue); font-size:12px; line-height:1; }
@@ -52,7 +62,7 @@
 .flowBlock { margin:34px 0 0 54px; }
 .flowBlock>p { margin-bottom:12px; }
 .flowBlock ol { display:grid; grid-template-columns:repeat(5,1fr); padding:0; border-block:1px solid var(--line); list-style:none; }
-.flowBlock li { position:relative; display:flex; min-height:104px; padding:15px; flex-direction:column; justify-content:space-between; border-right:1px solid var(--line); }
+.flowBlock li { position:relative; display:flex; min-height:88px; padding:12px; flex-direction:column; justify-content:space-between; border-right:1px solid var(--line); }
 .flowBlock li:last-child { border-right:0; }
 .flowBlock li:not(:last-child)::after { position:absolute; top:50%; right:-7px; z-index:1; color:var(--blue); background:var(--ink); content:"→"; }
 .flowBlock li span { color:var(--blue); font-size:10px; }
@@ -71,8 +81,8 @@
 .nodeBadge { display:flex; min-height:96px; padding:18px 20px; align-items:center; gap:18px; border-left:2px solid var(--blue); background:rgba(87,140,255,.07); }
 .nodeBadge img { flex:0 0 auto; }
 .nodeBadge strong { font-size:18px; font-weight:520; line-height:1.45; }
-.operationGrid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; margin:28px 0 0 54px; padding:1px; background:var(--line); list-style:none; }
-.operationGrid li { display:grid; grid-template-columns:38px 1fr; min-height:126px; padding:22px; background:var(--ink); }
+.operationGrid { display:grid; grid-template-columns:repeat(2,1fr); gap:1px; margin:18px 0 0 54px; padding:1px; background:var(--line); list-style:none; }
+.operationGrid li { display:grid; grid-template-columns:38px 1fr; min-height:100px; padding:16px; background:var(--ink); }
 .operationGrid li>span { color:var(--blue); font-size:11px; }
 .operationGrid h3 { font-size:21px; font-weight:520; }
 .operationGrid p { margin-top:7px; color:var(--muted); font-size:16px; line-height:1.5; }
@@ -84,8 +94,8 @@
 
 .mainCopyWide { max-width:850px; margin-left:54px; }
 .mainCopyWide p { color:var(--muted); font-size:19px; line-height:1.62; }
-.courseModes { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin:28px 0 0 54px; }
-.courseModes article { min-height:310px; padding:26px; border:1px solid var(--line); background:var(--surface); }
+.courseModes { display:grid; grid-template-columns:repeat(2,1fr); gap:14px; margin:18px 0 0 54px; }
+.courseModes article { min-height:220px; padding:18px; border:1px solid var(--line); background:var(--surface); }
 .courseModes article>span { color:var(--blue-light); font-size:11px; letter-spacing:.08em; text-transform:uppercase; }
 .courseModes h3 { margin:13px 0 22px; font-size:26px; font-weight:500; }
 .folderTree { padding:20px; border-left:2px solid var(--blue); background:var(--ink); font-family:var(--font-geist-mono),monospace; }
@@ -140,8 +150,8 @@
 
 .result { padding-bottom:76px; }
 .resultGrid { display:grid; grid-template-columns:1fr 1fr; gap:60px; margin-left:54px; }
-.metric { display:grid; grid-template-columns:auto 1fr; padding:32px; border:1px solid var(--blue); background:rgba(87,140,255,.08); }
-.metric>span { padding-top:7px; color:var(--blue-light); font-size:24px; }
+.metric { display:grid; grid-template-columns:auto 1fr; padding:24px; border:1px solid var(--blue); background:rgba(87,140,255,.08); }
+.metric>span { padding-top:7px; color:var(--blue-light); font-size:24px; margin-right:14px; }
 .metric strong { font-size:clamp(72px,8vw,100px); font-weight:450; letter-spacing:-.075em; line-height:.9; }
 .metric p { grid-column:1/-1; max-width:400px; margin-top:24px; color:var(--blue-light); font-size:15px; line-height:1.5; }
 .resultCopy { align-self:center; }

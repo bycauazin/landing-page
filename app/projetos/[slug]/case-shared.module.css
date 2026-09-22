@@ -1,7 +1,7 @@
 .leadQuoteWrap {
   width: min(1180px, calc(100% - 64px));
-  margin: 0 auto 18px;
-  padding: 34px 0 18px;
+  margin: 0 auto 12px;
+  padding: 20px 0 12px;
   border-top: 1px solid var(--line);
 }
 
@@ -16,15 +16,15 @@
 
 .impactGrid {
   width: min(1180px, calc(100% - 64px));
-  margin: 18px auto 0;
+  margin: 12px auto 0;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
+  gap: 12px;
 }
 
 .impactCard {
-  min-height: 180px;
-  padding: 24px 22px;
+  min-height: 140px;
+  padding: 18px 16px;
   border: 1px solid var(--line);
   background: rgba(87, 140, 255, 0.04);
 }
@@ -46,17 +46,17 @@
 
 .beforeAfter {
   width: min(1180px, calc(100% - 64px));
-  margin: 32px auto 0;
+  margin: 24px auto 0;
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  gap: 18px;
+  gap: 12px;
   align-items: start;
 }
 
 .beforeAfterColumn {
   border: 1px solid var(--line);
   background: rgba(17, 19, 24, 0.4);
-  padding: 18px 18px 14px;
+  padding: 14px 14px 10px;
 }
 
 .beforeAfterColumn > p {
@@ -91,14 +91,14 @@
   display: grid;
   place-items: center;
   color: var(--blue);
-  font-size: 28px;
-  padding-top: 54px;
+  font-size: 24px;
+  padding-top: 24px;
 }
 
 .flowDiagram {
   width: min(1180px, calc(100% - 64px));
-  margin: 36px auto 0;
-  padding: 28px 0 0;
+  margin: 24px auto 0;
+  padding: 18px 0 0;
   border-top: 1px solid var(--line);
 }
 
@@ -125,12 +125,12 @@
   display: flex;
   flex-wrap: wrap;
   align-items: stretch;
-  gap: 10px;
+  gap: 8px;
 }
 
 .flowRowItem {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
   flex: 1 1 170px;
 }
@@ -139,8 +139,8 @@
   display: flex;
   flex: 1 1 170px;
   flex-direction: column;
-  min-height: 160px;
-  padding: 18px 18px 16px;
+  min-height: 120px;
+  padding: 14px 14px 12px;
   border: 1px solid var(--line);
   background: rgba(87, 140, 255, 0.04);
 }
@@ -152,18 +152,18 @@
 }
 
 .flowStep small {
-  margin-top: 14px;
+  margin-top: 10px;
   color: var(--muted);
   font-size: 13px;
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .arrow {
   display: grid;
   place-items: center;
   color: var(--blue-light);
-  font-size: 26px;
-  padding: 0 4px;
+  font-size: 20px;
+  padding: 0 6px;
 }
 
 .statusBoard {

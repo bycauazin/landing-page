@@ -47,7 +47,9 @@ export default function FolderCreationCase() {
           <div className={styles.heroGrid}>
             <div><h1 id="case-title">Criação automática de pastas dos alunos</h1><p className={styles.heroSummary}>Aplicação desktop em Python criada para automatizar a preparação dos arquivos e módulos utilizados por novos alunos.</p></div>
             <aside className={styles.heroAside}>
-              <div className={styles.heroPhoto}><Image src="/project-images/laboratorio-cursos-conceitual.png" alt="Imagem conceitual de um laboratório de cursos com computadores" fill sizes="(max-width: 800px) 100vw, 320px" priority /></div>
+              <div className={`${styles.heroPhoto} ${styles.folderHeroVisual}`} aria-label="Representação conceitual da criação automática da estrutura do aluno">
+                <div><span>Aluno_10245</span><small>estrutura criada</small></div><p>├─ Windows</p><p>├─ Word</p><p>└─ Excel</p>
+              </div>
               <span>Contexto do projeto</span><p>Desenvolvido na Onbyte Penha para apoiar professores durante o início das aulas.</p><small>Imagem conceitual — não é um registro histórico.</small>
             </aside>
           </div>
@@ -59,7 +61,7 @@ export default function FolderCreationCase() {
         <ImpactCards cards={[
           { title: "Problema", text: "Cada aluno exigia uma estrutura específica de arquivos e módulos, e a preparação dependia de trabalho manual repetitivo." },
           { title: "Solução", text: "Criei uma aplicação para validar os dados, criar a pasta e copiar a estrutura correta automaticamente." },
-          { title: "Impacto", text: "A operação ficou mais padronizada e ficou menos sujeito a erro humano ou cópia manual de módulos." },
+          { title: "Impacto", text: "A operação ficou mais padronizada e menos sujeita a erro humano ou à cópia manual de módulos." },
         ]} />
 
         <BeforeAfter

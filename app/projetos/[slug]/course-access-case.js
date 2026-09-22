@@ -50,10 +50,12 @@ export default function CourseAccessCase() {
           <div className={styles.heroGrid}>
             <div><h1 id="case-title">Atalho de acesso aos cursos</h1><p className={styles.heroSummary}>Aplicação em Python que substituiu um processo manual de acesso às aulas e aos arquivos por uma única pesquisa de matrícula.</p></div>
             <aside className={styles.heroAside}>
-              <div className={styles.heroPhoto}><Image src="/project-images/laboratorio-cursos-conceitual.png" alt="Imagem conceitual de alunos utilizando computadores em um laboratório de cursos" fill sizes="(max-width: 800px) 100vw, 320px" priority /></div>
+              <div className={`${styles.heroPhoto} ${styles.accessHeroVisual}`} aria-label="Representação conceitual da busca de arquivos pela matrícula">
+                <span>Matrícula</span><strong>10245</strong><b>Pesquisar →</b><div><i />Pasta localizada</div>
+              </div>
               <span>Contexto do projeto</span>
               <p>Desenvolvido na Onbyte Penha enquanto eu atuava como coordenador de cursos.</p>
-              <small>Imagem conceitual — não é um registro histórico.</small>
+              <small>Representação demonstrativa com matrícula fictícia.</small>
             </aside>
           </div>
           <div className={styles.tags} aria-label="Tecnologias e características do projeto">

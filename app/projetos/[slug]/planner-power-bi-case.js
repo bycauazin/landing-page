@@ -6,7 +6,7 @@ const oldProcess = [
   "Planner com tarefas e prazos",
   "Atualização manual de planilha",
   "Planilha funcionando como origem do dashboard",
-  "Dados potenciamente desatualizados",
+  "Dados potencialmente desatualizados",
   "Dependência constante de manutenção humana",
 ];
 

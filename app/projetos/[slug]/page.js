@@ -2,7 +2,9 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { categoryLabels, getProject, projects, statusLabels } from "../../data/projects";
 import TechnologyIcon from "../../components/technology-icon";
+import AccessExpirationCase from "./access-expiration-case";
 import CourseAccessCase from "./course-access-case";
+import DashboardSalesCase from "./dashboard-sales-case";
 import ExportacaoDiariaCase from "./exportacao-diaria-case";
 import FolderCreationCase from "./folder-creation-case";
 import GovernancaTeamsCase from "./governanca-teams-case";
@@ -118,6 +120,14 @@ export default async function ProjectPage({ params }) {
 
   if (project.slug === "account-manager-exportacao-excel") {
     return <ExportacaoDiariaCase />;
+  }
+
+  if (project.slug === "account-manager-remocao-acesso") {
+    return <AccessExpirationCase />;
+  }
+
+  if (project.slug === "dashboard-vendas") {
+    return <DashboardSalesCase />;
   }
 
   const relatedProjects = (project.related ?? [])
