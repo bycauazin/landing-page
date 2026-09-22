@@ -22,7 +22,7 @@ export const metadata = {
     siteName: "Cauã | bycauazin",
     images: [
       {
-        url: "/foto-perfil.jpg",
+        url: "https://bycauazin.web.app/foto-perfil.jpg",
         width: 1200,
         height: 630,
         alt: "Cauã | Soluções digitais",
@@ -34,9 +34,16 @@ export const metadata = {
     card: "summary_large_image",
     title: "Cauã | Soluções digitais para negócios",
     description: "Desenvolvimento web, automação e dados para transformar ideias e problemas de negócio em soluções digitais.",
-    images: ["/foto-perfil.jpg"],
+    images: ["https://bycauazin.web.app/foto-perfil.jpg"],
+  },
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/foto-perfil.jpg",
   },
 };
+
+export const metadataBase = new URL("https://bycauazin.web.app");
 
 export default function RootLayout({ children }) {
   return (
