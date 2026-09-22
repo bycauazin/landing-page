@@ -171,7 +171,8 @@
 .light .contactSection { background: linear-gradient(140deg, #dce7fb, #c7d8f4); }
 .contactSection h2 { max-width: 760px; margin: 18px 0 20px; color: var(--paper); font-size: clamp(38px, 5vw, 70px); font-weight: 480; line-height: 1; }
 .contactSection > p { max-width: 420px; }
-.contactButton { margin-top: 34px; padding: 18px 22px; }
+.contactButton { margin-top: 34px; padding: 18px 22px; color: #062d18; background: #25d366; }
+.contactButton:hover { color: #062d18; background: #49df82; }
 .footer { display: flex; justify-content: space-between; align-items: center; min-height: 88px; color: var(--muted); font-size: 11px; }
 .socials { display: flex; gap: 22px; }
 

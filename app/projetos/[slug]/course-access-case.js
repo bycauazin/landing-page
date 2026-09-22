@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import CaseFloatingActions from "./case-floating-actions";
 import { BeforeAfter, FlowDiagram, ImpactCards, LeadQuote } from "./case-shared";
 import styles from "./course-access-case.module.css";
 
@@ -38,7 +39,7 @@ function Flow({ label, items, accent = false }) {
 
 export default function CourseAccessCase() {
   return (
-    <div className={styles.page}>
+    <div className={styles.page} id="top">
       <header className={styles.header}>
         <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><span>C</span> bycauazin</Link>
         <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
@@ -137,6 +138,11 @@ export default function CourseAccessCase() {
         </section>
       </main>
 
+      <CaseFloatingActions sections={[
+        { href: "#problem-title", label: "Problema" }, { href: "#solution-title", label: "Solução" },
+        { href: "#interface-title", label: "Interface" }, { href: "#challenge-title", label: "Desafio técnico" },
+        { href: "#result-title", label: "Resultado" },
+      ]} />
       <footer className={styles.footer}><span>© {new Date().getFullYear()} Cauã · bycauazin</span><Link href="/projetos">Ver todos os projetos ↑</Link></footer>
     </div>
   );

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CaseFloatingActions from "./case-floating-actions";
 import styles from "./access-expiration-case.module.css";
 
 const relationCards = [
@@ -123,7 +124,7 @@ function ArrowFlow({ items, label }) {
 
 export default function AccessExpirationCase() {
   return (
-    <div className={styles.page}>
+    <div className={styles.page} id="top">
       <header className={styles.header}>
         <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><span>C</span> bycauazin</Link>
         <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
@@ -265,6 +266,12 @@ export default function AccessExpirationCase() {
         </section>
       </main>
 
+      <CaseFloatingActions sections={[
+        { href: "#problem-title", label: "Contexto e problema" }, { href: "#flow-title", label: "Fluxo de expiração" },
+        { href: "#preview-title", label: "Simulação segura" }, { href: "#open-title", label: "Regra do Tier Open" },
+        { href: "#architecture-title", label: "Arquitetura" }, { href: "#moodle-title", label: "Integração Moodle" },
+        { href: "#result-title", label: "Resultado" },
+      ]} />
       <footer className={styles.footer}><span>© {new Date().getFullYear()} Cauã · bycauazin</span><Link href="/projetos">Ver todos os projetos ↑</Link></footer>
     </div>
   );

@@ -19,7 +19,7 @@
 .backLink { color: var(--muted); font-size: 12px; transition: color 180ms ease; }
 .backLink:hover { color: var(--paper); }
 
-.hero { padding: 96px 0 72px; }
+.hero { padding: 82px 0 62px; }
 .heroMeta { display: flex; align-items: center; gap: 14px; }
 .heroMeta p, .sectionHeading p, .codeCopy > span, .callout > span, .previewPanel > span, .architectureGrid article > span, .boundaryNote > span, .challengeHeader > span, .syncCard > span, .roleResultGrid article > span, .learningBlock > span { color: var(--blue-light); font-size: 10px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
 .heroMeta > span { padding: 6px 9px; border: 1px solid var(--line); color: var(--muted); font-size: 9px; letter-spacing: .06em; text-transform: uppercase; }
@@ -41,7 +41,7 @@
 .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
 .tags span { padding: 8px 11px; border: 1px solid var(--line); color: var(--paper); font-size: 11px; }
 
-.leadStatement { padding: 54px 0; border-top: 1px solid var(--line); }
+.leadStatement { padding: 42px 0; border-top: 1px solid var(--line); }
 .leadStatement > span { display: block; margin-bottom: 16px; color: var(--blue-light); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; }
 .leadStatement blockquote { max-width: 900px; font-size: clamp(30px, 5vw, 62px); font-weight: 450; letter-spacing: -.045em; line-height: 1.06; }
 
@@ -52,7 +52,7 @@
 .caseNav span, .caseNav b { color: var(--blue); font-size: 10px; font-weight: 500; }
 .caseNav strong { font-size: 12px; font-weight: 550; }
 
-.section { padding: 82px 0; border-top: 1px solid var(--line); }
+.section { padding: 68px 0; border-top: 1px solid var(--line); }
 .caseNav + .section { border-top: 0; }
 .sectionHeading { display: grid; grid-template-columns: 62px 1fr; margin-bottom: 42px; align-items: start; }
 .sectionHeading > span { padding-top: 5px; color: var(--blue); font-size: 11px; }

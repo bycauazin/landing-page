@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CaseFloatingActions from "./case-floating-actions";
 import styles from "./dashboard-sales-case.module.css";
 
 const daxCode = [
@@ -62,7 +63,7 @@ function DashboardMockup() {
 
 export default function DashboardSalesCase() {
   return (
-    <div className={styles.page}>
+    <div className={styles.page} id="top">
       <header className={styles.header}><Link className={styles.brand} href="/#projetos"><span>C</span> bycauazin</Link><Link className={styles.backLink} href="/projetos">← Todos os projetos</Link></header>
       <main>
         <section className={styles.hero} aria-labelledby="case-title">
@@ -119,6 +120,11 @@ export default function DashboardSalesCase() {
           <div className={styles.techGrid}>{["Power BI","Power Query","DAX","PBIP","Modelo semântico","Excel","Visualização de dados"].map((tech) => <span key={tech}>{tech}</span>)}</div>
         </section>
       </main>
+      <CaseFloatingActions sections={[
+        { href: "#problem-title", label: "Contexto e problema" }, { href: "#data-title", label: "Preparação dos dados" },
+        { href: "#metrics-title", label: "Indicadores" }, { href: "#dashboard-title", label: "Experiência visual" },
+        { href: "#decisions-title", label: "Filtros e decisões" }, { href: "#result-title", label: "Resultado" },
+      ]} />
       <footer className={styles.footer}><span>© {new Date().getFullYear()} Cauã · bycauazin</span><Link href="/projetos">Ver todos os projetos ↑</Link></footer>
     </div>
   );

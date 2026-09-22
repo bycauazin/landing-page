@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BeforeAfter, FlowDiagram, ImpactCards, LeadQuote } from "./case-shared";
+import CaseFloatingActions from "./case-floating-actions";
 import styles from "./planner-power-bi-case.module.css";
 
 const oldProcess = [
@@ -75,7 +76,7 @@ function Flow({ label, items, accent = false }) {
 
 export default function PlannerPowerBICase() {
   return (
-    <div className={styles.page}>
+    <div className={styles.page} id="top">
       <header className={styles.header}>
         <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><span>C</span> bycauazin</Link>
         <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
@@ -446,6 +447,13 @@ export default function PlannerPowerBICase() {
         </section>
       </main>
 
+      <CaseFloatingActions sections={[
+        { href: "#context-title", label: "Contexto" }, { href: "#problem-title", label: "Problema" },
+        { href: "#approach-title", label: "Primeira abordagem" }, { href: "#architecture-title", label: "Arquitetura final" },
+        { href: "#flow-title", label: "Automação" }, { href: "#dashboard-title", label: "Dashboard" },
+        { href: "#beforeafter-title", label: "Antes e depois" }, { href: "#result-title", label: "Participação" },
+        { href: "#learning-title", label: "Aprendizado" }, { href: "#tech-title", label: "Tecnologias" },
+      ]} />
       <footer className={styles.footer}>
         <span>© {new Date().getFullYear()} Cauã · bycauazin</span>
         <Link href="/projetos">Ver todos os projetos ↑</Link>

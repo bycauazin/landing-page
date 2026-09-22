@@ -1,4 +1,5 @@
 import Link from "next/link";
+import CaseFloatingActions from "./case-floating-actions";
 import styles from "./exportacao-diaria-case.module.css";
 
 const pipeline = [
@@ -95,7 +96,7 @@ function SectionHeading({ number, eyebrow, title, id }) {
 
 export default function ExportacaoDiariaCase() {
   return (
-    <div className={styles.page}>
+    <div className={styles.page} id="top">
       <header className={styles.header}>
         <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><span>C</span> bycauazin</Link>
         <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
@@ -209,6 +210,11 @@ export default function ExportacaoDiariaCase() {
         </section>
       </main>
 
+      <CaseFloatingActions sections={[
+        { href: "#problem-title", label: "Contexto e problema" }, { href: "#pipeline-title", label: "Pipeline" },
+        { href: "#workbook-title", label: "Geração do workbook" }, { href: "#merge-title", label: "Consolidação" },
+        { href: "#architecture-title", label: "Arquitetura e operação" }, { href: "#result-title", label: "Resultado" },
+      ]} />
       <footer className={styles.footer}><span>© {new Date().getFullYear()} Cauã · bycauazin</span><Link href="/projetos">Ver todos os projetos ↑</Link></footer>
     </div>
   );

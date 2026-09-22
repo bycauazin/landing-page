@@ -6,6 +6,7 @@ import { useState } from "react";
 import ProjectExplorer from "./components/project-explorer";
 import SocialIcon from "./components/social-icon";
 import TechnologyIcon from "./components/technology-icon";
+import WhatsAppIcon from "./components/whatsapp-icon";
 import styles from "./page.module.css";
 
 const services = [
@@ -44,7 +45,7 @@ export default function Home() {
 
         <section className={styles.socialsSection} aria-labelledby="socials-title"><div className={styles.socialsHeading}><h2 id="socials-title">Onde me encontrar</h2><p className={styles.socialsSubtitle}>Minhas redes sociais, ideias e conexões.</p></div><div className={styles.socialLinks}><a className={styles.socialLink} href="https://github.com/bycauazin" target="_blank" rel="noreferrer"><SocialIcon className={styles.socialIcon} social="github" /><span>GitHub</span><span className={styles.socialArrow} aria-hidden="true">↗</span></a><a className={styles.socialLink} href="https://www.instagram.com/bycauazin/" target="_blank" rel="noreferrer"><SocialIcon className={styles.socialIcon} social="instagram" /><span>Instagram</span><span className={styles.socialArrow} aria-hidden="true">↗</span></a><a className={styles.socialLink} href="https://www.linkedin.com/in/caua-santana-dev/" target="_blank" rel="noreferrer"><SocialIcon className={styles.socialIcon} social="linkedin" /><span>LinkedIn</span><span className={styles.socialArrow} aria-hidden="true">↗</span></a></div></section>
 
-        <section className={styles.contactSection} id="contato" aria-labelledby="contact-title"><p className={styles.kicker}>Tem um desafio?</p><h2 id="contact-title">Vamos transformar isso em <em>próximo passo.</em></h2><p>Me conte o que você precisa. A primeira conversa é o começo para entender e desenvolver a solução.</p><a className={styles.contactButton} href="https://wa.me/5521988120757" target="_blank" rel="noreferrer">Chamar no WhatsApp <span aria-hidden="true">↗</span></a></section>
+        <section className={styles.contactSection} id="contato" aria-labelledby="contact-title"><p className={styles.kicker}>Tem um desafio?</p><h2 id="contact-title">Vamos transformar isso em <em>próximo passo.</em></h2><p>Me conte o que você precisa. A primeira conversa é o começo para entender e desenvolver a solução.</p><a className={styles.contactButton} href="https://wa.me/5521988120757" target="_blank" rel="noreferrer"><WhatsAppIcon size={21} /> Chamar no WhatsApp <span aria-hidden="true">↗</span></a></section>
       </main>
 
       <footer className={styles.footer}><span>© {new Date().getFullYear()} Cauã · bycauazin</span><div className={styles.socials} aria-label="Redes sociais"><a href="https://github.com/bycauazin" target="_blank" rel="noreferrer">GitHub</a><a href="https://www.linkedin.com/in/caua-santana-dev/" target="_blank" rel="noreferrer">LinkedIn</a><a href="https://www.instagram.com/bycauazin/" target="_blank" rel="noreferrer">Instagram</a></div><span>feito com Next.js</span></footer>

@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BeforeAfter, FlowDiagram, ImpactCards, LeadQuote, RoadmapStatus } from "./case-shared";
+import CaseFloatingActions from "./case-floating-actions";
 import styles from "./planner-power-bi-case.module.css";
 
 const statusStages = [
@@ -118,7 +119,7 @@ function Flow({ label, items, accent = false }) {
 
 export default function GovernancaTeamsCase() {
   return (
-    <div className={styles.page}>
+    <div className={styles.page} id="top">
       <header className={styles.header}>
         <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><span>C</span> bycauazin</Link>
         <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
@@ -441,6 +442,15 @@ export default function GovernancaTeamsCase() {
         </section>
       </main>
 
+      <CaseFloatingActions sections={[
+        { href: "#context-title", label: "Contexto" }, { href: "#problem-title", label: "Problema" },
+        { href: "#objective-title", label: "Objetivo" }, { href: "#architecture-title", label: "Arquitetura" },
+        { href: "#lists-title", label: "Estrutura SharePoint" }, { href: "#flow-title", label: "Fluxo GOV-01" },
+        { href: "#status-title", label: "Situação atual" }, { href: "#occurrence-title", label: "Ocorrências" },
+        { href: "#challenge-title", label: "Desafios técnicos" }, { href: "#future-title", label: "Visão futura" },
+        { href: "#role-title", label: "Participação" }, { href: "#result-title", label: "Resultado atual" },
+        { href: "#learning-title", label: "Aprendizado" },
+      ]} />
       <footer className={styles.footer}>
         <span>© {new Date().getFullYear()} Cauã · bycauazin</span>
         <Link href="/projetos">Voltar aos projetos ↑</Link>

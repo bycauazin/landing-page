@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import CaseFloatingActions from "./case-floating-actions";
 import { BeforeAfter, FlowDiagram, ImpactCards, LeadQuote } from "./case-shared";
 import styles from "./course-access-case.module.css";
 
@@ -35,7 +36,7 @@ function Flow({ label, items, accent = false, six = false }) {
 
 export default function FolderCreationCase() {
   return (
-    <div className={styles.page}>
+    <div className={styles.page} id="top">
       <header className={styles.header}>
         <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><span>C</span> bycauazin</Link>
         <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
@@ -131,6 +132,11 @@ export default function FolderCreationCase() {
           <Link className={styles.connectedCard} href="/projetos/atalho-acesso-cursos"><span>Projetos conectados</span><strong>Estrutura criada → matrícula localizada → arquivos acessados</strong><p>Ver o case “Atalho de acesso aos cursos”</p><b aria-hidden="true">→</b></Link>
         </section>
       </main>
+      <CaseFloatingActions sections={[
+        { href: "#folder-problem", label: "Problema" }, { href: "#folder-solution", label: "Solução" },
+        { href: "#folder-custom", label: "Cursos personalizados" }, { href: "#folder-interface", label: "Interface" },
+        { href: "#folder-result", label: "Resultado" },
+      ]} />
       <footer className={styles.footer}><span>© {new Date().getFullYear()} Cauã · bycauazin</span><Link href="/projetos">Ver todos os projetos ↑</Link></footer>
     </div>
   );
