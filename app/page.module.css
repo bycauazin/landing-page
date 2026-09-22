@@ -147,7 +147,14 @@
 .socialsHeading { margin-bottom: 38px; }
 .socialsHeading h2 { color: var(--paper); font-size: clamp(40px, 5vw, 68px); font-weight: 480; line-height: 1.02; }
 .socialsSubtitle { margin-top: 14px; color: var(--muted); font-size: 16px; line-height: 1.5; }
-.socialLinks { display: grid; grid-template-columns: repeat(4, 1fr); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.socialLinks {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(160px, 1fr);
+  justify-content: center;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
 .socialLink { display: flex; align-items: center; gap: 16px; min-height: 104px; padding: 0 24px; border-right: 1px solid var(--line); color: var(--paper); font-size: 16px; font-weight: 600; transition: color 180ms ease, background 180ms ease, transform 180ms ease; }
 .socialLink:first-child { border-left: 1px solid var(--line); }
 .socialLink:hover { z-index: 1; color: var(--blue-light); background: rgba(87, 140, 255, 0.1); transform: translateY(-3px); }
