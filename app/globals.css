@@ -55,3 +55,8 @@ a {
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
 }
+
+html:has([data-home-motion]),
+body:has([data-home-motion]) {
+  overflow-x: clip;
+}
