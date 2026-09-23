@@ -7,17 +7,11 @@ import TechnologyIcon from "./technology-icon";
 import styles from "../page.module.css";
 
 function TechnologyGroup({ technologyIds }) {
-  const visibleTechnologyIds = technologyIds.slice(0, 4);
-  const remainingCount = technologyIds.length - visibleTechnologyIds.length;
-
   return (
-    <div className={styles.technologyGroup} data-count={visibleTechnologyIds.length} aria-label={`Tecnologias utilizadas: ${technologyIds.map((id) => technologies[id].label).join(", ")}`}>
-      {visibleTechnologyIds.map((technologyId) => {
-        return (
-          <TechnologyIcon className={styles.technologyIcon} technology={technologyId} size="lg" key={technologyId} />
-        );
-      })}
-      {remainingCount > 0 && <span className={styles.remainingTechnologies} aria-hidden="true">+{remainingCount}</span>}
+    <div className={styles.technologyGroup} data-count={technologyIds.length} aria-label={`Tecnologias utilizadas: ${technologyIds.map((id) => technologies[id].label).join(", ")}`}>
+      {technologyIds.map((technologyId) => (
+        <TechnologyIcon className={styles.technologyIcon} technology={technologyId} size="lg" key={technologyId} />
+      ))}
     </div>
   );
 }

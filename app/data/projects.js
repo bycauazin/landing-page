@@ -186,7 +186,7 @@ export const projects = [
     status: "em-desenvolvimento",
     category: "automacao",
     technologies: ["power-automate", "sharepoint", "power-bi"],
-    featured: true,
+    featured: false,
     featuredOrder: 3,
     description: "Automação para controle de reuniões corporativas, periodicidade, participantes, pautas e ocorrências utilizando Microsoft Teams, Power Automate e SharePoint.",
     flow: ["Mapa de governança", "SharePoint", "Power Automate", "Microsoft Teams", "Ocorrências"],

@@ -100,16 +100,15 @@
 .caseItem:last-child { border-bottom: 1px solid var(--line); }
 .caseItem:hover { padding-right: 10px; padding-left: 10px; background: rgba(87, 140, 255, 0.04); }
 .caseIndex, .caseArrow { color: var(--blue); font-size: 12px; }
-.technologyGroup { display: flex; width: 290px; min-height: 124px; align-self: center; align-items: center; justify-content: flex-start; }
-.technologyIcon, .remainingTechnologies { position: relative; display: grid; width: 72px; height: 72px; flex: 0 0 72px; margin-left: -6px; place-items: center; border: 1px solid var(--line); border-radius: 17px; background: var(--ink); box-shadow: 0 0 0 2px var(--ink); transition: border-color 180ms ease, transform 180ms ease; }
+.technologyGroup { display: flex; width: 290px; min-height: 124px; align-self: center; align-items: center; justify-content: flex-start; flex-wrap: wrap; gap: 8px; }
+.technologyIcon, .remainingTechnologies { position: relative; display: grid; width: 72px; height: 72px; flex: 0 0 72px; margin-left: 0; place-items: center; border: 1px solid var(--line); border-radius: 17px; background: var(--ink); box-shadow: 0 0 0 2px var(--ink); transition: border-color 180ms ease, transform 180ms ease; }
 .technologyIcon:first-child { margin-left: 0; }
-.technologyIcon:nth-child(2) { z-index: 2; }
-.technologyIcon:nth-child(3) { z-index: 3; }
-.technologyIcon:nth-child(4) { z-index: 4; }
-.technologyIcon:hover { z-index: 6; border-color: rgba(87, 140, 255, 0.65); transform: translateY(-4px); }
+.technologyIcon:nth-child(2), .technologyIcon:nth-child(3), .technologyIcon:nth-child(4) { z-index: 1; }
+.technologyIcon:hover { z-index: 2; border-color: rgba(87, 140, 255, 0.65); transform: translateY(-4px); }
 .technologyGroup[data-count="1"], .technologyGroup[data-count="2"], .technologyGroup[data-count="4"] { justify-content: center; }
 .technologyGroup[data-count="1"] .technologyIcon { width: 88px; height: 88px; flex-basis: 88px; margin-left: 0; }
 .remainingTechnologies { color: var(--blue-light); font-size: 12px; }
+
 .caseContent h3 { margin: 12px 0 10px; color: var(--paper); font-size: 28px; font-weight: 480; }
 .caseContent > p { max-width: 560px; }
 .projectMeta { display: flex; align-items: center; gap: 12px; }
