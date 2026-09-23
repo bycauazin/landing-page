@@ -119,7 +119,7 @@ export default function ExportacaoDiariaCase() {
               </div>
             </div>
           </div>
-          <div className={styles.tags}>{["Node.js", "ExcelJS", "PostgreSQL", "MySQL", "Microsoft Graph", "SharePoint"].map((tag) => <span key={tag}>{tag}</span>)}</div>
+          <div className={styles.tags}>{["JavaScript", "Node.js", "ExcelJS", "PostgreSQL", "MySQL", "Microsoft Graph", "SharePoint"].map((tag) => <span key={tag}>{tag}</span>)}</div>
         </section>
 
         <div className={styles.leadStatement}><span>Decisão central</span><blockquote>O arquivo não é apenas exportado. Ele é construído a partir de fontes que precisam ser reconciliadas.</blockquote></div>
@@ -206,7 +206,7 @@ export default function ExportacaoDiariaCase() {
           </div>
           <div className={styles.outcomeGrid}>{["Coleta recorrente", "Fontes reconciliadas", "Workbook padronizado", "Fórmulas preservadas", "Publicação centralizada", "Falhas comunicadas"].map((item) => <span key={item}>{item}</span>)}</div>
           <div className={styles.learningBlock}><span>Aprendizados</span><div><article><strong>Exportar é modelar</strong><p>Um arquivo útil depende de relações e transformações, não apenas de consultas.</p></article><article><strong>Planilhas também têm dependências</strong><p>Nomes de abas e fórmulas formam referências que precisam ser preservadas.</p></article><article><strong>Rotinas pesadas pedem isolamento</strong><p>O worker reduz o impacto da exportação sobre a API principal.</p></article><article><strong>Falhas precisam de contexto</strong><p>Avisos e resumos tornam a execução mais fácil de acompanhar.</p></article></div></div>
-          <div className={styles.techGrid}>{["Node.js", "JavaScript", "ExcelJS", "Sequelize", "PostgreSQL", "MySQL", "Microsoft Graph", "SharePoint", "node-schedule", "Worker Threads"].map((tech) => <span key={tech}>{tech}</span>)}</div>
+          <div className={styles.techGrid}>{["JavaScript", "Node.js", "ExcelJS", "Sequelize", "PostgreSQL", "MySQL", "Microsoft Graph", "SharePoint", "node-schedule", "Worker Threads"].map((tech) => <span key={tech}>{tech}</span>)}</div>
         </section>
       </main>
 

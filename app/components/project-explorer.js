@@ -44,7 +44,7 @@ export default function ProjectExplorer({ featuredOnly = false, showFilters = tr
     ? projects
       .filter((project) => project.featured)
       .sort((a, b) => a.featuredOrder - b.featuredOrder)
-      .slice(0, 4)
+      .slice(0, 5)
     : activeTechnology === "todos"
       ? projects
       : projects.filter((project) => project.technologies.includes(activeTechnology));
@@ -140,7 +140,7 @@ export default function ProjectExplorer({ featuredOnly = false, showFilters = tr
             )}
             <div className={styles.caseList}>
               {section.projects.map((project) => (
-                <Link className={styles.caseItem} href={`/projetos/${project.slug}`} aria-label={`${project.title}. Ver página do projeto.`} key={project.slug}>
+                <Link className={styles.caseItem} data-reveal={featuredOnly ? "" : undefined} href={`/projetos/${project.slug}`} aria-label={`${project.title}. Ver página do projeto.`} key={project.slug}>
                   <span className={styles.caseIndex}>{String(projects.indexOf(project) + 1).padStart(2, "0")}</span>
                   <TechnologyGroup technologyIds={project.technologies} />
                   <div className={styles.caseContent}>

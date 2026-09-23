@@ -269,3 +269,23 @@
   .heroCopy, .heroVisual, .filterResults { animation: none; }
   .serviceCard, .caseItem, .headerCta, .buttonPrimary, .contactButton { transition: none; }
 }
+
+:global(html[data-scroll-reveal]) .page [data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 620ms ease, transform 620ms cubic-bezier(.2, .7, .2, 1), padding 200ms ease, border-color 220ms ease, background 180ms ease;
+}
+:global(html[data-scroll-reveal]) .page [data-reveal][data-visible] {
+  opacity: 1;
+  transform: translateY(0);
+}
+:global(html[data-scroll-reveal]) .page .serviceCard[data-visible]:hover { transform: translateY(-5px); }
+:global(html[data-scroll-reveal]) .page .socialLink[data-visible]:hover { transform: translateY(-3px); }
+.techList > span:nth-child(4n + 2), .serviceCard:nth-child(2), .caseItem:nth-child(2), .socialLink:nth-child(2) { transition-delay: 70ms; }
+.techList > span:nth-child(4n + 3), .serviceCard:nth-child(3), .caseItem:nth-child(3), .socialLink:nth-child(3) { transition-delay: 140ms; }
+.techList > span:nth-child(4n + 4), .caseItem:nth-child(4) { transition-delay: 210ms; }
+.caseItem:nth-child(5) { transition-delay: 280ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  :global(html[data-scroll-reveal]) .page [data-reveal] { opacity: 1; transform: none; transition: none; }
+}

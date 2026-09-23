@@ -200,3 +200,15 @@
 @media (prefers-reduced-motion: reduce) {
   .backLink, .caseNav a { transition: none; }
 }
+
+/* Reading scale shared with the other product evolution case study. */
+.page { --muted: #c1c3ca; }
+.backLink, .footer { font-size: 13px; }
+.heroMeta p, .sectionHeading p, .codeCopy > span, .callout > span, .previewPanel > span, .architectureGrid article > span, .boundaryNote > span, .challengeHeader > span, .syncCard > span, .roleResultGrid article > span, .learningBlock > span { font-size: 11px; line-height: 1.5; }
+.heroMeta > span, .leadStatement > span, .sectionHeading > span { font-size: 11px; line-height: 1.5; }
+.tags span, .caseNav strong, .techGrid span { font-size: 13px; line-height: 1.45; }
+.codeCopy p, .callout p, .relationGrid p, .processGrid p, .architectureGrid p, .boundaryNote p, .challengeGrid p, .learningBlock p { font-size: 15px; line-height: 1.75; }
+.codeDisclaimer { font-size: 12px; line-height: 1.6; }
+.relationGrid small, .openFlow small { font-size: 11px; line-height: 1.5; }
+.sectionHeading { margin-bottom: 44px; }
+@media(max-width:620px) { .heroCopy > p, .prose { font-size: 17px; } }

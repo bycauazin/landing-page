@@ -148,7 +148,7 @@ export default function AccessExpirationCase() {
             </div>
           </div>
           <div className={styles.tags} aria-label="Tecnologias do projeto">
-            {["Node.js", "JavaScript", "React.js", "Sequelize", "PostgreSQL", "Moodle"].map((tag) => <span key={tag}>{tag}</span>)}
+            {["JavaScript", "Node.js", "React.js", "Sequelize", "PostgreSQL", "Moodle"].map((tag) => <span key={tag}>{tag}</span>)}
           </div>
         </section>
 
@@ -261,7 +261,7 @@ export default function AccessExpirationCase() {
             <div><article><strong>Modelagem importa</strong><p>A data precisava pertencer ao vínculo para representar a regra real.</p></article><article><strong>Reexecutar faz parte do desenho</strong><p>Uma automação precisa reconhecer estados já tratados sem gerar duplicidade.</p></article><article><strong>Sistemas têm limites diferentes</strong><p>Banco local e API externa não compartilham o mesmo rollback.</p></article><article><strong>Preview reduz risco</strong><p>Separar análise de aplicação torna a operação mais segura.</p></article></div>
           </div>
           <div className={styles.techGrid} aria-label="Tecnologias confirmadas no projeto">
-            {["Node.js", "JavaScript", "React.js", "Express", "Sequelize", "PostgreSQL", "REST APIs", "Moodle Web Services"].map((tech) => <span key={tech}>{tech}</span>)}
+            {["JavaScript", "Node.js", "React.js", "Express", "Sequelize", "PostgreSQL", "REST APIs", "Moodle Web Services"].map((tech) => <span key={tech}>{tech}</span>)}
           </div>
         </section>
       </main>
