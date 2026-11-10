@@ -32,7 +32,7 @@
 .headerCta { padding: 12px 16px; }
 .headerCta:hover, .buttonPrimary:hover, .contactButton:hover { background: var(--blue-light); transform: translateY(-2px); }
 
-.hero { position: relative; z-index: 1; display: grid; grid-template-columns: 1.25fr 0.75fr; align-items: center; width: min(1180px, calc(100% - 64px)); min-height: 660px; margin: 0 auto; padding: 88px 0 110px; }
+.hero { position: relative; z-index: 1; overflow: visible clip; display: grid; grid-template-columns: 1.25fr 0.75fr; align-items: center; width: min(1180px, calc(100% - 64px)); min-height: 660px; margin: 0 auto; padding: 88px 0 110px; }
 .hero::before, .hero::after { position: absolute; width: 92px; height: 92px; border-color: rgba(87, 140, 255, 0.38); content: ""; pointer-events: none; }
 .hero::before { top: 34px; left: -42px; border-top: 1px solid; border-left: 1px solid; }
 .hero::after { right: -42px; bottom: 34px; border-right: 1px solid; border-bottom: 1px solid; }
@@ -268,23 +268,23 @@
 
 .techSection { position: relative; }
 .techSection::before { position: absolute; top: -1px; left: 0; width: 82px; height: 2px; background: var(--blue); content: ""; }
+.techItem > span:first-child { transition: transform 260ms cubic-bezier(.2, .8, .2, 1); }
+.techItem:hover > span:first-child { transform: rotate(-10deg) scale(1.12); }
 .techList > span { display: inline-flex; }
 .techItem:hover { transform: translateY(-4px) scale(1.035); }
 
-@media (min-width: 901px) {
-  .servicesSection { display: grid; grid-template-columns: minmax(280px, .78fr) minmax(0, 1.22fr); align-items: start; gap: 8%; }
-  .servicesSection .sectionIntro { position: sticky; top: 10vh; display: block; margin-bottom: 0; }
-  .serviceGrid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
-  .serviceCard { min-height: 278px; }
-  .serviceIcon { margin-top: 20px; }
-}
 
 .servicesSection, .casesSection { position: relative; isolation: isolate; }
 .servicesSection::before, .casesSection::before { position: absolute; z-index: -1; inset: 4% -8%; content: ""; pointer-events: none; }
 .servicesSection::before { background: radial-gradient(ellipse at 83% 42%, rgba(87, 140, 255, .065), transparent 53%); }
 .casesSection::before { background: radial-gradient(ellipse at 16% 37%, rgba(87, 140, 255, .075), transparent 52%); }
-.serviceCard[data-motion-active] { border-color: rgba(87, 140, 255, .58); background: rgba(87, 140, 255, .055); }
-.serviceCard[data-motion-active] .cardTop span:first-child { color: var(--blue-light); transform: scale(1.1); }
+.serviceCard { position: relative; isolation: isolate; overflow: hidden; display: flex; flex-direction: column; }
+.serviceCard ul { margin-top: auto; padding-top: 24px; }
+.serviceCard::before { position: absolute; z-index: -1; inset: 0; background: radial-gradient(280px circle at var(--spot-x, 50%) var(--spot-y, 0%), rgba(87, 140, 255, .16), transparent 70%); opacity: 0; content: ""; pointer-events: none; transition: opacity 320ms ease; }
+.serviceCard:hover::before { opacity: 1; }
+.serviceCard::after { position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--blue), var(--blue-light) 55%, transparent); content: ""; pointer-events: none; transform: scaleX(var(--card-line, 1)); transform-origin: left center; }
+.serviceIcon { transition: transform 320ms cubic-bezier(.2, .8, .2, 1), border-color 220ms ease, background 220ms ease; }
+.serviceCard:hover .serviceIcon { border-color: var(--blue); background: rgba(87, 140, 255, .1); transform: rotate(-12deg) scale(1.06); }
 .cardTop span:first-child { display: inline-block; transform-origin: left center; transition: transform 240ms cubic-bezier(.2, .8, .2, 1), color 240ms ease; }
 
 .caseList { perspective: 1100px; }
@@ -302,6 +302,11 @@
 .contactSection > :not(.contactAura) { position: relative; z-index: 1; }
 .contactAura { position: absolute; z-index: 0; top: 52%; left: 50%; width: min(76vw, 820px); height: 360px; border-radius: 50%; background: radial-gradient(ellipse, rgba(87, 140, 255, .19), transparent 72%); transform: translate(-50%, -50%); pointer-events: none; }
 .light .contactAura { background: radial-gradient(ellipse, rgba(40, 105, 220, .12), transparent 72%); }
+
+@media (min-width: 901px) and (max-width: 1100px) {
+  .serviceCard { padding: 22px; }
+  .serviceCard p { font-size: 16px; }
+}
 
 @media (max-width: 900px) {
   .progressRail { display: none; }
@@ -322,7 +327,7 @@
 @media (prefers-reduced-motion: reduce) {
   .progressRail { display: none; }
   .filterResults { animation: none; }
-  .serviceCard, .caseItem, .headerCta, .buttonPrimary, .contactButton, .socialLink, .techItem, .technologyGroup, .caseArrow, .cardTop span:first-child { transition: none; }
-  .serviceCard:hover, .caseItem:hover, .socialLink:hover, .techItem:hover, .technologyGroup:hover, .caseItem:hover .caseArrow, .socialLink:hover .socialArrow, .themeToggle:hover { transform: none; }
+  .serviceCard, .serviceIcon, .techItem > span:first-child, .caseItem, .headerCta, .buttonPrimary, .contactButton, .socialLink, .techItem, .technologyGroup, .caseArrow, .cardTop span:first-child { transition: none; }
+  .serviceCard:hover, .serviceCard:hover .serviceIcon, .techItem:hover > span:first-child, .caseItem:hover, .socialLink:hover, .techItem:hover, .technologyGroup:hover, .caseItem:hover .caseArrow, .socialLink:hover .socialArrow, .themeToggle:hover { transform: none; }
   .socialMedia img { will-change: auto; }
 }

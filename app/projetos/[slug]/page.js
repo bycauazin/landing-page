@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { categoryLabels, getProject, projects, statusLabels } from "../../data/projects";
 import TechnologyIcon from "../../components/technology-icon";
 import AccessExpirationCase from "./access-expiration-case";
+import CaseMotion from "./case-motion";
 import CourseAccessCase from "./course-access-case";
 import DashboardSalesCase from "./dashboard-sales-case";
 import ExportacaoDiariaCase from "./exportacao-diaria-case";
@@ -54,16 +55,29 @@ function ProjectUnderDevelopment({ project }) {
             <p>
               {project.title} está sendo desenvolvido e ainda não possui uma versão completa disponível para apresentação.
             </p>
-            <p>
-              {project.title === "Finance App"
-                ? "Aplicação pessoal criada com o objetivo de explorar o desenvolvimento de uma solução para organização financeira e acompanhamento de receitas e despesas."
-                : "Aplicação pessoal criada com o objetivo de explorar uma solução para organização de hábitos, atividades e acompanhamento da rotina."}
-            </p>
+            {project.developmentSummary && <p>{project.developmentSummary}</p>}
             <p>
               O projeto ainda está em desenvolvimento. À medida que novas etapas forem concluídas, esta página será atualizada com detalhes técnicos, decisões de interface e evolução do produto.
             </p>
           </div>
         </section>
+
+        {project.features && (
+          <section className={styles.developmentMessage} aria-labelledby="features-title">
+            <div className={styles.messageHeader}>
+              <span>02</span>
+              <h2 id="features-title">O que está sendo construído</h2>
+            </div>
+            <ul className={styles.featureList}>
+              {project.features.map((feature, index) => (
+                <li key={feature}>
+                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  {feature}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
       </main>
 
       <footer className={styles.footer}>
@@ -92,7 +106,19 @@ export async function generateMetadata({ params }) {
   };
 }
 
+// Todas as páginas de projeto recebem as mesmas animações (CaseMotion).
+// A key garante que elas rodem de novo ao navegar de um projeto para outro.
 export default async function ProjectPage({ params }) {
+  const { slug } = await params;
+  return (
+    <>
+      <CaseMotion key={slug} />
+      <ProjectContent params={params} />
+    </>
+  );
+}
+
+async function ProjectContent({ params }) {
   const { slug } = await params;
   const project = getProject(slug);
 

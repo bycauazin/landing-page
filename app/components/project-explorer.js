@@ -29,6 +29,8 @@ const portfolioSections = [
   },
 ];
 
+const isInDevelopment = (project) => Number(project.status === "em-desenvolvimento");
+
 export default function ProjectExplorer({ featuredOnly = false, showFilters = true }) {
   const [activeTechnology, setActiveTechnology] = useState("todos");
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -37,7 +39,8 @@ export default function ProjectExplorer({ featuredOnly = false, showFilters = tr
   const visibleProjects = featuredOnly
     ? projects
       .filter((project) => project.featured)
-      .sort((a, b) => a.featuredOrder - b.featuredOrder)
+      // Projetos em produção sempre antes dos que estão em desenvolvimento; depois, featuredOrder.
+      .sort((a, b) => isInDevelopment(a) - isInDevelopment(b) || a.featuredOrder - b.featuredOrder)
       .slice(0, 5)
     : activeTechnology === "todos"
       ? projects
@@ -133,9 +136,9 @@ export default function ProjectExplorer({ featuredOnly = false, showFilters = tr
               </div>
             )}
             <div className={styles.caseList}>
-              {section.projects.map((project) => (
-                <Link className={styles.caseItem} data-motion-project={featuredOnly ? "" : undefined} href={`/projetos/${project.slug}`} aria-label={`${project.title}. Ver página do projeto.`} key={project.slug}>
-                  <span className={styles.caseIndex}>{String(projects.indexOf(project) + 1).padStart(2, "0")}</span>
+              {section.projects.map((project, position) => (
+                <Link className={styles.caseItem} data-motion-project="" href={`/projetos/${project.slug}`} aria-label={`${project.title}. Ver página do projeto.`} key={project.slug}>
+                  <span className={styles.caseIndex}>{String((featuredOnly ? position : projects.indexOf(project)) + 1).padStart(2, "0")}</span>
                   <TechnologyGroup technologyIds={project.technologies} />
                   <div className={styles.caseContent}>
                     <div className={styles.projectMeta}>

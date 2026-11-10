@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useState } from "react";
 import ProjectExplorer from "./project-explorer";
+import ProjectsMotion from "./projects-motion";
+import RevealText from "./reveal-text";
 import homeStyles from "../page.module.css";
 import styles from "../projetos/projects.module.css";
 
@@ -10,7 +12,9 @@ export default function ProjectsPage() {
   const [lightMode, setLightMode] = useState(false);
 
   return (
-    <div className={`${homeStyles.page} ${lightMode ? homeStyles.light : ""}`}>
+    <div className={`${homeStyles.page} ${lightMode ? homeStyles.light : ""}`} data-projects-motion="">
+      <ProjectsMotion />
+      <div className={homeStyles.progressRail} aria-hidden="true"><span data-motion-progress="" /></div>
       <header className={homeStyles.header}>
         <Link className={homeStyles.brand} href="/" aria-label="Voltar ao início"><span className={homeStyles.brandMark}>C</span><span>bycauazin</span></Link>
         <nav className={homeStyles.nav} aria-label="Navegação principal"><Link href="/#servicos">Serviços</Link><Link href="/projetos" aria-current="page">Projetos</Link><Link href="/#sobre">Sobre</Link></nav>
@@ -23,7 +27,7 @@ export default function ProjectsPage() {
       <main>
         <section className={styles.projectsHero} aria-labelledby="projects-title">
           <p className={homeStyles.kicker}>Portfólio</p>
-          <h1 id="projects-title">Meus projetos</h1>
+          <RevealText as="h1" id="projects-title" label="Meus projetos" lines={["Meus projetos"]} />
           <p>Soluções desenvolvidas com diferentes tecnologias, integrações e ferramentas.</p>
           <span>Filtre os projetos pelas tecnologias utilizadas.</span>
         </section>
