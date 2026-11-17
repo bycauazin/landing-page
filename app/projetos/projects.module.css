@@ -1,6 +1,6 @@
 .projectsHero, .catalogSection { position: relative; z-index: 1; width: min(1180px, calc(100% - 64px)); margin-inline: auto; }
 .projectsHero { padding: 110px 0 88px; }
-.projectsHero::before { position: absolute; top: 52px; right: 0; width: 150px; height: 150px; border-top: 1px solid rgba(87, 140, 255, .36); border-right: 1px solid rgba(87, 140, 255, .36); content: ""; pointer-events: none; }
+.projectsHero::before { position: absolute; top: 52px; right: 0; width: 150px; height: 150px; border-top: 1px solid rgb(var(--tint-rgb) / .36); border-right: 1px solid rgb(var(--tint-rgb) / .36); content: ""; pointer-events: none; }
 .projectsHero h1 { max-width: 850px; margin: 18px 0 28px; color: var(--paper); font-size: clamp(58px, 9vw, 112px); font-weight: 480; letter-spacing: -.055em; line-height: .92; }
 .projectsHero > p:not(:first-child) { max-width: 650px; color: var(--muted); font-size: 20px; font-weight: 420; line-height: 1.72; }
 .projectsHero > span { display: block; margin-top: 18px; color: var(--blue-light); font-size: 14px; font-weight: 500; }

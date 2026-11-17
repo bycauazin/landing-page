@@ -1,0 +1,126 @@
+.player {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  overflow: hidden;
+  background: #000;
+  font-family: var(--font-ui);
+  -webkit-tap-highlight-color: transparent;
+}
+
+.video { position: absolute; inset: 0; display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+.player:fullscreen .video { object-fit: contain; }
+
+/* Área clicável sobre o vídeo (pausar/tocar ou mostrar controles) */
+.surface { position: absolute; z-index: 1; inset: 0; border: 0; background: transparent; cursor: pointer; }
+
+/* Degradê que só aparece junto com os controles, para dar leitura */
+.player::after {
+  position: absolute; z-index: 2; right: 0; bottom: 0; left: 0; height: 46%;
+  background: linear-gradient(transparent, rgb(var(--midnight-ink-rgb) / 0.55) 45%, rgb(var(--midnight-ink-rgb) / 0.92));
+  opacity: 0; content: ""; pointer-events: none; transition: opacity 260ms ease;
+}
+.player[data-controls="shown"]::after { opacity: 1; }
+
+.bigPlay {
+  position: absolute; z-index: 3; top: 50%; left: 50%;
+  display: grid; width: 68px; height: 68px; place-items: center;
+  padding-left: 4px; border: 0; border-radius: 50%;
+  color: var(--midnight-ink); background: var(--ice-blue);
+  box-shadow: 0 0 0 10px rgb(var(--ice-blue-rgb) / 0.18), 0 18px 40px rgb(0 0 0 / 0.35);
+  cursor: pointer; transform: translate(-50%, -50%);
+  transition: transform 200ms ease, background 200ms ease;
+  animation: popIn 260ms cubic-bezier(.2, .8, .2, 1);
+}
+.bigPlay:hover { background: #fff; transform: translate(-50%, -50%) scale(1.06); }
+
+.quickMute {
+  position: absolute; z-index: 3; right: 14px; bottom: 14px;
+  display: grid; width: 40px; height: 40px; place-items: center;
+  border: 1px solid rgb(var(--ice-blue-rgb) / 0.3); border-radius: 50%;
+  color: var(--ice-blue); background: rgb(var(--midnight-ink-rgb) / 0.55);
+  -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+  cursor: pointer; transition: opacity 220ms ease, transform 220ms ease, background 180ms ease;
+}
+.quickMute:hover { background: rgb(var(--midnight-ink-rgb) / 0.8); }
+.player[data-controls="shown"] .quickMute { opacity: 0; pointer-events: none; transform: scale(0.85); }
+
+/* Barra de controles */
+.controls {
+  position: absolute; z-index: 4; right: 10px; bottom: 10px; left: 10px;
+  display: flex; flex-direction: column; gap: 6px;
+  padding: 12px 12px 8px;
+  border: 1px solid rgb(var(--ice-blue-rgb) / 0.16); border-radius: 20px;
+  background: rgb(var(--midnight-ink-rgb) / 0.62);
+  -webkit-backdrop-filter: blur(16px) saturate(1.2); backdrop-filter: blur(16px) saturate(1.2);
+  opacity: 0; pointer-events: none; transform: translateY(14px);
+  transition: opacity 260ms ease, transform 320ms cubic-bezier(.2, .8, .2, 1);
+}
+.player[data-controls="shown"] .controls { opacity: 1; pointer-events: auto; transform: none; }
+
+.progress {
+  --progress: 0%;
+  width: 100%; height: 18px; margin: 0; padding: 0;
+  background: transparent; cursor: pointer;
+  -webkit-appearance: none; appearance: none;
+}
+.progress::-webkit-slider-runnable-track {
+  height: 4px; border-radius: 4px;
+  background: linear-gradient(90deg, var(--vermilion) var(--progress), rgb(var(--ice-blue-rgb) / 0.28) var(--progress));
+  transition: height 160ms ease;
+}
+.progress::-moz-range-track { height: 4px; border-radius: 4px; background: rgb(var(--ice-blue-rgb) / 0.28); }
+.progress::-moz-range-progress { height: 4px; border-radius: 4px; background: var(--vermilion); }
+.progress::-webkit-slider-thumb {
+  width: 14px; height: 14px; margin-top: -5px;
+  border: 0; border-radius: 50%; background: var(--ice-blue);
+  box-shadow: 0 0 0 4px rgb(var(--vermilion-rgb) / 0.35);
+  -webkit-appearance: none; appearance: none;
+  transform: scale(0.75); transition: transform 160ms ease;
+}
+.progress::-moz-range-thumb { width: 14px; height: 14px; border: 0; border-radius: 50%; background: var(--ice-blue); box-shadow: 0 0 0 4px rgb(var(--vermilion-rgb) / 0.35); }
+.progress:hover::-webkit-slider-thumb, .progress:focus-visible::-webkit-slider-thumb { transform: scale(1); }
+.progress:focus-visible { outline: none; }
+.progress:focus-visible::-webkit-slider-runnable-track { box-shadow: 0 0 0 2px rgb(var(--ice-blue-rgb) / 0.5); }
+
+.bar { display: flex; align-items: center; gap: 2px; }
+.bar button {
+  position: relative; display: grid; min-width: 34px; height: 34px; place-items: center;
+  padding: 0 6px; border: 0; border-radius: 999px;
+  color: var(--ice-blue); background: transparent; cursor: pointer;
+  transition: background 160ms ease, color 160ms ease;
+}
+.bar button:hover { color: #fff; background: rgb(var(--ice-blue-rgb) / 0.14); }
+.bar button:focus-visible, .quickMute:focus-visible, .bigPlay:focus-visible { outline: 2px solid var(--vermilion); outline-offset: 2px; }
+
+.stepLabel { position: absolute; top: 50%; left: 50%; font-size: 7px; font-weight: 700; transform: translate(-50%, -38%); pointer-events: none; }
+
+.time { margin: 0 auto 0 6px; color: #fff; font-size: 11px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.time span { color: rgb(var(--ice-blue-rgb) / 0.7); }
+
+.speedWrap { position: relative; }
+.bar .speedButton { min-width: 44px; height: 28px; border: 1px solid rgb(var(--ice-blue-rgb) / 0.3); font-size: 11px; font-weight: 700; }
+.speedMenu {
+  position: absolute; right: -6px; bottom: calc(100% + 12px);
+  display: grid; gap: 2px; min-width: 112px; margin: 0; padding: 6px;
+  border: 1px solid rgb(var(--ice-blue-rgb) / 0.18); border-radius: 16px;
+  background: rgb(var(--midnight-ink-rgb) / 0.94);
+  -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+  box-shadow: 0 18px 40px rgb(0 0 0 / 0.4);
+  list-style: none;
+  animation: popIn 200ms cubic-bezier(.2, .8, .2, 1);
+}
+.speedMenu button { width: 100%; height: 32px; justify-items: start; padding: 0 12px; font-size: 12px; font-weight: 600; }
+.bar .speedMenu .speedActive { color: var(--midnight-ink); background: var(--ice-blue); }
+
+@keyframes popIn { from { opacity: 0; transform: translateY(6px) scale(0.96); } to { opacity: 1; transform: none; } }
+.bigPlay { animation-name: none; }
+
+@media (max-width: 380px) {
+  .bar button { min-width: 30px; padding: 0 4px; }
+  .time span { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .controls, .quickMute, .player::after, .speedMenu { transition: none; animation: none; }
+}

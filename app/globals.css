@@ -1,15 +1,28 @@
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Paleta 60-30-10 */
+  --midnight-ink: #0b2e43;     /* 60% - fundo / base */
+  --ice-blue: #c8dfea;         /* 30% - texto, linhas, superfícies */
+  --vermilion: #ff4f31;        /* 10% - destaque, CTAs */
+  --midnight-ink-rgb: 11 46 67;
+  --ice-blue-rgb: 200 223 234;
+  --vermilion-rgb: 255 79 49;
+
+  /* Tokens semânticos (tema escuro padrão) */
+  --ink: var(--midnight-ink);
+  --surface: color-mix(in srgb, var(--midnight-ink) 90%, var(--ice-blue));
+  --paper: var(--ice-blue);
+  --muted: #e8f1f6;
+  --line: rgb(var(--ice-blue-rgb) / 0.2);
+  --blue: var(--vermilion);
+  --blue-light: var(--vermilion);
+  --on-accent: var(--midnight-ink);
+  --base-rgb: var(--midnight-ink-rgb);
+  --tint-rgb: var(--ice-blue-rgb);
+
+  --background: var(--ink);
+  --foreground: var(--paper);
   --font-display: var(--font-geist-sans), system-ui, sans-serif;
   --font-ui: var(--font-geist-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
 }
 
 html {
@@ -46,10 +59,8 @@ a {
   text-decoration: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+html {
+  color-scheme: dark;
 }
 
 @media (prefers-reduced-motion: reduce) {

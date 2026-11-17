@@ -27,43 +27,34 @@ export default function HomeMotion() {
           .fromTo(find(`.${styles.eyebrow}`), { x: -18, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.55 }, 0.14)
           .to(heroLines, { yPercent: 0, autoAlpha: 1, rotationX: 0, duration: 0.88, stagger: 0.12 }, 0.3)
           .fromTo(find(`.${styles.heroText}`), { y: 20, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.7 }, 0.73)
-          .fromTo(find(`.${styles.heroActions}`), { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65 }, 0.9)
-          .fromTo(find(`.${styles.scrollHint}`), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.5 }, 1.32);
+          .fromTo(find(`.${styles.heroActions}`), { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65 }, 0.9);
 
-        // Foto — entrada: a moldura se revela num círculo que abre do centro, gira para o lugar,
-        // a imagem faz um zoom-out por dentro e o "circuito" ao lado se desenha.
+        // Entrada e scroll nunca animam a mesma propriedade do mesmo elemento: se o visitante rolar
+        // durante a entrada, as duas animações brigariam a cada frame (era isso que "travava").
+        // Entrada: fundo (opacidade), moldura da foto, foto, grade e circuito.
+        // Scroll: fundo (posição/escala), bloco de texto inteiro e o bloco da foto inteiro.
+        const background = find(`.${styles.heroBackground}`);
+        const visual = find(`.${styles.heroVisual}`);
         const avatar = find(`.${styles.avatarFrame}`);
         const photo = find(`.${styles.profileImage}`);
         const circuit = find(`.${styles.heroCircuit}`);
         const grid = find(`.${styles.visualGrid}`);
-        gsap.set(avatar, { xPercent: -50, yPercent: -50, x: 0, y: 0 });
-        gsap.timeline({ delay: 0.9 })
-          .fromTo(find(`.${styles.heroVisual}`), { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.4 }, 0)
-          .fromTo(grid, { autoAlpha: 0, scale: 0.88 }, { autoAlpha: 0.3, scale: 1, duration: 1.3, ease: "power3.out" }, 0)
+        gsap.fromTo(background, { autoAlpha: 0 }, { autoAlpha: 1, duration: 1.1, ease: "power2.out" });
+        gsap.timeline({ delay: 0.7 })
           .fromTo(avatar,
             { clipPath: "circle(0% at 50% 50%)", scale: 0.82, rotation: -14 },
-            { clipPath: "circle(100% at 50% 50%)", scale: 1, rotation: 0, duration: 1.6, ease: "power3.inOut", clearProps: "clipPath" }, 0.05)
-          .fromTo(photo, { scale: 1.45 }, { scale: 1, duration: 2, ease: "power3.out" }, 0.05)
-          .fromTo(circuit, { scaleY: 0, autoAlpha: 0, transformOrigin: "50% 0%" }, { scaleY: 1, autoAlpha: 0.8, duration: 0.95, ease: "power3.inOut" }, 0.45)
+            { clipPath: "circle(100% at 50% 50%)", scale: 1, rotation: 0, duration: 1.5, ease: "power3.inOut", clearProps: "clipPath" }, 0)
+          .fromTo(photo, { scale: 1.45 }, { scale: 1, duration: 2, ease: "power3.out" }, 0)
+          .fromTo(grid, { autoAlpha: 0, scale: 0.88 }, { autoAlpha: 0.35, scale: 1, duration: 1.3, ease: "power3.out" }, 0)
+          .fromTo(circuit, { scaleY: 0, autoAlpha: 0, transformOrigin: "50% 0%" }, { scaleY: 1, autoAlpha: 0.85, duration: 0.95, ease: "power3.inOut" }, 0.45)
           .from(circuit.querySelectorAll("span"), { scaleX: 0, transformOrigin: "100% 50%", stagger: 0.1, duration: 0.45, ease: "power2.out" }, 1.05);
 
-        // Foto — scroll: parallax em camadas. Tudo se move para CIMA (ou encolhe),
-        // então nada atravessa a borda da próxima seção; o hero ainda recorta no eixo Y.
-        // Os valores de partida são explícitos (fromTo + immediateRender: false) porque a
-        // entrada anima as mesmas propriedades; assim o scroll nunca "herda" um estado intermediário.
+        // Scroll: só transform e opacidade (as duas mais baratas para o navegador).
         const parallax = { ease: "none", immediateRender: false };
-        // Todos os elementos que a entrada também anima usam fromTo com ponto de partida explícito:
-        // com .to, o GSAP capturava o estado "invisível" da entrada como início do scroll e, ao
-        // recalcular (ex.: quando as fontes carregam), escondia o subtítulo e os botões de novo.
-        gsap.timeline({ scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: 0.6 } })
-          .fromTo(find(`.${styles.heroCopy}`), { y: 0 }, { y: -48, ...parallax }, 0)
-          .fromTo(find(`.${styles.heroText}`), { autoAlpha: 1 }, { autoAlpha: 0.18, ...parallax }, 0)
-          .fromTo(find(`.${styles.heroActions}`), { y: 0, opacity: 1 }, { y: 24, opacity: 0, ...parallax }, 0)
-          .fromTo(avatar, { y: 0, scale: 1, rotation: 0 }, { y: -90, scale: 0.8, rotation: -8, ...parallax }, 0)
-          .fromTo(photo, { scale: 1 }, { scale: 1.22, ...parallax }, 0)
-          .fromTo(circuit, { y: 0, autoAlpha: 0.8 }, { y: -150, autoAlpha: 0.12, ...parallax }, 0)
-          .fromTo(grid, { y: 0, autoAlpha: 0.3 }, { y: 60, autoAlpha: 0.06, ...parallax }, 0)
-          .fromTo(find(`.${styles.scrollHint}`), { autoAlpha: 1 }, { autoAlpha: 0, ...parallax }, 0);
+        gsap.timeline({ scrollTrigger: { trigger: hero, start: "top top", end: "bottom top", scrub: 0.4 } })
+          .fromTo(background, { yPercent: 0, scale: 1 }, { yPercent: 10, scale: 1.06, ...parallax }, 0)
+          .fromTo(find(`.${styles.heroCopy}`), { y: 0, opacity: 1 }, { y: -60, opacity: 0.2, ...parallax }, 0)
+          .fromTo(visual, { y: 0, scale: 1, rotation: 0 }, { y: -80, scale: 0.88, rotation: -5, ...parallax }, 0);
 
         // Tecnologias: mesmo visual da animação original (título subindo, chips com desfoque),
         // mas como gatilho: ao chegar na seção roda uma vez e os chips ficam — não somem ao rolar para cima.
@@ -76,7 +67,7 @@ export default function HomeMotion() {
             scale: 0.93,
             autoAlpha: 0,
             filter: "blur(5px)",
-            stagger: 0.06,
+            stagger: 0.045,
             duration: 0.6,
             ease: "power3.out",
             clearProps: "filter",

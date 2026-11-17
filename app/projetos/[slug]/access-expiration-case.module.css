@@ -1,11 +1,4 @@
 .page {
-  --ink: #111318;
-  --surface: #171a21;
-  --paper: #f3f2ed;
-  --muted: #aeb1bb;
-  --line: rgba(243, 242, 237, .18);
-  --blue: #578cff;
-  --blue-light: #b8ccff;
   min-height: 100vh;
   color: var(--paper);
   background: var(--ink);
@@ -26,9 +19,9 @@
 .heroGrid { display: grid; grid-template-columns: 1.45fr .85fr; gap: 54px; margin-top: 30px; align-items: center; }
 .hero h1 { max-width: 750px; margin: 0; font-size: clamp(52px, 7.2vw, 100px); font-weight: 480; letter-spacing: -.055em; line-height: .92; text-wrap: balance; }
 .heroCopy > p { max-width: 690px; margin-top: 24px; color: var(--muted); font-size: 18px; line-height: 1.7; }
-.heroVisual { display: grid; min-height: 340px; padding: 24px; grid-template-rows: auto auto 1fr auto; gap: 14px; border: 1px solid var(--line); background: linear-gradient(145deg, rgba(87, 140, 255, .08), transparent 48%), var(--ink); }
+.heroVisual { display: grid; min-height: 340px; padding: 24px; grid-template-rows: auto auto 1fr auto; gap: 14px; border: 1px solid var(--line); background: linear-gradient(145deg, rgb(var(--tint-rgb) / .08), transparent 48%), var(--ink); }
 .visualLabel { color: var(--blue-light); font-size: 9px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
-.studentNode { display: flex; min-height: 72px; padding: 14px 16px; align-items: center; justify-content: space-between; border-left: 2px solid var(--blue); background: rgba(87, 140, 255, .09); }
+.studentNode { display: flex; min-height: 72px; padding: 14px 16px; align-items: center; justify-content: space-between; border-left: 2px solid var(--blue); background: rgb(var(--tint-rgb) / .09); }
 .studentNode span { font-size: 22px; font-weight: 550; }
 .studentNode small { color: var(--muted); font-size: 10px; }
 .relationOrbit { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
@@ -48,7 +41,7 @@
 .caseNav { display: grid; grid-template-columns: repeat(6, 1fr); border-block: 1px solid var(--line); }
 .caseNav a { display: grid; grid-template-columns: auto 1fr auto; min-height: 76px; padding: 0 14px; align-items: center; gap: 10px; border-right: 1px solid var(--line); transition: background 180ms ease; }
 .caseNav a:last-child { border-right: 0; }
-.caseNav a:hover { background: rgba(87, 140, 255, .07); }
+.caseNav a:hover { background: rgb(var(--tint-rgb) / .07); }
 .caseNav span, .caseNav b { color: var(--blue); font-size: 10px; font-weight: 500; }
 .caseNav strong { font-size: 12px; font-weight: 550; }
 
@@ -61,7 +54,7 @@
 .prose { max-width: 720px; color: var(--muted); font-size: 17px; line-height: 1.8; }
 .prose p + p { margin-top: 18px; }
 .prose code, .challengeGrid code, .codeCopy code { color: var(--blue-light); font-family: var(--font-geist-mono), monospace; font-size: .88em; }
-.callout { padding: 26px; border-left: 2px solid var(--blue); background: rgba(87, 140, 255, .07); }
+.callout { padding: 26px; border-left: 2px solid var(--blue); background: rgb(var(--tint-rgb) / .07); }
 .callout strong { display: block; margin-top: 14px; font-size: 27px; font-weight: 500; line-height: 1.18; }
 .callout p { margin-top: 16px; color: var(--muted); font-size: 14px; line-height: 1.6; }
 .relationGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; margin-top: 42px; padding: 1px; background: var(--line); }
@@ -72,7 +65,7 @@
 .relationGrid small { display: block; margin-top: 20px; color: var(--blue-light); font-family: var(--font-geist-mono), monospace; font-size: 10px; }
 
 .processGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; padding: 0; list-style: none; }
-.processGrid li { min-height: 225px; padding: 22px; border: 1px solid var(--line); background: rgba(87, 140, 255, .035); }
+.processGrid li { min-height: 225px; padding: 22px; border: 1px solid var(--line); background: rgb(var(--tint-rgb) / .035); }
 .processGrid li > span { color: var(--blue); font-size: 10px; }
 .processGrid h3 { margin-top: 34px; font-size: 23px; font-weight: 520; }
 .processGrid p { margin-top: 10px; color: var(--muted); font-size: 14px; line-height: 1.65; }
@@ -83,7 +76,7 @@
 .codeCopy p + p { margin-top: 13px; }
 .codeDisclaimer { margin: 14px 0 0; color: var(--muted); font-size: 11px; line-height: 1.5; }
 
-.editor { min-width: 0; overflow: hidden; border: 1px solid rgba(184, 204, 255, .24); border-radius: 8px; background: #0c0e13; box-shadow: 0 24px 64px rgba(0, 0, 0, .28); }
+.editor { min-width: 0; overflow: hidden; border: 1px solid rgb(var(--tint-rgb) / .24); border-radius: 8px; background: #0c0e13; box-shadow: 0 24px 64px rgba(0, 0, 0, .28); }
 .editorBar { display: grid; height: 46px; grid-template-columns: 90px 1fr 40px; align-items: center; border-bottom: 1px solid #282c35; background: #171a21; }
 .windowDots { display: flex; gap: 6px; padding-left: 16px; }
 .windowDots i { width: 9px; height: 9px; border-radius: 50%; background: #525866; }
@@ -105,12 +98,12 @@
 .plain { color: inherit; }
 
 .previewSection { position: relative; }
-.previewSection::before { position: absolute; inset: 34px 0 auto; height: 220px; background: linear-gradient(90deg, transparent, rgba(87, 140, 255, .045), transparent); content: ""; pointer-events: none; }
+.previewSection::before { position: absolute; inset: 34px 0 auto; height: 220px; background: linear-gradient(90deg, transparent, rgb(var(--tint-rgb) / .045), transparent); content: ""; pointer-events: none; }
 .previewGrid { position: relative; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.previewPanel { min-height: 290px; padding: 28px; border: 1px solid rgba(184, 204, 255, .38); background: rgba(87, 140, 255, .08); }
+.previewPanel { min-height: 290px; padding: 28px; border: 1px solid rgb(var(--tint-rgb) / .38); background: rgb(var(--tint-rgb) / .08); }
 .previewPanel strong { display: block; margin: 18px 0; font-size: 34px; font-weight: 490; }
 .previewPanel ul { padding-left: 18px; color: var(--muted); font-size: 15px; line-height: 1.9; }
-.applyPanel { border-color: var(--line); background: rgba(243, 242, 237, .025); }
+.applyPanel { border-color: var(--line); background: rgb(var(--tint-rgb) / .025); }
 
 .openFlow { display: flex; align-items: center; gap: 10px; }
 .openFlow > span { display: flex; min-height: 116px; padding: 15px; justify-content: center; flex: 1; flex-direction: column; border: 1px solid var(--line); text-align: center; font-size: 14px; }
@@ -119,7 +112,7 @@
 
 .arrowFlow { display: flex; align-items: stretch; overflow-x: auto; padding-bottom: 8px; }
 .arrowFlowItem { display: flex; min-width: 0; flex: 1 0 116px; align-items: center; }
-.arrowFlowItem > span { display: grid; min-height: 90px; padding: 12px; place-items: center; flex: 1; border: 1px solid var(--line); background: rgba(87, 140, 255, .035); font-size: 12px; line-height: 1.45; text-align: center; }
+.arrowFlowItem > span { display: grid; min-height: 90px; padding: 12px; place-items: center; flex: 1; border: 1px solid var(--line); background: rgb(var(--tint-rgb) / .035); font-size: 12px; line-height: 1.45; text-align: center; }
 .arrowFlowItem > b { padding: 0 7px; color: var(--blue); font-weight: 400; }
 .architectureGrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 34px; }
 .architectureGrid article { min-height: 205px; padding: 22px; border-top: 1px solid var(--blue); background: var(--surface); }
@@ -136,7 +129,7 @@
 .challengeGrid h4 { margin: 18px 0 9px; font-size: 21px; font-weight: 520; }
 .challengeGrid p { color: var(--muted); font-size: 14px; line-height: 1.65; }
 
-.syncCard { padding: 22px; border: 1px solid var(--line); background: rgba(87, 140, 255, .04); text-align: center; }
+.syncCard { padding: 22px; border: 1px solid var(--line); background: rgb(var(--tint-rgb) / .04); text-align: center; }
 .syncCard > div { padding: 12px; border: 1px solid var(--line); font-size: 12px; }
 .syncCard > div:first-of-type { margin-top: 18px; }
 .syncCard > b { display: block; padding: 6px; color: var(--blue); font-weight: 400; }
@@ -145,7 +138,7 @@
 .roleResultGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .roleResultGrid article { min-height: 260px; padding: 28px; border: 1px solid var(--line); }
 .roleResultGrid p { margin-top: 24px; color: var(--muted); font-size: 16px; line-height: 1.75; }
-.roleResultGrid article:last-child { border-color: rgba(87, 140, 255, .42); background: rgba(87, 140, 255, .07); }
+.roleResultGrid article:last-child { border-color: rgb(var(--tint-rgb) / .42); background: rgb(var(--tint-rgb) / .07); }
 .outcomeGrid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 16px; }
 .outcomeGrid span { display: flex; min-height: 82px; padding: 14px; align-items: center; border-left: 2px solid var(--blue); background: var(--surface); font-size: 13px; }
 .learningBlock { margin-top: 58px; }
@@ -202,7 +195,7 @@
 }
 
 /* Reading scale shared with the other product evolution case study. */
-.page { --muted: #c1c3ca; }
+.page { }
 .backLink, .footer { font-size: 13px; }
 .heroMeta p, .sectionHeading p, .codeCopy > span, .callout > span, .previewPanel > span, .architectureGrid article > span, .boundaryNote > span, .challengeHeader > span, .syncCard > span, .roleResultGrid article > span, .learningBlock > span { font-size: 11px; line-height: 1.5; }
 .heroMeta > span, .leadStatement > span, .sectionHeading > span { font-size: 11px; line-height: 1.5; }

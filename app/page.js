@@ -2,11 +2,13 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { siInstagram } from "simple-icons";
 import { useState } from "react";
 import ProjectExplorer from "./components/project-explorer";
 import HomeMotion from "./components/home-motion";
 import RevealText from "./components/reveal-text";
 import SocialIcon from "./components/social-icon";
+import SocialVideo from "./components/social-video";
 import TechnologyIcon from "./components/technology-icon";
 import WhatsAppIcon from "./components/whatsapp-icon";
 import styles from "./page.module.css";
@@ -17,10 +19,19 @@ const services = [
   { number: "03", icon: "data", title: "Dados e dashboards", description: "Organização de dados e painéis que ajudam equipes a acompanhar o que importa.", items: ["Power BI", "Indicadores comerciais", "Organização de dados"] },
 ];
 
-const homepageTechnologies = ["html", "css", "javascript", "react", "nextjs", "nodejs", "python", "postgresql", "power-bi", "power-automate", "sharepoint", "excel"];
+const technologyGroups = [
+  { title: "Desenvolvimento web", items: ["html", "css", "javascript", "react", "nextjs", "nodejs"] },
+  { title: "Dados e dashboards", items: ["python", "postgresql", "power-bi", "excel"] },
+  { title: "Automação e Microsoft 365", items: ["power-automate", "sharepoint"] },
+];
+const homepageTechnologies = technologyGroups.flatMap((group) => group.items);
+
+// Opções de fundo do hero (em /public/hero): "codigo-monitor", "dev-noturno" ou "setup-escuro".
+const heroBackground = "/hero/codigo-monitor.jpg";
 
 export default function Home() {
   const [lightMode, setLightMode] = useState(false);
+  const [showAllTech, setShowAllTech] = useState(false);
 
   return (
     <div className={`${styles.page} ${lightMode ? styles.light : ""}`} data-home-motion="">
@@ -34,18 +45,28 @@ export default function Home() {
 
       <main>
         <section className={styles.hero} id="inicio" aria-labelledby="hero-title">
+          <Image className={styles.heroBackground} src={heroBackground} alt="" fill preload sizes="100vw" />
+          <span className={styles.heroShade} aria-hidden="true" />
           <div className={styles.heroCopy}><p className={styles.eyebrow}><span /> Cauã · desenvolvedor</p><RevealText as="h1" id="hero-title" label="Transformo ideias e problemas de negócio em soluções digitais." lines={["Transformo ideias e", "problemas de negócio em", <em key="solution">soluções digitais.</em>]} /><p className={styles.heroText}>Desenvolvimento web, automação e dados para deixar negócios mais simples, conectados e eficientes.</p><div className={styles.heroActions}><a className={styles.buttonPrimary} href="#contato">Falar sobre um projeto <span aria-hidden="true">↗</span></a><a className={styles.textLink} href="#projetos">Ver projetos <span aria-hidden="true">↓</span></a></div></div>
-          <div className={styles.heroVisual} aria-label="Foto de perfil de Cauã"><div className={styles.visualGrid} /><div className={styles.heroCircuit} aria-hidden="true"><span /><span /><span /></div><div className={styles.avatarFrame}><Image className={styles.profileImage} src="/foto-perfil.jpg" alt="Cauã usando fones de ouvido" fill priority sizes="(max-width: 760px) 360px, 430px" /></div></div>
-          <div className={styles.scrollHint}><span /> role para explorar</div>
+          <div className={styles.heroVisual} aria-label="Foto de perfil de Cauã"><div className={styles.visualGrid} aria-hidden="true" /><div className={styles.heroCircuit} aria-hidden="true"><span /><span /><span /></div><div className={styles.avatarFrame}><Image className={styles.profileImage} src="/foto-perfil.jpg" alt="Cauã usando fones de ouvido" fill preload sizes="(max-width: 760px) 300px, 360px" /></div></div>
         </section>
 
-        <section className={styles.techSection} aria-labelledby="tech-title"><div><p className={styles.kicker} data-motion-tech-label="">Ferramentas do dia a dia</p><RevealText id="tech-title" label="O que eu uso para tirar ideias do papel." lines={["O que eu uso para", "tirar ideias do papel."]} /></div><div className={styles.techList}>{homepageTechnologies.map((technology) => <span data-motion-tech="" key={technology}><TechnologyIcon className={styles.techItem} technology={technology} size="sm" showLabel /></span>)}</div></section>
+        <section className={styles.techSection} aria-labelledby="tech-title">
+          <div className={styles.techHeading}><div><p className={styles.kicker} data-motion-tech-label="">Ferramentas do dia a dia</p><RevealText id="tech-title" label="O que eu uso para tirar ideias do papel." lines={["O que eu uso para", "tirar ideias do papel."]} /></div><button className={styles.techToggle} type="button" aria-expanded={showAllTech} aria-controls="tech-list" onClick={() => setShowAllTech(!showAllTech)}>{showAllTech ? "Voltar ao carrossel" : `Mostrar tudo (${homepageTechnologies.length})`}<span aria-hidden="true">{showAllTech ? "↺" : "↓"}</span></button></div>
+          <div id="tech-list">
+            {showAllTech ? (
+              <div className={styles.techGrid}>{technologyGroups.map((group, groupIndex) => <div className={styles.techCategory} key={group.title}><h3>{group.title}</h3><div className={styles.techCategoryItems}>{group.items.map((technology, index) => <span className={styles.techAppear} style={{ "--i": groupIndex * 3 + index }} key={technology}><TechnologyIcon className={styles.techItem} technology={technology} size="sm" showLabel /></span>)}</div></div>)}</div>
+            ) : (
+              <div className={styles.techCarousel}><div className={styles.techTrack}>{[0, 1].map((copy) => <div className={styles.techGroup} aria-hidden={copy === 1 ? true : undefined} key={copy}>{homepageTechnologies.map((technology) => <span data-motion-tech="" key={technology}><TechnologyIcon className={styles.techItem} technology={technology} size="sm" showLabel /></span>)}</div>)}</div></div>
+            )}
+          </div>
+        </section>
 
-        <section className={styles.servicesSection} id="servicos" aria-labelledby="services-title"><div className={styles.sectionIntro} data-motion-services-intro=""><p className={styles.kicker}>Como posso ajudar</p><RevealText id="services-title" label="Tecnologia com contexto de negócio." lines={["Tecnologia com", "contexto de negócio."]} /></div><div className={styles.serviceGrid}>{services.map((service) => <article className={styles.serviceCard} data-motion-service="" key={service.number}><div className={styles.cardTop}><span>{service.number}</span><span aria-hidden="true">↗</span></div><div className={styles.serviceIcon} aria-hidden="true"><svg><use href={`/tech-icons.svg#${service.icon}`} /></svg></div><h3>{service.title}</h3><p>{service.description}</p><ul>{service.items.map((item) => <li key={item}>{item}</li>)}</ul></article>)}</div></section>
+        <section className={styles.servicesSection} id="servicos" aria-labelledby="services-title"><div className={styles.sectionIntro} data-motion-services-intro=""><p className={styles.kicker}>Como posso ajudar</p><RevealText id="services-title" label="Tecnologia com contexto de negócio." lines={["Tecnologia com", "contexto de negócio."]} /></div><div className={styles.serviceGrid}>{services.map((service) => <article className={styles.serviceCard} data-motion-service="" key={service.number}><div className={styles.cardTop}><span aria-hidden="true">↗</span></div><div className={styles.serviceIcon} aria-hidden="true"><svg><use href={`/tech-icons.svg#${service.icon}`} /></svg></div><h3>{service.title}</h3><p>{service.description}</p><ul>{service.items.map((item) => <li key={item}>{item}</li>)}</ul></article>)}</div></section>
 
         <section className={styles.casesSection} id="projetos" aria-labelledby="cases-title"><div className={styles.sectionHeading} data-motion-project-intro=""><div><p className={styles.kicker}>Projetos</p><RevealText id="cases-title" label="Projetos em destaque" lines={["Projetos em", "destaque"]} /><p className={styles.sectionSubtitle}>Soluções que conectam tecnologias.</p></div><p className={styles.sectionAside}>Soluções desenvolvidas com diferentes tecnologias, integrações e ferramentas.</p></div><ProjectExplorer featuredOnly showFilters={false} /><div className={styles.projectsCtaWrap} data-motion-project-cta=""><Link className={styles.buttonPrimary} href="/projetos">Acessar meus projetos <span aria-hidden="true">→</span></Link></div></section>
 
-        <section className={styles.aboutSection} id="sobre" aria-labelledby="about-title"><div className={styles.socialPost} data-motion-social-post=""><div className={styles.socialPostHeader}><Image className={styles.instagramLogo} src="/foto-perfil.jpg" alt="Cauã" width={20} height={20} /><strong>bycauazin</strong><span className={styles.moreIcon}>•••</span></div><div className={styles.socialMedia}><Image src="/foto-instagram.jpg" alt="Cauã criando conteúdo para redes sociais" fill sizes="(max-width: 760px) 100vw, 430px" /></div><div className={styles.socialPostFooter}><div className={styles.postActions} aria-label="Ações da publicação"><span>♡</span><span>◯</span><span>➤</span></div><span className={styles.postLabel}>vídeo curto</span></div></div><div className={styles.aboutCopy} data-motion-about-copy=""><p className={styles.kicker}>Sobre mim</p><RevealText id="about-title" label="Um agoniado inteligente." lines={["Um agoniado", "inteligente."]} /><p>Também crio conteúdo para redes sociais, compartilhando ideias, aprendizados e situações do universo da tecnologia de um jeito direto e autêntico.</p><p>Eu sou o Cauã. Gosto de entender o problema antes de escolher a ferramenta, organizar o que parece confuso e construir algo que realmente ajude no dia a dia.</p><p>Minha praia fica entre desenvolvimento, automação, dados e comunicação. O objetivo é transformar complexidade em clareza.</p></div></section>
+        <section className={styles.aboutSection} id="sobre" aria-labelledby="about-title"><div className={styles.socialPost} data-motion-social-post=""><div className={styles.socialPostHeader}><Image className={styles.instagramLogo} src="/foto-perfil.jpg" alt="Cauã" width={20} height={20} /><strong>bycauazin</strong><a className={styles.instagramBadge} href="https://www.instagram.com/bycauazin/" target="_blank" rel="noreferrer" aria-label="Ver @bycauazin no Instagram" title="Ver no Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><radialGradient id="ig-gradient" cx="30%" cy="107%" r="150%"><stop offset="0" stopColor="#fdf497" /><stop offset="0.05" stopColor="#fdf497" /><stop offset="0.45" stopColor="#fd5949" /><stop offset="0.6" stopColor="#d6249f" /><stop offset="0.9" stopColor="#285AEB" /></radialGradient></defs><path fill="url(#ig-gradient)" d={siInstagram.path} /></svg><span>Instagram</span></a></div><div className={styles.socialMedia}><SocialVideo /></div><div className={styles.socialPostFooter}><div className={styles.postActions} aria-label="Ações da publicação"><span>♡</span><span>◯</span><span>➤</span></div><span className={styles.postLabel}>Reels no Instagram</span></div></div><div className={styles.aboutCopy} data-motion-about-copy=""><p className={styles.kicker}>Sobre mim</p><RevealText id="about-title" label="Um agoniado inteligente." lines={["Um agoniado", "inteligente."]} /><p>Também crio conteúdo para redes sociais, compartilhando ideias, aprendizados e situações do universo da tecnologia de um jeito direto e autêntico.</p><p>Eu sou o Cauã. Gosto de entender o problema antes de escolher a ferramenta, organizar o que parece confuso e construir algo que realmente ajude no dia a dia.</p><p>Minha praia fica entre desenvolvimento, automação, dados e comunicação. O objetivo é transformar complexidade em clareza.</p></div></section>
 
         <section className={styles.socialsSection} aria-labelledby="socials-title"><div className={styles.socialsHeading} data-motion-socials-heading=""><RevealText id="socials-title" label="Onde me encontrar" lines={["Onde me", "encontrar"]} /><p className={styles.socialsSubtitle}>Minhas redes sociais, ideias e conexões.</p></div><div className={styles.socialLinks}><a className={styles.socialLink} data-motion-social-link="" href="https://github.com/bycauazin" target="_blank" rel="noreferrer"><SocialIcon className={styles.socialIcon} social="github" /><span>GitHub</span><span className={styles.socialArrow} aria-hidden="true">↗</span></a><a className={styles.socialLink} data-motion-social-link="" href="https://www.instagram.com/bycauazin/" target="_blank" rel="noreferrer"><SocialIcon className={styles.socialIcon} social="instagram" /><span>Instagram</span><span className={styles.socialArrow} aria-hidden="true">↗</span></a><a className={styles.socialLink} data-motion-social-link="" href="https://www.linkedin.com/in/caua-santana-dev/" target="_blank" rel="noreferrer"><SocialIcon className={styles.socialIcon} social="linkedin" /><span>LinkedIn</span><span className={styles.socialArrow} aria-hidden="true">↗</span></a></div></section>
 
