@@ -1,6 +1,7 @@
 import Link from "next/link";
 import CaseFloatingActions from "./case-floating-actions";
 import styles from "./dashboard-sales-case.module.css";
+import BrandLogo from "../../components/brand-logo";
 
 const daxCode = [
   "Faturamento = SUM('Vendas'[Total])",
@@ -64,7 +65,7 @@ function DashboardMockup() {
 export default function DashboardSalesCase() {
   return (
     <div className={styles.page} id="top">
-      <header className={styles.header}><Link className={styles.brand} href="/#projetos"><span>C</span> bycauazin</Link><Link className={styles.backLink} href="/projetos">← Todos os projetos</Link></header>
+      <header className={styles.header}><Link className={styles.brand} href="/#projetos"><BrandLogo /> bycauazin</Link><Link className={styles.backLink} href="/projetos">← Todos os projetos</Link></header>
       <main>
         <section className={styles.hero} aria-labelledby="case-title">
           <div className={styles.heroMeta}><p>Power BI · Business Intelligence</p><span>Estudo de caso</span></div>

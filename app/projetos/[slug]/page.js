@@ -11,12 +11,13 @@ import FolderCreationCase from "./folder-creation-case";
 import GovernancaTeamsCase from "./governanca-teams-case";
 import PlannerPowerBICase from "./planner-power-bi-case";
 import styles from "./project.module.css";
+import BrandLogo from "../../components/brand-logo";
 
 function ProjectUnderDevelopment({ project }) {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><span>C</span> bycauazin</Link>
+        <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><BrandLogo /> bycauazin</Link>
         <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
       </header>
 
@@ -171,7 +172,7 @@ async function ProjectContent({ params }) {
   return (
     <div className={styles.page}>
       <header className={styles.header}>
-        <Link className={styles.brand} href="/#projetos"><span>C</span> bycauazin</Link>
+        <Link className={styles.brand} href="/#projetos"><BrandLogo /> bycauazin</Link>
         <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
       </header>
 

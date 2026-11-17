@@ -1,6 +1,7 @@
 import Link from "next/link";
 import CaseFloatingActions from "./case-floating-actions";
 import styles from "./access-expiration-case.module.css";
+import BrandLogo from "../../components/brand-logo";
 
 const relationCards = [
   ["Empresa", "StudentCompany", "Validade do vínculo com uma empresa"],
@@ -126,7 +127,7 @@ export default function AccessExpirationCase() {
   return (
     <div className={styles.page} id="top">
       <header className={styles.header}>
-        <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><span>C</span> bycauazin</Link>
+        <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><BrandLogo /> bycauazin</Link>
         <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
       </header>
 

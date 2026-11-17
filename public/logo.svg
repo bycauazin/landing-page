@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#124461"/>
+      <stop offset="1" stop-color="#0B2E43"/>
+    </linearGradient>
+    <clipPath id="coneClip">
+      <path d="M300 470 L724 470 Q746 470 736 490 L532 878 Q512 912 492 878 L288 490 Q278 470 300 470 Z"/>
+    </clipPath>
+    <clipPath id="crownClip">
+      <path d="M296 470 C296 320 398 250 512 250 C626 250 728 320 728 470 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- fundo: Midnight Ink -->
+  <rect width="1024" height="1024" rx="232" fill="url(#bg)"/>
+  <rect x="1.5" y="1.5" width="1021" height="1021" rx="230" fill="none" stroke="#C8DFEA" stroke-opacity="0.18" stroke-width="3"/>
+
+  <!-- cone: Ice Blue -->
+  <g clip-path="url(#coneClip)">
+    <rect x="250" y="460" width="520" height="460" fill="#C8DFEA"/>
+    <g fill="#0B2E43">
+      <rect x="200" y="690" width="640" height="18" transform="rotate(-9 512 700)"/>
+      <rect x="200" y="790" width="640" height="14" transform="rotate(-9 512 797)"/>
+    </g>
+    <path d="M560 460 L760 460 L512 920 Z" fill="#0B2E43" opacity="0.1"/>
+  </g>
+
+  <!-- boné inclinado -->
+  <g transform="rotate(-7 512 470)">
+    <path d="M660 452 C740 430 836 432 898 462 C904 478 890 494 870 498 C800 506 730 504 668 500 Z" fill="#E4F0F6"/>
+    <path d="M668 486 C740 490 810 490 880 486 C876 494 872 497 866 498 C800 506 730 504 668 500 Z" fill="#0B2E43" opacity="0.2"/>
+
+    <g clip-path="url(#crownClip)">
+      <rect x="280" y="240" width="470" height="240" fill="#E4F0F6"/>
+      <path d="M600 240 C680 290 720 380 728 480 L760 480 L760 240 Z" fill="#0B2E43" opacity="0.1"/>
+      <g fill="none" stroke="#0B2E43" stroke-opacity="0.2" stroke-width="5" stroke-linecap="round">
+        <path d="M512 256 C452 300 418 380 410 470"/>
+        <path d="M512 256 C572 300 606 380 614 470"/>
+      </g>
+    </g>
+
+    <!-- botão do topo: Vermilion -->
+    <circle cx="512" cy="252" r="15" fill="#FF4F31"/>
+    <circle cx="512" cy="252" r="6" fill="#E4F0F6"/>
+
+    <!-- patch com raio: Vermilion -->
+    <rect x="462" y="340" width="100" height="62" rx="16" fill="#0B2E43"/>
+    <path d="M520 350 L494 375 L511 375 L502 393 L531 365 L514 365 Z" fill="#FF4F31"/>
+
+    <!-- faixa da base -->
+    <rect x="272" y="442" width="480" height="58" rx="29" fill="#0B2E43"/>
+    <rect x="286" y="456" width="452" height="30" rx="15" fill="none" stroke="#FF4F31" stroke-width="5"/>
+  </g>
+
+  <!-- rosto -->
+  <g stroke="#0B2E43" stroke-linecap="round" fill="none">
+    <path d="M402 538 L470 562" stroke-width="24"/>
+    <path d="M622 538 L554 562" stroke-width="24"/>
+    <path d="M428 628 Q505 684 598 622 L612 606" stroke-width="22" stroke-linejoin="round"/>
+  </g>
+  <g fill="#0B2E43">
+    <circle cx="450" cy="596" r="21"/>
+    <circle cx="574" cy="596" r="21"/>
+  </g>
+  <g fill="#E4F0F6">
+    <circle cx="443" cy="589" r="6"/>
+    <circle cx="567" cy="589" r="6"/>
+  </g>
+</svg>

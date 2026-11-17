@@ -2,6 +2,7 @@ import Link from "next/link";
 import { BeforeAfter, FlowDiagram, ImpactCards, LeadQuote, RoadmapStatus } from "./case-shared";
 import CaseFloatingActions from "./case-floating-actions";
 import styles from "./planner-power-bi-case.module.css";
+import BrandLogo from "../../components/brand-logo";
 
 const statusStages = [
   {
@@ -121,7 +122,7 @@ export default function GovernancaTeamsCase() {
   return (
     <div className={styles.page} id="top">
       <header className={styles.header}>
-        <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><span>C</span> bycauazin</Link>
+        <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><BrandLogo /> bycauazin</Link>
         <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
       </header>
 

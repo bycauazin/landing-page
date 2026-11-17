@@ -1,6 +1,7 @@
 import Link from "next/link";
 import CaseFloatingActions from "./case-floating-actions";
 import styles from "./exportacao-diaria-case.module.css";
+import BrandLogo from "../../components/brand-logo";
 
 const pipeline = [
   ["01", "Coletar", "Consultar dados do Account Manager e do Moodle."],
@@ -98,7 +99,7 @@ export default function ExportacaoDiariaCase() {
   return (
     <div className={styles.page} id="top">
       <header className={styles.header}>
-        <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><span>C</span> bycauazin</Link>
+        <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><BrandLogo /> bycauazin</Link>
         <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
       </header>
 

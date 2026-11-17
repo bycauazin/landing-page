@@ -12,6 +12,7 @@ import SocialVideo from "./components/social-video";
 import TechnologyIcon from "./components/technology-icon";
 import WhatsAppIcon from "./components/whatsapp-icon";
 import styles from "./page.module.css";
+import BrandLogo from "./components/brand-logo";
 
 const services = [
   { number: "01", icon: "development", title: "Desenvolvimento web", description: "Interfaces, landing pages e funcionalidades que transformam ideias em experiências digitais claras.", items: ["Landing pages", "React e Next.js", "APIs com Node.js"] },
@@ -38,7 +39,7 @@ export default function Home() {
       <HomeMotion />
       <div className={styles.progressRail} aria-hidden="true"><span data-motion-progress="" /></div>
       <header className={styles.header}>
-        <a className={styles.brand} href="#inicio" aria-label="Voltar ao inicio"><span className={styles.brandMark}>C</span><span>bycauazin</span></a>
+        <a className={styles.brand} href="#inicio" aria-label="Voltar ao inicio"><BrandLogo className={styles.brandMark} size={42} /><span>bycauazin</span></a>
         <nav className={styles.nav} aria-label="Navegação principal"><a href="#servicos">Serviços</a><Link href="/projetos">Projetos</Link><a href="#sobre">Sobre</a></nav>
         <div className={styles.headerActions}><button className={styles.themeToggle} type="button" onClick={() => setLightMode(!lightMode)} aria-label={lightMode ? "Ativar tema escuro" : "Ativar tema claro"} title={lightMode ? "Ativar tema escuro" : "Ativar tema claro"}><span aria-hidden="true">{lightMode ? "☾" : "☼"}</span></button><a className={styles.headerCta} href="#contato">Vamos conversar <span aria-hidden="true">↗</span></a></div>
       </header>

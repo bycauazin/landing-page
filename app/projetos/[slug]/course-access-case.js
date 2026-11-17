@@ -3,6 +3,7 @@ import Link from "next/link";
 import CaseFloatingActions from "./case-floating-actions";
 import { BeforeAfter, FlowDiagram, ImpactCards, LeadQuote } from "./case-shared";
 import styles from "./course-access-case.module.css";
+import BrandLogo from "../../components/brand-logo";
 
 const oldFlow = ["Entrar no diretório", "Navegar por pastas", "Localizar a matrícula", "Abrir os arquivos", "Acessar as aulas"];
 const newFlow = ["Abrir o aplicativo", "Digitar a matrícula", "Pesquisar", "Acessar arquivos e aulas"];
@@ -41,7 +42,7 @@ export default function CourseAccessCase() {
   return (
     <div className={styles.page} id="top">
       <header className={styles.header}>
-        <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><span>C</span> bycauazin</Link>
+        <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><BrandLogo /> bycauazin</Link>
         <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
       </header>
 

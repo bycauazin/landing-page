@@ -37,7 +37,7 @@ export const metadata = {
     images: ["https://bycauazin.web.app/foto-perfil.jpg"],
   },
   icons: {
-    icon: "/foto-perfil.jpg",
+    icon: "/logo.svg",
     shortcut: "/foto-perfil.jpg",
     apple: "/foto-perfil.jpg",
   },

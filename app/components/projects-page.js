@@ -7,6 +7,7 @@ import ProjectsMotion from "./projects-motion";
 import RevealText from "./reveal-text";
 import homeStyles from "../page.module.css";
 import styles from "../projetos/projects.module.css";
+import BrandLogo from "./brand-logo";
 
 export default function ProjectsPage() {
   const [lightMode, setLightMode] = useState(false);
@@ -16,7 +17,7 @@ export default function ProjectsPage() {
       <ProjectsMotion />
       <div className={homeStyles.progressRail} aria-hidden="true"><span data-motion-progress="" /></div>
       <header className={homeStyles.header}>
-        <Link className={homeStyles.brand} href="/" aria-label="Voltar ao início"><span className={homeStyles.brandMark}>C</span><span>bycauazin</span></Link>
+        <Link className={homeStyles.brand} href="/" aria-label="Voltar ao início"><BrandLogo className={homeStyles.brandMark} size={42} /><span>bycauazin</span></Link>
         <nav className={homeStyles.nav} aria-label="Navegação principal"><Link href="/#servicos">Serviços</Link><Link href="/projetos" aria-current="page">Projetos</Link><Link href="/#sobre">Sobre</Link></nav>
         <div className={homeStyles.headerActions}>
           <button className={homeStyles.themeToggle} type="button" onClick={() => setLightMode(!lightMode)} aria-label={lightMode ? "Ativar tema escuro" : "Ativar tema claro"} title={lightMode ? "Ativar tema escuro" : "Ativar tema claro"}><span aria-hidden="true">{lightMode ? "☾" : "☼"}</span></button>

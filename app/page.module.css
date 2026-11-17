@@ -35,7 +35,7 @@
 }
 .header { position: absolute; z-index: 6; top: 12px; right: 0; left: 0; display: flex; align-items: center; justify-content: space-between; height: 92px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--paper); font-size: 15px; font-weight: 650; }
-.brandMark { display: grid; width: 32px; height: 32px; place-items: center; border-radius: 50%; color: var(--on-accent); background: var(--paper); font-size: 16px; font-weight: 700; }
+.brandMark { display: block; width: 42px; height: 42px; flex: none; }
 .nav { display: flex; gap: 2px; padding: 5px; border: 1px solid var(--line); border-radius: 999px; background: rgb(var(--midnight-ink-rgb) / 0.72); }
 .nav a { padding: 9px 18px; border-radius: 999px; font-size: 14px; }
 .nav a, .socials a { color: var(--muted); transition: color 180ms ease, background 180ms ease; }
@@ -149,7 +149,7 @@
 
 /* Make small header/brand icons circular */
 .brandMark { border-radius: 50%; overflow: hidden; }
-.brand img { border-radius: 50%; }
+.brand img { border-radius: 0; }
 .socialMedia { position: relative; aspect-ratio: 9 / 16; overflow: hidden; background: #000; }
 .socialMedia::after { position: absolute; z-index: 1; pointer-events: none; right: 0; bottom: 0; left: 0; height: 70px; background: linear-gradient(transparent, #111216); content: ""; }
 .socialMedia img { object-fit: cover; object-position: center; }
