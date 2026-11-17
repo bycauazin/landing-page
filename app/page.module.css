@@ -240,7 +240,7 @@
   .headerActions { gap: 8px; }
   .headerCta { padding: 10px 12px; font-size: 10px; }
   .hero { display: flex; flex-direction: column; align-items: stretch; gap: 44px; min-height: auto; margin: 8px; padding: 112px 20px 48px; border-radius: 24px; }
-  .heroShade { background: linear-gradient(180deg, rgb(var(--midnight-ink-rgb) / 0.88), rgb(var(--midnight-ink-rgb) / 0.78) 55%, rgb(var(--midnight-ink-rgb) / 0.95)); }
+  .heroShade { background: linear-gradient(180deg, rgb(var(--midnight-ink-rgb) / 0.9), rgb(var(--midnight-ink-rgb) / 0.82) 55%, rgb(var(--midnight-ink-rgb) / 0.96)); }
   .techHeading { display: block; }
   .techToggle { margin-top: 24px; }
   .techGrid { grid-template-columns: 1fr; }

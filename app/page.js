@@ -27,8 +27,8 @@ const technologyGroups = [
 ];
 const homepageTechnologies = technologyGroups.flatMap((group) => group.items);
 
-// Opções de fundo do hero (em /public/hero): "codigo-monitor", "dev-noturno" ou "setup-escuro".
-const heroBackground = "/hero/codigo-monitor.jpg";
+// Opções de fundo do hero (em /public/hero): "codigo-monitor-desfocado" (em uso: sem texto legível atrás do título), "codigo-monitor", "dev-noturno" ou "setup-escuro".
+const heroBackground = "/hero/codigo-monitor-desfocado.jpg";
 
 export default function Home() {
   const [lightMode, setLightMode] = useState(false);
