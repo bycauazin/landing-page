@@ -35,7 +35,7 @@
 }
 .header { position: absolute; z-index: 6; top: 12px; right: 0; left: 0; display: flex; align-items: center; justify-content: space-between; height: 92px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--paper); font-size: 15px; font-weight: 650; }
-.brandMark { display: grid; width: 32px; height: 32px; place-items: center; border-radius: 50%; color: var(--on-accent); background: var(--paper); font-family: var(--font-serif); font-size: 19px; font-style: italic; }
+.brandMark { display: grid; width: 32px; height: 32px; place-items: center; border-radius: 50%; color: var(--on-accent); background: var(--paper); font-size: 16px; font-weight: 700; }
 .nav { display: flex; gap: 2px; padding: 5px; border: 1px solid var(--line); border-radius: 999px; background: rgb(var(--midnight-ink-rgb) / 0.72); }
 .nav a { padding: 9px 18px; border-radius: 999px; font-size: 14px; }
 .nav a, .socials a { color: var(--muted); transition: color 180ms ease, background 180ms ease; }
@@ -57,7 +57,7 @@
 .eyebrow { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 28px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--paper); background: rgb(var(--midnight-ink-rgb) / 0.6); }
 .eyebrow span { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); }
 .hero h1 { max-width: 760px; margin: 0; color: var(--paper); font-size: clamp(44px, 5.4vw, 76px); font-weight: 520; line-height: 0.98; text-wrap: balance; }
-.hero h1 em, .contactSection h2 em { color: var(--blue); font-family: var(--font-serif); font-size: 1.12em; font-style: italic; font-weight: 400; letter-spacing: -0.01em; }
+.hero h1 em, .contactSection h2 em { color: var(--blue); font-family: inherit; font-style: normal; font-weight: inherit; }
 .heroText { max-width: 460px; margin: 30px 0 36px; color: var(--muted); font-size: 18px; font-weight: 430; line-height: 1.6; }
 .heroActions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .buttonPrimary { padding: 16px 24px; }
