@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+import Image, { getImageProps } from "next/image";
 import Link from "next/link";
 import { siInstagram } from "simple-icons";
 import { useState } from "react";
@@ -29,6 +29,9 @@ const homepageTechnologies = technologyGroups.flatMap((group) => group.items);
 
 // Opções de fundo do hero (em /public/hero): "codigo-monitor-desfocado" (em uso: sem texto legível atrás do título), "codigo-monitor", "dev-noturno" ou "setup-escuro".
 const heroBackground = "/hero/codigo-monitor-desfocado.jpg";
+// No celular (até 760px) usa um recorte do centro com menos desfoque.
+const heroBackgroundMobile = "/hero/codigo-monitor-desfocado-mobile.jpg";
+const { props: heroBackgroundProps } = getImageProps({ src: heroBackground, alt: "", fill: true, sizes: "100vw" });
 
 export default function Home() {
   const [lightMode, setLightMode] = useState(false);
@@ -46,7 +49,10 @@ export default function Home() {
 
       <main>
         <section className={styles.hero} id="inicio" aria-labelledby="hero-title">
-          <Image className={styles.heroBackground} src={heroBackground} alt="" fill preload sizes="100vw" />
+          <picture className={styles.heroPicture}>
+            <source media="(max-width: 760px)" srcSet={heroBackgroundMobile} />
+            <img {...heroBackgroundProps} alt="" className={styles.heroBackground} fetchPriority="high" />
+          </picture>
           <span className={styles.heroShade} aria-hidden="true" />
           <div className={styles.heroCopy}><p className={styles.eyebrow}><span /> Cauã · desenvolvedor</p><RevealText as="h1" id="hero-title" label="Transformo ideias e problemas de negócio em soluções digitais." lines={["Transformo ideias e", "problemas de negócio em", <em key="solution">soluções digitais.</em>]} /><p className={styles.heroText}>Desenvolvimento web, automação e dados para deixar negócios mais simples, conectados e eficientes.</p><div className={styles.heroActions}><a className={styles.buttonPrimary} href="#contato">Falar sobre um projeto <span aria-hidden="true">↗</span></a><a className={styles.textLink} href="#projetos">Ver projetos <span aria-hidden="true">↓</span></a></div></div>
           <div className={styles.heroVisual} aria-label="Foto de perfil de Cauã"><div className={styles.visualGrid} aria-hidden="true" /><div className={styles.heroCircuit} aria-hidden="true"><span /><span /><span /></div><div className={styles.avatarFrame}><Image className={styles.profileImage} src="/foto-perfil.jpg" alt="Cauã usando fones de ouvido" fill preload sizes="(max-width: 760px) 300px, 360px" /></div></div>

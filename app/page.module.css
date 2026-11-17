@@ -50,6 +50,7 @@
 .headerCta:hover, .buttonPrimary:hover, .contactButton:hover { color: var(--on-accent); background: color-mix(in srgb, var(--vermilion) 82%, #fff); transform: translateY(-2px); }
 
 .hero { position: relative; z-index: 1; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: 1.25fr 0.75fr; align-items: center; gap: 48px; min-height: min(880px, calc(100svh - 24px)); margin: 12px; padding: 150px max(20px, calc((100% - 1180px) / 2 - 12px)) 90px; border-radius: 32px; color: var(--paper); background: var(--midnight-ink); }
+.heroPicture { position: absolute; z-index: -2; inset: 0; }
 .heroBackground { z-index: -2; object-fit: cover; object-position: center; will-change: transform; backface-visibility: hidden; }
 .heroShade { position: absolute; z-index: -1; inset: 0; background: linear-gradient(90deg, rgb(var(--midnight-ink-rgb) / 0.96) 0%, rgb(var(--midnight-ink-rgb) / 0.84) 48%, rgb(var(--midnight-ink-rgb) / 0.58) 100%), linear-gradient(0deg, rgb(var(--midnight-ink-rgb) / 0.75), transparent 45%); pointer-events: none; }
 .heroCopy { position: relative; z-index: 1; will-change: transform; }
