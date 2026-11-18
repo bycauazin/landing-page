@@ -8,12 +8,14 @@ import RevealText from "./reveal-text";
 import homeStyles from "../page.module.css";
 import styles from "../projetos/projects.module.css";
 import BrandLogo from "./brand-logo";
+import HeroCircuitField from "./hero-circuit-field";
 
 export default function ProjectsPage() {
   const [lightMode, setLightMode] = useState(false);
 
   return (
     <div className={`${homeStyles.page} ${lightMode ? homeStyles.light : ""}`} data-projects-motion="">
+      <HeroCircuitField className={homeStyles.pageField} variant="page" light={lightMode} />
       <ProjectsMotion />
       <div className={homeStyles.progressRail} aria-hidden="true"><span data-motion-progress="" /></div>
       <header className={homeStyles.header}>
