@@ -111,6 +111,7 @@ function pointAt(trace, d) {
 // divisória). O valor do atributo desloca a linha em px a partir do topo da seção.
 // Desvios e ramos ficam presos a ±90px dessa linha, para nunca passar por trás do conteúdo.
 const SWEEP_SPEED = 22; // px por quadro (60 fps)
+const SWEEP_SPEED_MOBILE = 10; // no celular a tela é estreita: mais devagar para dar tempo de ver
 const SWEEP_TAIL = 180;
 
 function makePath(points) {
@@ -343,7 +344,7 @@ export default function HeroCircuitField({ className, variant = "hero", light = 
         const wireColor = light ? MIDNIGHT : ICE;
         for (let i = sweeps.length - 1; i >= 0; i--) {
           const sw = sweeps[i];
-          sw.d += SWEEP_SPEED * k;
+          sw.d += sw.speed * k;
           if (sw.d > sw.length) sw.fade = Math.max(0, sw.fade - 0.022 * k);
           ctx.save();
           ctx.translate(0, sw.scroll - scrollY);
@@ -431,7 +432,8 @@ export default function HeroCircuitField({ className, variant = "hero", light = 
       if (!w) return;
       const y = element.getBoundingClientRect().top + Number(element.dataset.circuitSweep || 0);
       const leftToRight = sweepCount++ % 2 === 0; // alterna o lado de cada seção
-      sweeps.push({ ...buildSweep(w, y, leftToRight), d: 0, scroll: window.scrollY, fade: 1 });
+      const speed = window.matchMedia("(max-width: 760px)").matches ? SWEEP_SPEED_MOBILE : SWEEP_SPEED;
+      sweeps.push({ ...buildSweep(w, y, leftToRight), d: 0, speed, scroll: window.scrollY, fade: 1 });
       wake();
     };
 
