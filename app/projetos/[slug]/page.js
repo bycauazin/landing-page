@@ -161,6 +161,9 @@ async function ProjectContent({ params }) {
     .map((relatedSlug) => getProject(relatedSlug))
     .filter(Boolean);
 
+  // A lista de recursos, quando existe, vira a seção 01 e empurra as outras.
+  const sectionNumber = (n) => String(n + (project.features ? 1 : 0)).padStart(2, "0");
+
   const details = [
     ["Problema", project.sections.problem],
     ["Solução", project.sections.solution],
@@ -186,10 +189,22 @@ async function ProjectContent({ params }) {
           <p className={styles.projectGroup}>{project.group} · {project.type}</p>
           <p className={styles.summary}>{project.description}</p>
           <div className={styles.tags}>{project.technologies.map((technologyId) => <TechnologyIcon className={styles.techTag} technology={technologyId} size="sm" showLabel key={technologyId} />)}</div>
+          {project.liveUrl && <a className={styles.liveLink} href={project.liveUrl} target="_blank" rel="noreferrer">Abrir o app e testar a demonstração <span aria-hidden="true">↗</span></a>}
         </section>
 
+        {project.features && (
+          <section className={styles.flowSection} aria-labelledby="features-title">
+            <div className={styles.sectionLabel}><span>01</span><h2 id="features-title">O que o app faz</h2></div>
+            <ul className={styles.featureList}>
+              {project.features.map((feature, index) => (
+                <li key={feature}><span>{String(index + 1).padStart(2, "0")}</span>{feature}</li>
+              ))}
+            </ul>
+          </section>
+        )}
+
         <section className={styles.flowSection} aria-labelledby="flow-title">
-          <div className={styles.sectionLabel}><span>01</span><h2 id="flow-title">Como as partes se conectam</h2></div>
+          <div className={styles.sectionLabel}><span>{sectionNumber(1)}</span><h2 id="flow-title">Como as partes se conectam</h2></div>
           <ol className={styles.flow}>
             {project.flow.map((step, index) => (
               <li key={step}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step}</strong></li>
@@ -199,7 +214,7 @@ async function ProjectContent({ params }) {
 
         {project.chapters && (
           <section className={styles.chapterSection} aria-labelledby="chapter-title">
-            <div className={styles.sectionLabel}><span>02</span><h2 id="chapter-title">Um projeto, duas perspectivas</h2></div>
+            <div className={styles.sectionLabel}><span>{sectionNumber(2)}</span><h2 id="chapter-title">Um projeto, duas perspectivas</h2></div>
             <p className={styles.sectionIntro}>A integração continua sendo um único estudo de caso. Estes atalhos levam direto à etapa de automação ou à etapa de Power BI.</p>
             <div className={styles.chapterGrid}>
               {project.chapters.map((chapter) => (
@@ -214,7 +229,7 @@ async function ProjectContent({ params }) {
         )}
 
         <section className={styles.detailsSection} aria-labelledby="details-title">
-          <div className={styles.sectionLabel}><span>{project.chapters ? "03" : "02"}</span><h2 id="details-title">Estrutura do estudo de caso</h2></div>
+          <div className={styles.sectionLabel}><span>{sectionNumber(project.chapters ? 3 : 2)}</span><h2 id="details-title">Estrutura do estudo de caso</h2></div>
           <p className={styles.sectionIntro}>A estrutura de cada estudo de caso foi organizada para apresentar o problema, a solução, a participação e o impacto de forma direta.</p>
           <div className={styles.detailGrid}>
             {details.map(([title, content]) => (
@@ -223,13 +238,13 @@ async function ProjectContent({ params }) {
           </div>
         </section>
 
-        <section className={styles.publicationSection} aria-labelledby="publication-title">
+        {project.publication && <section className={styles.publicationSection} aria-labelledby="publication-title">
           <div>
             <p className={styles.kicker}>Publicação recomendada</p>
             <h2 id="publication-title">{project.publication}</h2>
           </div>
           <div className={styles.confidentiality}><span>Antes de publicar</span><p>{project.confidentiality}</p></div>
-        </section>
+        </section>}
 
         {relatedProjects.length > 0 && (
           <section className={styles.relatedSection} aria-labelledby="related-title">

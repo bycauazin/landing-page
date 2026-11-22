@@ -9,6 +9,14 @@ import homeStyles from "../page.module.css";
 import styles from "../projetos/projects.module.css";
 import BrandLogo from "./brand-logo";
 import HeroCircuitField from "./hero-circuit-field";
+import MobileMenu from "./mobile-menu";
+
+const mobileLinks = [
+  { href: "/", label: "Início" },
+  { href: "/projetos", label: "Projetos", current: true },
+  { href: "/#servicos", label: "Serviços" },
+  { href: "/#sobre", label: "Sobre" },
+];
 
 export default function ProjectsPage() {
   const [lightMode, setLightMode] = useState(false);
@@ -24,6 +32,7 @@ export default function ProjectsPage() {
         <div className={homeStyles.headerActions}>
           <button className={homeStyles.themeToggle} type="button" onClick={() => setLightMode(!lightMode)} aria-label={lightMode ? "Ativar tema escuro" : "Ativar tema claro"} title={lightMode ? "Ativar tema escuro" : "Ativar tema claro"}><span aria-hidden="true">{lightMode ? "☾" : "☼"}</span></button>
           <Link className={homeStyles.headerCta} href="/#contato">Vamos conversar <span aria-hidden="true">↗</span></Link>
+          <MobileMenu links={mobileLinks} />
         </div>
       </header>
 

@@ -14,6 +14,14 @@ import WhatsAppIcon from "./components/whatsapp-icon";
 import styles from "./page.module.css";
 import BrandLogo from "./components/brand-logo";
 import HeroCircuitField from "./components/hero-circuit-field";
+import MobileMenu from "./components/mobile-menu";
+
+const mobileLinks = [
+  { href: "#projetos", label: "Projetos" },
+  { href: "#servicos", label: "Serviços" },
+  { href: "#sobre", label: "Sobre" },
+  { href: "/projetos", label: "Todos os projetos" },
+];
 
 const services = [
   { number: "01", icon: "development", title: "Desenvolvimento web", description: "Interfaces, landing pages e funcionalidades que transformam ideias em experiências digitais claras.", items: ["Landing pages", "React e Next.js", "APIs com Node.js"] },
@@ -45,8 +53,8 @@ export default function Home() {
       <div className={styles.progressRail} aria-hidden="true"><span data-motion-progress="" /></div>
       <header className={styles.header}>
         <a className={styles.brand} href="#inicio" aria-label="Voltar ao inicio"><BrandLogo className={styles.brandMark} size={42} /><span>bycauazin</span></a>
-        <nav className={styles.nav} aria-label="Navegação principal"><a href="#servicos">Serviços</a><Link href="/projetos">Projetos</Link><a href="#sobre">Sobre</a></nav>
-        <div className={styles.headerActions}><button className={styles.themeToggle} type="button" onClick={() => setLightMode(!lightMode)} aria-label={lightMode ? "Ativar tema escuro" : "Ativar tema claro"} title={lightMode ? "Ativar tema escuro" : "Ativar tema claro"}><span aria-hidden="true">{lightMode ? "☾" : "☼"}</span></button><a className={styles.headerCta} href="#contato">Vamos conversar <span aria-hidden="true">↗</span></a></div>
+        <nav className={styles.nav} aria-label="Navegação principal"><a href="#projetos">Projetos</a><a href="#servicos">Serviços</a><a href="#sobre">Sobre</a></nav>
+        <div className={styles.headerActions}><button className={styles.themeToggle} type="button" onClick={() => setLightMode(!lightMode)} aria-label={lightMode ? "Ativar tema escuro" : "Ativar tema claro"} title={lightMode ? "Ativar tema escuro" : "Ativar tema claro"}><span aria-hidden="true">{lightMode ? "☾" : "☼"}</span></button><a className={styles.headerCta} href="#contato">Vamos conversar <span aria-hidden="true">↗</span></a><MobileMenu links={mobileLinks} /></div>
       </header>
 
       <main>
@@ -72,9 +80,9 @@ export default function Home() {
           </div>
         </section>
 
-        <section className={styles.servicesSection} id="servicos" data-circuit-sweep="0" aria-labelledby="services-title"><div className={styles.sectionIntro} data-motion-services-intro=""><p className={styles.kicker}>Como posso ajudar</p><RevealText id="services-title" label="Tecnologia com contexto de negócio." lines={["Tecnologia com", "contexto de negócio."]} /></div><div className={styles.serviceGrid}>{services.map((service) => <article className={styles.serviceCard} data-motion-service="" key={service.number}><div className={styles.cardTop}><span aria-hidden="true">↗</span></div><div className={styles.serviceIcon} aria-hidden="true"><svg><use href={`/tech-icons.svg#${service.icon}`} /></svg></div><h3>{service.title}</h3><p>{service.description}</p><ul>{service.items.map((item) => <li key={item}>{item}</li>)}</ul></article>)}</div></section>
-
         <section className={styles.casesSection} id="projetos" data-circuit-sweep="0" aria-labelledby="cases-title"><div className={styles.sectionHeading} data-motion-project-intro=""><div><p className={styles.kicker}>Projetos</p><RevealText id="cases-title" label="Projetos em destaque" lines={["Projetos em", "destaque"]} /><p className={styles.sectionSubtitle}>Soluções que conectam tecnologias.</p></div><p className={styles.sectionAside}>Soluções desenvolvidas com diferentes tecnologias, integrações e ferramentas.</p></div><ProjectExplorer featuredOnly showFilters={false} /><div className={styles.projectsCtaWrap} data-motion-project-cta=""><Link className={styles.buttonPrimary} href="/projetos">Acessar meus projetos <span aria-hidden="true">→</span></Link></div></section>
+
+        <section className={styles.servicesSection} id="servicos" data-circuit-sweep="0" aria-labelledby="services-title"><div className={styles.sectionIntro} data-motion-services-intro=""><p className={styles.kicker}>Como posso ajudar</p><RevealText id="services-title" label="Tecnologia com contexto de negócio." lines={["Tecnologia com", "contexto de negócio."]} /></div><div className={styles.serviceGrid}>{services.map((service) => <article className={styles.serviceCard} data-motion-service="" key={service.number}><div className={styles.cardTop}><span aria-hidden="true">↗</span></div><div className={styles.serviceIcon} aria-hidden="true"><svg><use href={`/tech-icons.svg#${service.icon}`} /></svg></div><h3>{service.title}</h3><p>{service.description}</p><ul>{service.items.map((item) => <li key={item}>{item}</li>)}</ul></article>)}</div></section>
 
         <section className={styles.aboutSection} id="sobre" data-circuit-sweep="0" aria-labelledby="about-title"><div className={styles.socialPost} data-motion-social-post=""><div className={styles.socialPostHeader}><Image className={styles.instagramLogo} src="/foto-perfil.jpg" alt="Cauã" width={20} height={20} /><strong>bycauazin</strong><a className={styles.instagramBadge} href="https://www.instagram.com/bycauazin/" target="_blank" rel="noreferrer" aria-label="Ver @bycauazin no Instagram" title="Ver no Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><radialGradient id="ig-gradient" cx="30%" cy="107%" r="150%"><stop offset="0" stopColor="#fdf497" /><stop offset="0.05" stopColor="#fdf497" /><stop offset="0.45" stopColor="#fd5949" /><stop offset="0.6" stopColor="#d6249f" /><stop offset="0.9" stopColor="#285AEB" /></radialGradient></defs><path fill="url(#ig-gradient)" d={siInstagram.path} /></svg><span>Instagram</span></a></div><div className={styles.socialMedia}><SocialVideo /></div><div className={styles.socialPostFooter}><div className={styles.postActions} aria-label="Ações da publicação"><span>♡</span><span>◯</span><span>➤</span></div><span className={styles.postLabel}>Reels no Instagram</span></div></div><div className={styles.aboutCopy} data-motion-about-copy=""><p className={styles.kicker}>Sobre mim</p><RevealText id="about-title" label="Um agoniado inteligente." lines={["Um agoniado", "inteligente."]} /><p>Também crio conteúdo para redes sociais, compartilhando ideias, aprendizados e situações do universo da tecnologia de um jeito direto e autêntico.</p><p>Eu sou o Cauã. Gosto de entender o problema antes de escolher a ferramenta, organizar o que parece confuso e construir algo que realmente ajude no dia a dia.</p><p>Minha praia fica entre desenvolvimento, automação, dados e comunicação. O objetivo é transformar complexidade em clareza.</p></div></section>
 

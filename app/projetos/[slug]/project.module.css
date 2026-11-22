@@ -23,6 +23,8 @@
 .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 30px; }
 .tags > span { padding: 8px 10px; border: 1px solid var(--line); font-size: 11px; }
 .techTag { gap: 8px; }
+.liveLink { display: inline-flex; align-items: center; gap: 10px; margin-top: 30px; padding: 14px 20px; border-radius: 999px; color: var(--on-accent); background: var(--blue); font-size: 14px; font-weight: 650; transition: transform 180ms ease; }
+.liveLink:hover { color: var(--on-accent); transform: translateY(-2px); }
 
 .flowSection, .chapterSection, .detailsSection, .publicationSection, .relatedSection { padding: 90px 0; border-top: 1px solid var(--line); }
 .sectionLabel { display: grid; grid-template-columns: 70px 1fr; align-items: baseline; margin-bottom: 42px; }
