@@ -30,8 +30,6 @@ const portfolioSections = [
   },
 ];
 
-const isInDevelopment = (project) => Number(project.status === "em-desenvolvimento");
-
 export default function ProjectExplorer({ featuredOnly = false, showFilters = true }) {
   const [activeTechnology, setActiveTechnology] = useState("todos");
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -40,9 +38,9 @@ export default function ProjectExplorer({ featuredOnly = false, showFilters = tr
   const visibleProjects = featuredOnly
     ? projects
       .filter((project) => project.featured)
-      // Projetos em produção sempre antes dos que estão em desenvolvimento; depois, featuredOrder.
-      .sort((a, b) => isInDevelopment(a) - isInDevelopment(b) || a.featuredOrder - b.featuredOrder)
-      .slice(0, 5)
+      // Ordem escolhida a dedo em featuredOrder (quatro destaques).
+      .sort((a, b) => a.featuredOrder - b.featuredOrder)
+      .slice(0, 4)
     : activeTechnology === "todos"
       ? projects
       : projects.filter((project) => project.technologies.includes(activeTechnology));

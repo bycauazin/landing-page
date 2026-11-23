@@ -189,7 +189,7 @@ async function ProjectContent({ params }) {
           <p className={styles.projectGroup}>{project.group} · {project.type}</p>
           <p className={styles.summary}>{project.description}</p>
           <div className={styles.tags}>{project.technologies.map((technologyId) => <TechnologyIcon className={styles.techTag} technology={technologyId} size="sm" showLabel key={technologyId} />)}</div>
-          {project.liveUrl && <a className={styles.liveLink} href={project.liveUrl} target="_blank" rel="noreferrer">Abrir o app e testar a demonstração <span aria-hidden="true">↗</span></a>}
+          {project.liveUrl && <a className={styles.liveLink} href={project.liveUrl} target="_blank" rel="noreferrer">{project.liveLabel ?? "Abrir o app e testar a demonstração"} <span aria-hidden="true">↗</span></a>}
         </section>
 
         {project.features && (
