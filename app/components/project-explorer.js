@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { categoryLabels, projects, statusLabels, technologies, technologyFilters } from "../data/projects";
@@ -138,7 +139,15 @@ export default function ProjectExplorer({ featuredOnly = false, showFilters = tr
             <div className={styles.caseList}>
               {section.projects.map((project, position) => (
                 <Link className={styles.caseItem} data-motion-project="" href={`/projetos/${project.slug}`} aria-label={`${project.title}. Ver página do projeto.`} key={project.slug}>
-                  <TechnologyGroup technologyIds={project.technologies} />
+                  {project.image ? (
+                    // A print of the live site in place of the technology icons (they stay as tags below).
+                    <figure className={styles.caseShot}>
+                      <Image src={project.image} alt={`Tela do ${project.title}`} width={1280} height={800} sizes="(max-width: 760px) 100vw, 290px" />
+                      <span className={styles.caseShotCta}>Ver o projeto →</span>
+                    </figure>
+                  ) : (
+                    <TechnologyGroup technologyIds={project.technologies} />
+                  )}
                   <div className={styles.caseContent}>
                     <div className={styles.projectMeta}>
                       <p className={styles.caseType}>{categoryLabels[project.category]}</p>

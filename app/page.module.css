@@ -128,6 +128,11 @@
 .caseItem + .caseItem { margin-top: 12px; }
 .caseItem:hover { border-color: rgb(var(--tint-rgb) / 0.28); background: rgb(var(--tint-rgb) / 0.08); }
 .caseArrow { color: var(--blue); font-size: 12px; }
+/* Project with a print of the live site: the picture takes the place of the technology icons */
+.caseShot { position: relative; width: 290px; margin: 0; align-self: center; overflow: hidden; aspect-ratio: 16 / 10; border: 1px solid rgb(var(--tint-rgb) / 0.14); border-radius: 16px; background: rgb(var(--tint-rgb) / 0.06); }
+.caseShot img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top left; transition: transform 400ms ease; }
+.caseItem:hover .caseShot img { transform: scale(1.04); }
+.caseShotCta { position: absolute; bottom: 10px; left: 10px; padding: 6px 12px; border-radius: 999px; color: var(--on-accent); background: var(--blue); font-size: 12px; font-weight: 650; box-shadow: 0 8px 24px rgb(0 0 0 / 0.3); }
 .technologyGroup { display: flex; width: 290px; min-height: 124px; align-self: center; align-items: center; justify-content: flex-start; flex-wrap: wrap; gap: 8px; }
 .technologyIcon, .remainingTechnologies { position: relative; display: grid; width: 72px; height: 72px; flex: 0 0 72px; margin-left: 0; place-items: center; border: 1px solid var(--line); border-radius: 17px; background: var(--ink); box-shadow: 0 0 0 2px var(--ink); transition: border-color 180ms ease, transform 180ms ease; }
 .technologyIcon:first-child { margin-left: 0; }
@@ -281,6 +286,7 @@
   .technologyIcon, .remainingTechnologies { width: 58px; height: 58px; flex-basis: 58px; margin-left: -4px; border-radius: 14px; }
   .technologyGroup[data-count="1"] .technologyIcon { width: 68px; height: 68px; flex-basis: 68px; }
   .caseContent { grid-column: 1; }
+  .caseShot { width: 100%; margin-bottom: 16px; grid-column: 1; }
   .caseArrow { grid-column: 2; grid-row: 1 / span 2; }
   .caseContent h3 { font-size: 23px; }
   .projectGroup + .projectGroup { margin-top: 68px; }
