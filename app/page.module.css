@@ -272,7 +272,8 @@
   .servicesSection, .casesSection, .techSection { padding: 84px 0; }
   .sectionIntro, .sectionHeading { display: block; }
   .sectionAside { margin-top: 18px; }
-  .serviceGrid, .aboutSection, .techSection { grid-template-columns: 1fr; }
+  /* minmax(0, 1fr): with a plain 1fr the column grows to the width of the tech carousel (thousands of px) */
+  .serviceGrid, .aboutSection, .techSection { grid-template-columns: minmax(0, 1fr); }
   .serviceCard { min-height: 0; }
   .serviceCard h3 { margin-top: 56px; }
   .caseItem { grid-template-columns: 1fr 20px; gap: 10px; }
@@ -389,4 +390,11 @@
   .serviceCard, .serviceIcon, .techItem > span:first-child, .caseItem, .headerCta, .buttonPrimary, .contactButton, .socialLink, .techItem, .technologyGroup, .caseArrow, .cardTop span:first-child { transition: none; }
   .serviceCard:hover, .serviceCard:hover .serviceIcon, .techItem:hover > span:first-child, .caseItem:hover, .socialLink:hover, .techItem:hover, .technologyGroup:hover, .caseItem:hover .caseArrow, .socialLink:hover .socialArrow, .themeToggle:hover { transform: none; }
   .socialMedia img { will-change: auto; }
+}
+
+/* Phones: the title of the technologies and the "Mostrar tudo" button stacked. Declared here, after the
+   general .techHeading rule, so it is not overridden by it (the copy inside the 760px block above was). */
+@media (max-width: 760px) {
+  .techHeading { display: block; }
+  .techToggle { margin-top: 20px; }
 }

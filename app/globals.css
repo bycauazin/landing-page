@@ -71,3 +71,11 @@ html:has([data-home-motion]),
 body:has([data-home-motion]) {
   overflow-x: clip;
 }
+
+/* Phones: room at the end of every page for the floating WhatsApp button (50px + 24px from the bottom),
+   so it never covers the last link of the footer. */
+@media (max-width: 760px) {
+  body {
+    padding-bottom: 84px;
+  }
+}

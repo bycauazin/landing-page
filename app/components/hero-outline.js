@@ -5,11 +5,11 @@ import styles from "./hero-outline.module.css";
 
 const FIRST_DELAY = 900; // ms depois de abrir o site
 const LOOP_MS = 3600; // uma volta inteira
-const EVERY = [6000, 9000]; // intervalo entre as voltas
+const EVERY = [2500, 4000]; // intervalo entre as voltas
 
 /**
  * "Contorno vivo": um ponto de luz vermilion percorre a borda arredondada do
- * hero deixando um rastro curto, ao abrir o site e depois de tempos em tempos.
+ * hero deixando um rastro curto, ao abrir o site e depois a cada 2,5 a 4 segundos.
  * Fica dentro do hero (que já tem overflow hidden e os cantos arredondados) e
  * lê o raio dos cantos do próprio hero, então acompanha o celular também.
  * Pausa com a aba escondida e fica desligado com "reduzir movimento".
