@@ -51,6 +51,8 @@ export default function Home() {
   return (
     <div className={`${styles.page} ${lightMode ? styles.light : ""}`} data-home-motion="">
       <HomeMotion />
+      {/* a varredura entre as seções na rolagem (sem o circuito do mouse, que fica só no hero) */}
+      <HeroCircuitField className={styles.pageField} variant="sweep" light={lightMode} />
       {/* fora do hero o cursor vira o "encaixe"; no hero fica o "circuito vivo" */}
       <SnapCursor exclude="#inicio" />
       <div className={styles.progressRail} aria-hidden="true"><span data-motion-progress="" /></div>

@@ -15,6 +15,8 @@ const VERMILION = "255,79,49";
 const VARIANTS = {
   hero: { reveal: 0.34, pulse: 0.85, flash: 0.9, autoEvery: 1500, sweep: 0.85, sweepWire: 0.3 },
   page: { reveal: 0.2, pulse: 0.55, flash: 0.55, autoEvery: 2600, sweep: 0.8, sweepWire: 0.24 },
+  // "sweep": só a varredura entre as seções na rolagem; as trilhas e os pulsos do mouse ficam invisíveis (o circuito fica só no hero)
+  sweep: { reveal: 0, pulse: 0, flash: 0, autoEvery: 60000, sweep: 0.8, sweepWire: 0.24, sweepFlash: 0.55 },
 };
 const CELL = 30; // tamanho da grade das trilhas, em px
 const REVEAL_RADIUS = 230; // raio da "lanterna"
@@ -367,7 +369,7 @@ export default function HeroCircuitField({ className, variant = "hero", light = 
             if (b.d >= 0 && !b.done) { drawRun(b, b.d, TAIL, look.sweep, 1.5); busy = true; }
             if (b.flash > 0) {
               const [ex, ey] = b.points[b.points.length - 1];
-              drawPad(ex, ey, b.flash, Math.min(1, look.flash + 0.2));
+              drawPad(ex, ey, b.flash, Math.min(1, (look.sweepFlash ?? look.flash) + 0.2));
               b.flash = Math.max(0, b.flash - 0.03 * k);
               busy = true;
             }
@@ -441,7 +443,7 @@ export default function HeroCircuitField({ className, variant = "hero", light = 
       ready = true;
       resize();
       canvas.dataset.ready = "true";
-      if (variant === "page") {
+      if (variant === "page" || variant === "sweep") {
         sweepIo = new IntersectionObserver((entries) => {
           for (const entry of entries) {
             if (!entry.isIntersecting) continue;
