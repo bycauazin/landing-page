@@ -16,11 +16,14 @@ const PAD = 6;
  * que vem atrás; em cima de link ou botão o anel assume o formato do elemento
  * (mesmo tamanho e cantos, com uma folga) e fica grudado nele.
  *
- * `exclude`: seletor de uma área onde ele fica desligado (o hero, que já tem
- * o "circuito vivo"): ali volta o cursor normal. Só com mouse de verdade
- * (pointer: fine) e sem "reduzir movimento"; no celular nada muda.
+ * Vale na página inteira (o hero também, junto com o "circuito vivo"). O que
+ * está embaixo do mouse é conferido a cada quadro, não só quando o mouse
+ * mexe: rolando a página com o mouse parado, o anel continua no elemento
+ * certo. Só o mouse de verdade move o cursor (toque em tela híbrida é
+ * ignorado); some quando o mouse sai da janela e volta sem "pular". Fica
+ * desligado no celular (sem pointer: fine) e com "reduzir movimento".
  */
-export default function SnapCursor({ exclude }) {
+export default function SnapCursor() {
   const dotRef = useRef(null);
   const ringRef = useRef(null);
 
@@ -31,52 +34,62 @@ export default function SnapCursor({ exclude }) {
     if (!window.matchMedia("(pointer: fine)").matches || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
 
     const html = document.documentElement;
-    const p = { x: -100, y: -100, rx: -100, ry: -100, w: RING, h: RING, shown: false };
+    html.classList.add(styles.on);
+    const p = { x: 0, y: 0, rx: 0, ry: 0, w: RING, h: RING, has: false, shown: false, away: false };
     let target = null;
     let radius = RING / 2;
     let pressed = false;
     let raf = 0;
 
-    const setShown = (on) => {
+    const show = (on) => {
       if (on === p.shown) return;
       p.shown = on;
-      html.classList.toggle(styles.on, on);
       dot.dataset.shown = String(on);
       ring.dataset.shown = String(on);
     };
 
     const onMove = (e) => {
-      const el = e.target instanceof Element ? e.target : null;
-      const off = !el || (exclude && el.closest(exclude)) || el.closest(FIELDS);
-      if (!p.shown) {
-        p.rx = e.clientX;
+      if (e.pointerType && e.pointerType !== "mouse") return;
+      if (!p.has || p.away) {
+        p.rx = e.clientX; // primeira vez ou voltando: começa daqui, sem pular de onde estava
         p.ry = e.clientY;
+        p.has = true;
+        p.away = false;
       }
       p.x = e.clientX;
       p.y = e.clientY;
-      setShown(!off);
-      const next = off ? null : el.closest(TARGETS);
+    };
+    const onLeave = () => {
+      p.away = true;
+      show(false);
+    };
+    const onDown = (e) => {
+      if (e.pointerType === "mouse") pressed = true;
+    };
+    const onUp = () => {
+      pressed = false;
+    };
+
+    const frame = () => {
+      raf = requestAnimationFrame(frame);
+      if (!p.has || p.away) return;
+      const el = document.elementFromPoint(p.x, p.y);
+      const inField = !!el?.closest(FIELDS);
+      show(!!el && !inField);
+      if (!p.shown) return;
+      const next = inField ? null : (el?.closest(TARGETS) ?? null);
       if (next !== target) {
         target = next;
         radius = target ? parseFloat(getComputedStyle(target).borderRadius) || 10 : RING / 2;
       }
-    };
-    const onLeave = (e) => {
-      if (!e.relatedTarget) setShown(false);
-    };
-    const onDown = () => (pressed = true);
-    const onUp = () => (pressed = false);
 
-    const frame = () => {
-      raf = requestAnimationFrame(frame);
-      if (!p.shown) return;
       let tx = p.x;
       let ty = p.y;
       let tw = RING;
       let th = RING;
       let tr = RING / 2;
       let snapped = false;
-      if (target?.isConnected) {
+      if (target) {
         const r = target.getBoundingClientRect();
         if (r.width <= MAX_SNAP.w && r.height <= MAX_SNAP.h) {
           const cx = r.left + r.width / 2;
@@ -96,11 +109,11 @@ export default function SnapCursor({ exclude }) {
         tw *= 0.92;
         th *= 0.92;
       }
-      const k = snapped ? 0.3 : 0.2;
+      const k = snapped ? 0.35 : 0.25;
       p.rx += (tx - p.rx) * k;
       p.ry += (ty - p.ry) * k;
-      p.w += (tw - p.w) * 0.28;
-      p.h += (th - p.h) * 0.28;
+      p.w += (tw - p.w) * 0.3;
+      p.h += (th - p.h) * 0.3;
       ring.style.width = `${p.w}px`;
       ring.style.height = `${p.h}px`;
       ring.style.borderRadius = `${tr}px`;
@@ -110,7 +123,8 @@ export default function SnapCursor({ exclude }) {
     };
 
     window.addEventListener("pointermove", onMove, { passive: true });
-    document.addEventListener("pointerout", onLeave);
+    html.addEventListener("mouseleave", onLeave);
+    window.addEventListener("blur", onLeave);
     window.addEventListener("pointerdown", onDown);
     window.addEventListener("pointerup", onUp);
     raf = requestAnimationFrame(frame);
@@ -119,11 +133,12 @@ export default function SnapCursor({ exclude }) {
       cancelAnimationFrame(raf);
       html.classList.remove(styles.on);
       window.removeEventListener("pointermove", onMove);
-      document.removeEventListener("pointerout", onLeave);
+      html.removeEventListener("mouseleave", onLeave);
+      window.removeEventListener("blur", onLeave);
       window.removeEventListener("pointerdown", onDown);
       window.removeEventListener("pointerup", onUp);
     };
-  }, [exclude]);
+  }, []);
 
   return (
     <>

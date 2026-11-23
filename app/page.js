@@ -53,8 +53,8 @@ export default function Home() {
       <HomeMotion />
       {/* a varredura entre as seções na rolagem (sem o circuito do mouse, que fica só no hero) */}
       <HeroCircuitField className={styles.pageField} variant="sweep" light={lightMode} />
-      {/* fora do hero o cursor vira o "encaixe"; no hero fica o "circuito vivo" */}
-      <SnapCursor exclude="#inicio" />
+      {/* cursor "encaixe" na página inteira, junto com o "circuito vivo" do hero */}
+      <SnapCursor />
       <div className={styles.progressRail} aria-hidden="true"><span data-motion-progress="" /></div>
       <header className={styles.header}>
         <a className={styles.brand} href="#inicio" aria-label="Voltar ao inicio"><BrandLogo className={styles.brandMark} size={42} /><span>bycauazin</span></a>
