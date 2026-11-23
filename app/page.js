@@ -14,6 +14,8 @@ import WhatsAppIcon from "./components/whatsapp-icon";
 import styles from "./page.module.css";
 import BrandLogo from "./components/brand-logo";
 import HeroCircuitField from "./components/hero-circuit-field";
+import SnapCursor from "./components/snap-cursor";
+import HeroOutline from "./components/hero-outline";
 import MobileMenu from "./components/mobile-menu";
 
 const mobileLinks = [
@@ -48,8 +50,9 @@ export default function Home() {
 
   return (
     <div className={`${styles.page} ${lightMode ? styles.light : ""}`} data-home-motion="">
-      <HeroCircuitField className={styles.pageField} variant="page" light={lightMode} />
       <HomeMotion />
+      {/* fora do hero o cursor vira o "encaixe"; no hero fica o "circuito vivo" */}
+      <SnapCursor exclude="#inicio" />
       <div className={styles.progressRail} aria-hidden="true"><span data-motion-progress="" /></div>
       <header className={styles.header}>
         <a className={styles.brand} href="#inicio" aria-label="Voltar ao inicio"><BrandLogo className={styles.brandMark} size={42} /><span>bycauazin</span></a>
@@ -65,6 +68,7 @@ export default function Home() {
           </picture>
           <span className={styles.heroShade} aria-hidden="true" />
           <HeroCircuitField className={styles.heroField} />
+          <HeroOutline />
           <div className={styles.heroCopy}><p className={styles.eyebrow}><span /> Cauã · desenvolvedor</p><RevealText as="h1" id="hero-title" label="Transformo ideias e problemas de negócio em soluções digitais." lines={["Transformo ideias e", "problemas de negócio em", <em key="solution">soluções digitais.</em>]} /><p className={styles.heroText}>Desenvolvimento web, automação e dados para deixar negócios mais simples, conectados e eficientes.</p><div className={styles.heroActions}><a className={styles.buttonPrimary} href="#contato">Falar sobre um projeto <span aria-hidden="true">↗</span></a><a className={styles.textLink} href="#projetos">Ver projetos <span aria-hidden="true">↓</span></a></div></div>
           <div className={styles.heroVisual} aria-label="Foto de perfil de Cauã"><div className={styles.visualGrid} aria-hidden="true" /><div className={styles.heroCircuit} aria-hidden="true"><span /><span /><span /></div><div className={styles.avatarFrame}><Image className={styles.profileImage} src="/foto-perfil.jpg" alt="Cauã usando fones de ouvido" fill preload sizes="(max-width: 760px) 300px, 360px" /></div></div>
         </section>

@@ -1,0 +1,18 @@
+/* Por cima do fundo e do circuito, por baixo do conteúdo; não pega cliques. */
+.outline {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.runner {
+  fill: none;
+  stroke: var(--vermilion);
+  stroke-width: 2;
+  stroke-linecap: round;
+  opacity: 0; /* só aparece enquanto a volta acontece */
+  filter: drop-shadow(0 0 6px rgb(var(--vermilion-rgb) / 0.8));
+}
