@@ -3,16 +3,16 @@
 import { useEffect, useRef } from "react";
 import styles from "./hero-outline.module.css";
 
-const FIRST_DELAY = 900; // ms depois de abrir o site
+const FIRST_DELAY = 600; // ms depois de abrir o site
 const LOOP_MS = 3600; // uma volta inteira
-const EVERY = [2500, 4000]; // intervalo entre as voltas
 
 /**
  * "Contorno vivo": um ponto de luz vermilion percorre a borda arredondada do
- * hero deixando um rastro curto, ao abrir o site e depois a cada 2,5 a 4 segundos.
- * Fica dentro do hero (que já tem overflow hidden e os cantos arredondados) e
- * lê o raio dos cantos do próprio hero, então acompanha o celular também.
- * Pausa com a aba escondida e fica desligado com "reduzir movimento".
+ * hero sem parar, deixando um rastro curto. Fica dentro do hero (que já tem
+ * overflow hidden e os cantos arredondados) e lê o raio dos cantos do próprio
+ * hero, então acompanha o celular também; se o tamanho muda, recalcula e segue.
+ * Pausa com a aba escondida (o navegador congela a animação) e fica desligado
+ * com "reduzir movimento".
  */
 export default function HeroOutline() {
   const svgRef = useRef(null);
@@ -25,43 +25,35 @@ export default function HeroOutline() {
     if (!svg || !rect || !hero) return undefined;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
 
-    let timer = 0;
     let anim = null;
-    let len = 0;
+    let size = "";
 
-    const fit = () => {
+    const run = () => {
       const w = hero.clientWidth;
       const h = hero.clientHeight;
+      if (!w || !h || `${w}x${h}` === size) return;
+      size = `${w}x${h}`;
       const r = parseFloat(getComputedStyle(hero).borderTopLeftRadius) || 0;
       svg.setAttribute("viewBox", `0 0 ${w} ${h}`);
       rect.setAttribute("width", String(w - 2));
       rect.setAttribute("height", String(h - 2));
       rect.setAttribute("rx", String(Math.max(0, r - 1)));
-      len = rect.getTotalLength();
-      const seg = Math.min(260, len * 0.12);
-      rect.style.strokeDasharray = `${seg} ${len}`;
-    };
-
-    const loop = () => {
-      if (document.hidden) {
-        document.addEventListener("visibilitychange", loop, { once: true });
-        return;
-      }
-      fit();
+      const len = rect.getTotalLength();
+      rect.style.strokeDasharray = `${Math.min(260, len * 0.12)} ${len}`;
+      const progress = anim ? (anim.currentTime ?? 0) % LOOP_MS : 0;
       anim?.cancel();
-      anim = rect.animate([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: -len, opacity: 1 }], { duration: LOOP_MS, easing: "linear" });
-      anim.onfinish = () => {
-        timer = window.setTimeout(loop, EVERY[0] + Math.random() * (EVERY[1] - EVERY[0]));
-      };
+      anim = rect.animate([{ strokeDashoffset: 0, opacity: 1 }, { strokeDashoffset: -len, opacity: 1 }], { duration: LOOP_MS, easing: "linear", iterations: Infinity });
+      anim.currentTime = progress;
     };
 
-    const ro = new ResizeObserver(fit);
-    ro.observe(hero);
-    timer = window.setTimeout(loop, FIRST_DELAY);
+    const ro = new ResizeObserver(run);
+    const timer = window.setTimeout(() => {
+      run();
+      ro.observe(hero);
+    }, FIRST_DELAY);
 
     return () => {
       window.clearTimeout(timer);
-      document.removeEventListener("visibilitychange", loop);
       anim?.cancel();
       ro.disconnect();
     };
