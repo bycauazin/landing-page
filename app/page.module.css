@@ -72,7 +72,7 @@
 .eyebrow { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 28px; padding: 8px 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--paper); background: rgb(var(--midnight-ink-rgb) / 0.6); }
 .eyebrow span { width: 7px; height: 7px; border-radius: 50%; background: var(--blue); }
 .hero h1 { max-width: 760px; margin: 0; color: var(--paper); font-size: clamp(44px, 5.4vw, 76px); font-weight: 520; line-height: 0.98; text-wrap: balance; }
-.hero h1 em, .contactSection h2 em { color: var(--blue); font-family: inherit; font-style: normal; font-weight: inherit; }
+.hero h1 em, .contactSection h2 em, .sectionIntro h2 em, .sectionHeading h2 em, .aboutCopy h2 em, .techSection h2 em, .socialsHeading h2 em, .casesSection h2 em { color: var(--blue); font-family: inherit; font-style: normal; font-weight: inherit; }
 .heroText { max-width: 460px; margin: 30px 0 36px; color: var(--muted); font-size: 18px; font-weight: 430; line-height: 1.6; }
 .heroActions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
 .buttonPrimary { padding: 16px 24px; }
@@ -109,6 +109,19 @@
 
 .sectionHeading { display: flex; align-items: end; justify-content: space-between; margin-bottom: 58px; }
 .sectionAside { max-width: 340px; color: var(--muted); font-size: 14px; line-height: 1.5; }
+.skillStrip { display: grid; grid-template-columns: repeat(3, 1fr); margin: -26px 0 40px; padding: 0; border: 1px solid rgb(var(--tint-rgb) / 0.12); border-radius: 22px; background: rgb(var(--tint-rgb) / 0.04); list-style: none; }
+.skillItem { display: flex; align-items: flex-start; gap: 14px; padding: 20px 22px; }
+.skillItem + .skillItem { border-left: 1px solid rgb(var(--tint-rgb) / 0.12); }
+.skillIcon { display: grid; flex: none; width: 40px; height: 40px; place-items: center; border: 1px solid rgb(var(--tint-rgb) / 0.18); border-radius: 12px; color: var(--paper); background: rgb(var(--tint-rgb) / 0.06); transition: transform 220ms ease, background 220ms ease; }
+.skillIcon svg { width: 20px; height: 20px; }
+.skillItem:hover .skillIcon { background: rgb(var(--tint-rgb) / 0.12); transform: translateY(-2px); }
+.skillItem h3 { color: var(--paper); font-size: 16px; font-weight: 560; }
+.skillItem p { margin-top: 4px; color: var(--muted); font-size: 13.5px; line-height: 1.45; }
+@media (max-width: 900px) {
+  .skillStrip { grid-template-columns: 1fr; margin-top: -20px; }
+  .skillItem + .skillItem { border-top: 1px solid rgb(var(--tint-rgb) / 0.12); border-left: 0; }
+  .skillItem { padding: 16px 18px; }
+}
 .sectionSubtitle { max-width: 520px; margin-top: 16px; color: var(--muted); font-size: clamp(16px, 2vw, 21px); line-height: 1.45; }
 .filterControls { position: relative; z-index: 3; display: flex; flex-wrap: wrap; gap: 8px; margin: -18px 0 36px; }
 .filterControls button { display: inline-flex; min-height: 42px; align-items: center; justify-content: space-between; gap: 12px; padding: 10px 16px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: var(--ink); font: inherit; font-size: 12px; cursor: pointer; transition: color 180ms ease, border-color 180ms ease, background 180ms ease; }

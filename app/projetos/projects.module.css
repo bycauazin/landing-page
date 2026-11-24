@@ -15,3 +15,4 @@
   .projectsHero > span { font-size: 13px; }
   .catalogSection { padding: 52px 0 84px; }
 }
+.projectsHero h1 em { color: var(--blue); font-style: normal; font-weight: inherit; }

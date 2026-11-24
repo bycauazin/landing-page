@@ -73,37 +73,15 @@ export default function HomeMotion() {
             clearProps: "filter",
           }, 0.36);
 
-        const services = find(`.${styles.servicesSection}`);
-        gsap.timeline({ scrollTrigger: { trigger: services, start: "top 78%", once: true } })
-          .from(find(`[data-motion-services-intro] .${styles.kicker}`), { x: -20, autoAlpha: 0, duration: 0.5 })
-          .from(all("#services-title [data-motion-line]"), { yPercent: 110, autoAlpha: 0, rotationX: 5, stagger: 0.11, duration: 0.76, ease: "power4.out" }, "-=0.28");
-
-        // Serviços: os cards entram em sequência. Em cada um, a linha do topo se desenha,
-        // o número sobe, o ícone gira para o lugar e as tags entram uma a uma.
-        // `batch` agrupa os cards que entram juntos na tela (3 lado a lado no desktop, 1 no celular).
-        const serviceCards = all("[data-motion-service]");
-        gsap.set(serviceCards, { y: 56, autoAlpha: 0, "--card-line": 0 });
-        ScrollTrigger.batch(serviceCards, {
-          start: "top 86%",
-          once: true,
-          onEnter: (batch) => context.add(() => {
-            batch.forEach((card, index) => {
-              gsap.timeline({ delay: index * 0.14, defaults: { ease: "power3.out" } })
-                .to(card, { y: 0, autoAlpha: 1, duration: 0.85, clearProps: "transform,opacity,visibility" })
-                .to(card, { "--card-line": 1, duration: 0.95, ease: "power2.inOut" }, 0.18)
-                .from(card.querySelector(`.${styles.cardTop}`), { y: 12, autoAlpha: 0, duration: 0.5 }, 0.22)
-                .from(card.querySelector(`.${styles.serviceIcon}`), {
-                  scale: 0.4,
-                  rotation: -40,
-                  autoAlpha: 0,
-                  duration: 0.8,
-                  ease: "back.out(2.1)",
-                  clearProps: "transform,opacity,visibility",
-                }, 0.3)
-                .from(card.querySelectorAll("h3, p"), { y: 18, autoAlpha: 0, stagger: 0.08, duration: 0.6 }, 0.4)
-                .from(card.querySelectorAll("li"), { y: 10, scale: 0.88, autoAlpha: 0, stagger: 0.06, duration: 0.45, ease: "back.out(1.6)" }, 0.62);
-            });
-          }),
+        // O que eu faço: a faixa compacta acima dos projetos entra em sequência.
+        gsap.from(all("[data-motion-skill]"), {
+          y: 24,
+          autoAlpha: 0,
+          stagger: 0.12,
+          duration: 0.7,
+          ease: "power3.out",
+          clearProps: "transform,opacity,visibility",
+          scrollTrigger: { trigger: find(`.${styles.skillStrip}`), start: "top 88%", once: true },
         });
 
         const projects = find(`.${styles.casesSection}`);
@@ -155,21 +133,6 @@ export default function HomeMotion() {
 
     media.add("(min-width: 900px) and (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference)", () => {
       const listeners = [];
-
-      // Brilho que acompanha o cursor dentro dos cards de serviço (posição via CSS vars).
-      root.querySelectorAll("[data-motion-service]").forEach((card) => {
-        const move = (event) => {
-          const rect = card.getBoundingClientRect();
-          card.style.setProperty("--spot-x", `${event.clientX - rect.left}px`);
-          card.style.setProperty("--spot-y", `${event.clientY - rect.top}px`);
-        };
-        card.addEventListener("pointermove", move);
-        listeners.push(() => {
-          card.removeEventListener("pointermove", move);
-          card.style.removeProperty("--spot-x");
-          card.style.removeProperty("--spot-y");
-        });
-      });
 
       root.querySelectorAll("[data-motion-project]").forEach((card) => {
         const rotateX = gsap.quickTo(card, "rotationX", { duration: 0.32, ease: "power2.out" });

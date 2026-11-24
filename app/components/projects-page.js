@@ -14,7 +14,6 @@ import MobileMenu from "./mobile-menu";
 const mobileLinks = [
   { href: "/", label: "Início" },
   { href: "/projetos", label: "Projetos", current: true },
-  { href: "/#servicos", label: "Serviços" },
   { href: "/#sobre", label: "Sobre" },
 ];
 
@@ -28,7 +27,7 @@ export default function ProjectsPage() {
       <div className={homeStyles.progressRail} aria-hidden="true"><span data-motion-progress="" /></div>
       <header className={homeStyles.header}>
         <Link className={homeStyles.brand} href="/" aria-label="Voltar ao início"><BrandLogo className={homeStyles.brandMark} size={42} /><span>bycauazin</span></Link>
-        <nav className={homeStyles.nav} aria-label="Navegação principal"><Link href="/#servicos">Serviços</Link><Link href="/projetos" aria-current="page">Projetos</Link><Link href="/#sobre">Sobre</Link></nav>
+        <nav className={homeStyles.nav} aria-label="Navegação principal"><Link href="/projetos" aria-current="page">Projetos</Link><Link href="/#sobre">Sobre</Link></nav>
         <div className={homeStyles.headerActions}>
           <button className={homeStyles.themeToggle} type="button" onClick={() => setLightMode(!lightMode)} aria-label={lightMode ? "Ativar tema escuro" : "Ativar tema claro"} title={lightMode ? "Ativar tema escuro" : "Ativar tema claro"}><span aria-hidden="true">{lightMode ? "☾" : "☼"}</span></button>
           <Link className={homeStyles.headerCta} href="/#contato">Vamos conversar <span aria-hidden="true">↗</span></Link>
@@ -39,7 +38,7 @@ export default function ProjectsPage() {
       <main>
         <section className={styles.projectsHero} aria-labelledby="projects-title">
           <p className={homeStyles.kicker}>Portfólio</p>
-          <RevealText as="h1" id="projects-title" label="Meus projetos" lines={["Meus projetos"]} />
+          <RevealText as="h1" id="projects-title" label="Meus projetos" lines={[<span key="mine">Meus <em>projetos</em></span>]} />
           <p>Soluções desenvolvidas com diferentes tecnologias, integrações e ferramentas.</p>
           <span>Filtre os projetos pelas tecnologias utilizadas.</span>
         </section>
