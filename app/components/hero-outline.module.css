@@ -10,7 +10,7 @@
 
 .runner {
   fill: none;
-  stroke: var(--vermilion);
+  stroke: var(--blue, var(--vermilion));
   stroke-width: 2;
   stroke-linecap: round;
   opacity: 0; /* só aparece enquanto a volta acontece */

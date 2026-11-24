@@ -11,15 +11,20 @@
 /* Circuito vivo atrás da página inteira (fixo na tela, abaixo de todo o conteúdo) */
 .pageField { position: fixed; z-index: -1; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0; transition: opacity 900ms ease; }
 .pageField[data-ready] { opacity: 1; }
+/* Tema claro: fundo neutro quase branco, azul-gelo só como toque, laranja mais fechado (não estoura no claro) */
 .light {
-  --ink: var(--ice-blue);
-  --surface: color-mix(in srgb, var(--ice-blue) 88%, #fff);
+  --light-bg: #f4f6f8;
+  --light-bg-rgb: 244 246 248;
+  --accent-rgb: 207 74 44;
+  --ink: var(--light-bg);
+  --surface: #fff;
   --paper: var(--midnight-ink);
-  --muted: color-mix(in srgb, var(--midnight-ink) 76%, var(--ice-blue));
-  --line: rgb(var(--midnight-ink-rgb) / 0.18);
-  --blue: var(--vermilion);
-  --blue-light: #c2361d;
-  --base-rgb: var(--ice-blue-rgb);
+  --muted: color-mix(in srgb, var(--midnight-ink) 74%, #fff);
+  --line: rgb(var(--midnight-ink-rgb) / 0.12);
+  --blue: #cf4a2c;
+  --blue-light: #b23c21;
+  --on-accent: #fff;
+  --base-rgb: var(--light-bg-rgb);
   --tint-rgb: var(--midnight-ink-rgb);
   color-scheme: light;
   background: var(--ink);
@@ -36,6 +41,19 @@
   --tint-rgb: var(--ice-blue-rgb);
   --base-rgb: var(--midnight-ink-rgb);
 }
+/* Tema claro: header e hero também ficam claros (a foto vira uma versão clara e um véu azul-gelo cobre o fundo) */
+.light .header, .light .hero {
+  --ink: var(--light-bg);
+  --paper: var(--midnight-ink);
+  --muted: color-mix(in srgb, var(--midnight-ink) 74%, #fff);
+  --line: rgb(var(--midnight-ink-rgb) / 0.12);
+  --blue-light: #b23c21;
+  --tint-rgb: var(--midnight-ink-rgb);
+  --base-rgb: var(--light-bg-rgb);
+}
+/* Página clara: barra de rolagem e fundo do navegador (ao puxar além do fim) acompanham o tema */
+:global(html):has(.light) { color-scheme: light; background: #f4f6f8; scrollbar-color: rgb(var(--midnight-ink-rgb) / 0.3) #f4f6f8; }
+:global(body):has(.light) { background: #f4f6f8; }
 .header { position: absolute; z-index: 6; top: 12px; right: 0; left: 0; display: flex; align-items: center; justify-content: space-between; height: 92px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--paper); font-size: 15px; font-weight: 650; }
 .brandMark { display: block; width: 42px; height: 42px; flex: none; }
@@ -91,6 +109,18 @@
 .heroCircuit span:nth-child(3) { top: 78%; }
 .avatarFrame { position: relative; z-index: 1; will-change: transform; backface-visibility: hidden; display: grid; width: min(86%, 340px); aspect-ratio: 1; place-items: center; overflow: hidden; border: 6px solid rgb(var(--ice-blue-rgb) / 0.9); border-radius: 50%; background: var(--surface); box-shadow: 0 0 0 14px rgb(var(--ice-blue-rgb) / 0.08), 0 30px 80px rgb(0 0 0 / 0.45); }
 .profileImage { will-change: transform; object-fit: cover; object-position: center; display: block; width: 100%; height: 100%; border-radius: 50%; }
+.light .hero { background: var(--light-bg); box-shadow: inset 0 0 0 1px rgb(var(--midnight-ink-rgb) / 0.06); }
+.light .heroBackground { filter: invert(1) hue-rotate(180deg) saturate(0.35) brightness(1.08); }
+.light .heroShade { background: linear-gradient(90deg, rgb(var(--light-bg-rgb) / 0.97) 0%, rgb(var(--light-bg-rgb) / 0.88) 48%, rgb(var(--light-bg-rgb) / 0.6) 100%), linear-gradient(0deg, rgb(var(--ice-blue-rgb) / 0.55), transparent 55%); }
+.light .nav, .light .themeToggle, .light .menuToggle, .light .eyebrow { background: rgb(255 255 255 / 0.82); backdrop-filter: blur(8px); box-shadow: 0 1px 2px rgb(var(--midnight-ink-rgb) / 0.06); }
+.light .nav a:hover, .light .mobileMenuPanel a[aria-current="page"], .light .mobileMenuPanel a:active { background: rgb(var(--midnight-ink-rgb) / 0.08); }
+.light .mobileMenuPanel { background: rgb(255 255 255 / 0.97); box-shadow: 0 22px 60px rgb(var(--midnight-ink-rgb) / 0.22); }
+.light .visualGrid { background-image: linear-gradient(rgb(var(--midnight-ink-rgb) / 0.2) 1px, transparent 1px), linear-gradient(90deg, rgb(var(--midnight-ink-rgb) / 0.2) 1px, transparent 1px); }
+.light .heroCircuit, .light .heroCircuit span { border-color: rgb(var(--midnight-ink-rgb) / 0.4); }
+.light .heroCircuit::before, .light .heroCircuit::after { background: var(--light-bg); }
+.light .headerCta:hover, .light .buttonPrimary:hover, .light .contactButton:hover { background: #b23c21; }
+.light .progressRail span { background: var(--blue); }
+.light .avatarFrame { border-color: #fff; box-shadow: 0 0 0 14px rgb(var(--midnight-ink-rgb) / 0.06), 0 30px 80px rgb(var(--midnight-ink-rgb) / 0.25); }
 .avatar span, .aboutMark span { color: var(--blue); }
 
 .servicesSection, .casesSection, .techSection { width: min(1180px, calc(100% - 64px)); margin: 0 auto; padding: 120px 0; border-top: 1px solid var(--line); }
@@ -220,7 +250,7 @@
 .techItem { display: inline-flex; min-height: 52px; align-items: center; gap: 10px; padding: 8px 18px 8px 10px; border: 1px solid var(--line); border-radius: 999px; background: rgb(var(--tint-rgb) / 0.04); color: var(--paper); font-size: 13px; transition: border-color 180ms ease, background 180ms ease, transform 180ms ease; }
 .techItem:hover { border-color: var(--blue); background: rgb(var(--tint-rgb) / 0.1); transform: translateY(-3px); }
 .contactSection { display: flex; flex-direction: column; align-items: center; margin: 0 12px 12px; padding: 140px 24px; border-radius: 32px; text-align: center; background: linear-gradient(140deg, var(--midnight-ink), color-mix(in srgb, var(--midnight-ink) 82%, var(--ice-blue))); }
-.light .contactSection { background: linear-gradient(140deg, var(--ice-blue), color-mix(in srgb, var(--ice-blue) 84%, var(--midnight-ink))); }
+.light .contactSection { background: linear-gradient(140deg, #fff, color-mix(in srgb, var(--ice-blue) 60%, #fff)); box-shadow: inset 0 0 0 1px rgb(var(--midnight-ink-rgb) / 0.06); }
 .contactSection h2 { max-width: 760px; margin: 18px 0 20px; color: var(--paper); font-size: clamp(38px, 5vw, 70px); font-weight: 480; line-height: 1; }
 .contactSection > p { max-width: 420px; }
 .contactButton { margin-top: 34px; padding: 18px 22px; }
@@ -278,6 +308,7 @@
   .pageField[data-ready] { opacity: 0.7; }
   .heroField[data-ready] { opacity: 0.6; }
   .heroShade { background: linear-gradient(180deg, rgb(var(--midnight-ink-rgb) / 0.9), rgb(var(--midnight-ink-rgb) / 0.82) 55%, rgb(var(--midnight-ink-rgb) / 0.96)); }
+  .light .heroShade { background: linear-gradient(180deg, rgb(var(--light-bg-rgb) / 0.92), rgb(var(--light-bg-rgb) / 0.84) 55%, rgb(var(--light-bg-rgb) / 0.96)); }
   .techHeading { display: block; }
   .techToggle { margin-top: 24px; }
   .techGrid { grid-template-columns: 1fr; }
@@ -377,7 +408,7 @@
 .contactSection { position: relative; isolation: isolate; overflow: hidden; }
 .contactSection > :not(.contactAura) { position: relative; z-index: 1; }
 .contactAura { position: absolute; z-index: 0; top: 52%; left: 50%; width: min(76vw, 820px); height: 360px; border-radius: 50%; background: radial-gradient(ellipse, rgb(var(--vermilion-rgb) / .16), transparent 72%); transform: translate(-50%, -50%); pointer-events: none; }
-.light .contactAura { background: radial-gradient(ellipse, rgb(var(--tint-rgb) / .12), transparent 72%); }
+.light .contactAura { background: radial-gradient(ellipse, rgb(var(--accent-rgb) / .08), transparent 72%); }
 
 @media (min-width: 901px) and (max-width: 1100px) {
   .serviceCard { padding: 22px; }
@@ -417,3 +448,7 @@
   .techHeading { display: block; }
   .techToggle { margin-top: 20px; }
 }
+
+/* Tema claro: cartões brancos com sombra suave (em vez de cinza-azulado sobre o fundo claro) */
+.light :is(.caseItem, .aboutCopy, .serviceCard, .skillStrip, .socialLink, .techCategory, .techItem) { border-color: rgb(var(--midnight-ink-rgb) / 0.09); background: #fff; box-shadow: 0 1px 2px rgb(var(--midnight-ink-rgb) / 0.04), 0 8px 24px rgb(var(--midnight-ink-rgb) / 0.05); }
+.light :is(.caseItem, .socialLink, .techItem):hover { border-color: rgb(var(--accent-rgb) / 0.45); background: #fff; box-shadow: 0 2px 4px rgb(var(--midnight-ink-rgb) / 0.05), 0 14px 32px rgb(var(--midnight-ink-rgb) / 0.08); }

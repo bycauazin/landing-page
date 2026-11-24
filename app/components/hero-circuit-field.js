@@ -10,6 +10,7 @@ import { useEffect, useRef } from "react";
 const ICE = "200,223,234";
 const MIDNIGHT = "11,46,67";
 const VERMILION = "255,79,49";
+const VERMILION_DEEP = "207,74,44"; // no tema claro: laranja mais fechado, não estoura no fundo claro
 
 // "hero": forte, só no topo. "page": camada fixa atrás da página inteira, bem mais discreta.
 const VARIANTS = {
@@ -182,6 +183,7 @@ export default function HeroCircuitField({ className, variant = "hero", light = 
     if (!ctx) return undefined;
     const look = VARIANTS[variant] || VARIANTS.hero;
     const traceColor = light ? MIDNIGHT : ICE;
+    const accent = light ? VERMILION_DEEP : VERMILION;
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return undefined;
 
     let w = 0;
@@ -226,6 +228,7 @@ export default function HeroCircuitField({ className, variant = "hero", light = 
 
     // Dispara pulsos nas trilhas que passam perto do cursor, a partir do ponto mais próximo
     const tapNear = (x, y) => {
+      if (!look.pulse) return; // variante "sweep": sem pulsos do mouse
       const r2 = TAP_RADIUS * TAP_RADIUS;
       const now = performance.now();
       for (const t of traces) {
@@ -251,7 +254,7 @@ export default function HeroCircuitField({ className, variant = "hero", light = 
         const b = tail + ((head - tail) * (s + 1)) / pieces;
         const [ax, ay] = pointAt(t, a);
         const [bx, by] = pointAt(t, b);
-        ctx.strokeStyle = `rgba(${VERMILION},${(((s + 1) / pieces) * alpha).toFixed(3)})`;
+        ctx.strokeStyle = `rgba(${accent},${(((s + 1) / pieces) * alpha).toFixed(3)})`;
         ctx.beginPath();
         ctx.moveTo(ax, ay);
         ctx.lineTo(bx, by);
@@ -259,11 +262,11 @@ export default function HeroCircuitField({ className, variant = "hero", light = 
       }
       if (d < t.length) {
         const [hx, hy] = pointAt(t, head);
-        ctx.fillStyle = `rgba(${VERMILION},${(0.26 * alpha).toFixed(3)})`;
+        ctx.fillStyle = `rgba(${accent},${(0.26 * alpha).toFixed(3)})`;
         ctx.beginPath();
         ctx.arc(hx, hy, 5, 0, Math.PI * 2);
         ctx.fill();
-        ctx.fillStyle = light ? `rgb(${VERMILION})` : `rgba(255,214,204,${alpha.toFixed(2)})`;
+        ctx.fillStyle = light ? `rgba(${accent},${alpha.toFixed(2)})` : `rgba(255,214,204,${alpha.toFixed(2)})`;
         ctx.beginPath();
         ctx.arc(hx, hy, 1.6, 0, Math.PI * 2);
         ctx.fill();
@@ -271,12 +274,12 @@ export default function HeroCircuitField({ className, variant = "hero", light = 
     };
 
     const drawPad = (x, y, flash, alpha) => {
-      ctx.strokeStyle = `rgba(${VERMILION},${(flash * alpha).toFixed(3)})`;
+      ctx.strokeStyle = `rgba(${accent},${(flash * alpha).toFixed(3)})`;
       ctx.lineWidth = 1.6;
       ctx.beginPath();
       ctx.arc(x, y, 3.4 + (1 - flash) * 7, 0, Math.PI * 2);
       ctx.stroke();
-      ctx.fillStyle = `rgba(${VERMILION},${(flash * alpha * 0.9).toFixed(3)})`;
+      ctx.fillStyle = `rgba(${accent},${(flash * alpha * 0.9).toFixed(3)})`;
       ctx.beginPath();
       ctx.arc(x, y, 2.6, 0, Math.PI * 2);
       ctx.fill();
@@ -414,7 +417,7 @@ export default function HeroCircuitField({ className, variant = "hero", light = 
 
     // Pulsos automáticos quando ninguém mexe o mouse (e no celular)
     const autoPulse = () => {
-      if (ready && visible && traces.length && performance.now() - lastMove > IDLE_AFTER) {
+      if (look.pulse && ready && visible && traces.length && performance.now() - lastMove > IDLE_AFTER) {
         const t = traces[Math.floor(Math.random() * traces.length)];
         spawn(t, 0);
         wake();
