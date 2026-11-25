@@ -92,3 +92,34 @@ export function RoadmapStatus({ items }) {
     </section>
   );
 }
+
+/**
+ * "Em poucas palavras": a porta de entrada de cada estudo de caso, logo depois do topo.
+ * Dois caminhos lado a lado: um texto sem termos técnicos (para quem quer entender o que
+ * mudou na vida de quem usa) e a lista do que interessa a quem é da área (stack e decisões).
+ * Cada lado tem um atalho para a parte da página que responde aquela curiosidade.
+ * `className` é a classe de seção da própria página (largura, espaçamento e linha de cima).
+ */
+export function ReadingGuide({ className = "", minutes, plain, plainLink, technical, technicalLink }) {
+  return (
+    <section className={`${className} ${sharedStyles.guide}`} aria-labelledby="guide-title" data-rail="Em poucas palavras" data-rail-icon="summary">
+      <div className={sharedStyles.guideHead}>
+        <p>Antes de começar</p>
+        <h2 id="guide-title">Em poucas palavras</h2>
+        {minutes && <span>Leitura de uns {minutes} min · escolha o seu caminho</span>}
+      </div>
+      <div className={sharedStyles.guideGrid}>
+        <article className={sharedStyles.guidePlain}>
+          <span><i aria-hidden="true">☺</i>Para todo mundo</span>
+          {[].concat(plain).map((text) => <p key={text}>{text}</p>)}
+          {plainLink && <a href={plainLink.href}>{plainLink.label} <b aria-hidden="true">↓</b></a>}
+        </article>
+        <article className={sharedStyles.guideTech}>
+          <span><i aria-hidden="true">{"</>"}</i>Para quem é técnico</span>
+          <ul>{technical.map((item) => <li key={item}>{item}</li>)}</ul>
+          {technicalLink && <a href={technicalLink.href}>{technicalLink.label} <b aria-hidden="true">↓</b></a>}
+        </article>
+      </div>
+    </section>
+  );
+}

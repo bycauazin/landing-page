@@ -1,5 +1,6 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import FloatingWhatsApp from "./components/floating-whatsapp";
+import { themeScript } from "./components/theme-script";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -47,7 +48,9 @@ export const metadataBase = new URL("https://bycauazin.web.app");
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="pt-BR" className={`${geistSans.variable} ${geistMono.variable}`}>
+    // suppressHydrationWarning: o script do <head> pode trocar o data-theme antes do React hidratar.
+    <html lang="pt-BR" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
+      <head><script dangerouslySetInnerHTML={{ __html: themeScript }} /></head>
       <body>{children}<FloatingWhatsApp /></body>
     </html>
   );

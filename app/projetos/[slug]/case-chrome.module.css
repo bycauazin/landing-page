@@ -1,0 +1,131 @@
+/* Peças comuns a todas as páginas de projeto: cabeçalho com botão de tema e barra lateral de seções. */
+
+/* ---------- cabeçalho ---------- */
+.brand { gap: 10px; }
+.brandMark { display: block; width: 34px; height: 34px; flex: none; border-radius: 50%; }
+.headerActions { display: flex; align-items: center; gap: 14px; }
+.themeToggle {
+  display: grid;
+  width: 38px;
+  height: 38px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--paper);
+  background: var(--surface);
+  cursor: pointer;
+  font-size: 16px;
+  transition: border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+.themeToggle:hover { border-color: var(--blue); color: var(--blue); transform: rotate(15deg); }
+.themeToggle:focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; }
+
+/* ---------- barra lateral ---------- */
+.rail {
+  --step: 44px; /* botão (40) + espaço (4) */
+  position: fixed;
+  top: 50%;
+  right: 18px;
+  z-index: 40;
+  transform: translateY(-50%);
+  font-family: var(--font-ui);
+  animation: railIn 700ms cubic-bezier(.2, .8, .2, 1) both;
+}
+.rail ul {
+  position: relative;
+  display: flex;
+  max-height: calc(100vh - 120px);
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--surface) 92%, transparent);
+  box-shadow: 0 18px 44px rgb(0 0 0 / .22);
+  backdrop-filter: blur(12px);
+  list-style: none;
+}
+:global(html[data-theme="light"]) .rail ul { box-shadow: 0 12px 32px rgb(var(--midnight-ink-rgb) / .12); }
+
+.rail li { position: relative; }
+.rail li:not(.railMarker):not(.railProgress) { animation: iconIn 520ms cubic-bezier(.2, .8, .2, 1) both; animation-delay: calc(180ms + var(--i) * 45ms); }
+
+.rail button {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 0;
+  border-radius: 12px;
+  color: var(--muted);
+  background: transparent;
+  cursor: pointer;
+  transition: color 200ms ease, background-color 200ms ease, transform 200ms ease;
+}
+.rail button svg { width: 19px; height: 19px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.rail button:hover { color: var(--paper); background: rgb(var(--tint-rgb) / .08); }
+.rail button:focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+.rail .railActive, .rail .railActive:hover { color: var(--blue); background: transparent; }
+.rail .railActive svg { animation: pop 420ms cubic-bezier(.3, 1.6, .5, 1); }
+
+/* o fundo do item ativo desliza de um ícone para o outro */
+.railMarker {
+  position: absolute !important;
+  top: 6px;
+  left: 6px;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--blue) 15%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--blue) 30%, transparent);
+  transform: translateY(calc(var(--active) * var(--step)));
+  transition: transform 420ms cubic-bezier(.3, 1.3, .5, 1);
+  pointer-events: none;
+}
+
+/* nome da seção, à esquerda do ícone */
+.railTip {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 12px);
+  padding: 6px 10px;
+  border-radius: 8px;
+  color: var(--ink);
+  background: var(--paper);
+  font-size: 12px;
+  font-weight: 550;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(6px, -50%);
+  transition: opacity 160ms ease, transform 160ms ease;
+}
+.rail li:hover .railTip, .rail li:focus-within .railTip { opacity: 1; transform: translate(0, -50%); }
+
+/* quanto da página já foi lido */
+.railProgress { width: 24px; height: 4px; margin: 4px auto 2px; overflow: hidden; border-radius: 99px; background: var(--line); }
+.railProgress span { display: block; width: 100%; height: 100%; background: var(--blue); transform-origin: left center; transition: transform 150ms linear; }
+
+@keyframes railIn { from { opacity: 0; transform: translate(24px, -50%); } }
+@keyframes iconIn { from { opacity: 0; transform: translateX(14px); } }
+@keyframes pop { 0% { transform: scale(.8); } 60% { transform: scale(1.15); } 100% { transform: scale(1); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .rail, .rail li, .rail .railActive svg { animation: none !important; }
+  .railMarker, .railTip, .railProgress span, .rail button, .themeToggle { transition: none; }
+  .themeToggle:hover { transform: none; }
+}
+
+/* telas baixas: ícones menores para a coluna inteira caber (o governança tem 15 paradas) */
+@media (max-height: 820px) {
+  .rail { --step: 38px; }
+  .rail button, .railMarker { width: 34px; height: 34px; border-radius: 10px; }
+  .rail button svg { width: 17px; height: 17px; }
+}
+
+@media (max-width: 620px) {
+  .headerActions { gap: 10px; }
+  .themeToggle { width: 36px; height: 36px; }
+}

@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { BeforeAfter, FlowDiagram, ImpactCards, LeadQuote, RoadmapStatus } from "./case-shared";
+import CaseHeader from "./case-header";
+import { BeforeAfter, FlowDiagram, LeadQuote, RoadmapStatus, ReadingGuide } from "./case-shared";
 import CaseFloatingActions from "./case-floating-actions";
 import styles from "./planner-power-bi-case.module.css";
-import BrandLogo from "../../components/brand-logo";
 
 const statusStages = [
   {
@@ -121,10 +121,7 @@ function Flow({ label, items, accent = false }) {
 export default function GovernancaTeamsCase() {
   return (
     <div className={styles.page} id="top">
-      <header className={styles.header}>
-        <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><BrandLogo /> bycauazin</Link>
-        <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
-      </header>
+      <CaseHeader styles={styles} />
 
       <main>
         <section className={styles.hero} aria-labelledby="case-title">
@@ -162,13 +159,16 @@ export default function GovernancaTeamsCase() {
           </div>
         </section>
 
-        <LeadQuote text="Uma estrutura criada para transformar o mapa de reuniões corporativas em um processo automatizado de acompanhamento e governança, sem remover a decisão humana do centro do processo." />
+        <ReadingGuide
+          className={styles.section}
+          minutes={7}
+          plain={["Numa empresa, várias reuniões precisam acontecer com a frequência certa, com as pessoas certas e com pauta. Conferir isso à mão, calendário por calendário, toma tempo e deixa coisas passarem.", "Estou construindo uma automação que compara o que deveria acontecer com o que está na agenda do Teams e registra o que estiver fora do lugar. A decisão continua com as pessoas: o sistema aponta, não decide sozinho."]}
+          plainLink={{ label: "Ver em que pé está", href: "#status-title" }}
+          technical={["Listas do SharePoint como fonte do mapa de governança", "Power Automate consultando o calendário e validando as regras de cada reunião", "Criação controlada de reuniões ausentes, com prevenção de duplicidade", "Ocorrências registradas para análise humana; recorrências e cancelamentos em desenvolvimento"]}
+          technicalLink={{ label: "Ir para a arquitetura", href: "#architecture-title" }}
+        />
 
-        <ImpactCards cards={[
-          { title: "Problema", text: "As reuniões recorrentes dependiam de verificações manuais e de um mapa de governança que não era facilmente operado pelas automações." },
-          { title: "Solução", text: "Estruturei listas no SharePoint e automatizei verificações, ocorrências e notificações para melhorar o acompanhamento." },
-          { title: "Impacto", text: "A governança ficou mais organizada, com maior visibilidade sobre ausência, duplicidade, cancelamento e divergência." },
-        ]} />
+        <LeadQuote text="Uma estrutura criada para transformar o mapa de reuniões corporativas em um processo automatizado de acompanhamento e governança, sem remover a decisão humana do centro do processo." />
 
         <BeforeAfter
           before={["Mapa em planilha", "Verificação manual", "Calendário", "Análise de divergência", "Ajuste humano"]}

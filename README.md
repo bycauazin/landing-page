@@ -54,13 +54,15 @@ Essa estrutura facilita a manutenção: um novo projeto pode ser cadastrado sem 
 
 ```text
 app/
-├── components/              # Componentes reutilizáveis
+├── components/              # Componentes reutilizáveis (mapa em app/components/README.md)
 ├── data/projects.js         # Projetos, tecnologias e documentação
-├── projetos/                # Catálogo de projetos
-│   └── [slug]/              # Página individual de cada projeto
-├── layout.js                # Estrutura e metadados globais
+├── projetos/                # Catálogo de projetos (mapa em app/projetos/README.md)
+│   └── [slug]/              # Página individual de cada projeto e estudos de caso
+├── layout.js                # Estrutura, metadados e tema salvo (claro/escuro)
 └── page.js                  # Página inicial
 ```
+
+O tema claro/escuro vale no site inteiro e fica guardado no navegador. Os estudos de caso têm uma barra lateral de ícones (uma parada por seção) e começam com "Em poucas palavras": um resumo sem termos técnicos e outro para quem é da área.
 
 ## Executando localmente
 
@@ -110,6 +112,16 @@ documentation: {
   codeSamples: [],
 }
 ```
+
+Campos opcionais que mudam a página e o cartão:
+
+```js
+image: "/project-images/nome.jpg",           // foto da tela (16:10) como capa; sem ela, o cartão mostra os ícones das tecnologias
+guide: { plain: ["..."], technical: ["..."] }, // bloco "Em poucas palavras" (leigos e técnicos)
+progress: { done: ["..."], next: ["..."] },   // projetos em desenvolvimento: o que está pronto e o que vem depois
+```
+
+Use foto de capa só em projetos que têm tela (app, site, dashboard, janela desktop). Projetos só de código ficam com os ícones.
 
 Para classificar uma entrega, utilize:
 

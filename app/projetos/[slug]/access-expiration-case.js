@@ -1,7 +1,8 @@
 import Link from "next/link";
+import CaseHeader from "./case-header";
+import { ReadingGuide } from "./case-shared";
 import CaseFloatingActions from "./case-floating-actions";
 import styles from "./access-expiration-case.module.css";
-import BrandLogo from "../../components/brand-logo";
 
 const relationCards = [
   ["Empresa", "StudentCompany", "Validade do vínculo com uma empresa"],
@@ -126,10 +127,7 @@ function ArrowFlow({ items, label }) {
 export default function AccessExpirationCase() {
   return (
     <div className={styles.page} id="top">
-      <header className={styles.header}>
-        <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><BrandLogo /> bycauazin</Link>
-        <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
-      </header>
+      <CaseHeader styles={styles} />
 
       <main>
         <section className={styles.hero} aria-labelledby="case-title">
@@ -152,6 +150,15 @@ export default function AccessExpirationCase() {
             {["JavaScript", "Node.js", "React.js", "Sequelize", "PostgreSQL", "Moodle"].map((tag) => <span key={tag}>{tag}</span>)}
           </div>
         </section>
+
+        <ReadingGuide
+          className={styles.section}
+          minutes={6}
+          plain={["Numa plataforma de cursos, um aluno pode ter vários acessos ao mesmo tempo (empresa, turma, nível, módulos), e cada um vence numa data diferente. Desligar o aluno inteiro quando só um deles vence seria um erro.", "Criei uma automação que confere o que venceu, desliga só aquele acesso, guarda o histórico e avisa a plataforma de aulas. Antes de aplicar, dá para simular e ver o que ela faria."]}
+          plainLink={{ label: "Ver o resultado", href: "#result-title" }}
+          technical={["Node.js + Sequelize + PostgreSQL, com a data de expiração em cada relação (não no aluno)", "Modo preview: o mesmo fluxo planeja sem gravar nada", "Transaction no banco local e reexecução segura (sem duplicar vínculos)", "Sincronização com cohorts do Moodle pela API de Web Services"]}
+          technicalLink={{ label: "Ir para o fluxo de expiração", href: "#flow-title" }}
+        />
 
         <div className={styles.leadStatement}>
           <span>Decisão central</span>

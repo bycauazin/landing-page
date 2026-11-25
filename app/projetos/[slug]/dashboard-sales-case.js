@@ -1,7 +1,8 @@
 import Link from "next/link";
+import CaseHeader from "./case-header";
+import { ReadingGuide } from "./case-shared";
 import CaseFloatingActions from "./case-floating-actions";
 import styles from "./dashboard-sales-case.module.css";
-import BrandLogo from "../../components/brand-logo";
 
 const daxCode = [
   "Faturamento = SUM('Vendas'[Total])",
@@ -65,7 +66,7 @@ function DashboardMockup() {
 export default function DashboardSalesCase() {
   return (
     <div className={styles.page} id="top">
-      <header className={styles.header}><Link className={styles.brand} href="/#projetos"><BrandLogo /> bycauazin</Link><Link className={styles.backLink} href="/projetos">← Todos os projetos</Link></header>
+      <CaseHeader styles={styles} />
       <main>
         <section className={styles.hero} aria-labelledby="case-title">
           <div className={styles.heroMeta}><p>Power BI · Business Intelligence</p><span>Estudo de caso</span></div>
@@ -75,6 +76,15 @@ export default function DashboardSalesCase() {
           </div>
           <div className={styles.tags}>{["Power BI", "Power Query", "DAX", "Modelagem", "Visualização de dados"].map((tag) => <span key={tag}>{tag}</span>)}</div>
         </section>
+
+        <ReadingGuide
+          className={styles.section}
+          minutes={4}
+          plain={["Uma planilha de vendas com pedidos, produtos, clientes e custos responde pouca coisa à primeira vista: são só linhas.", "Transformei essa base num painel de uma página só, que se lê de cima para baixo: primeiro quanto se vendeu, quanto custou e quanto sobrou; depois como isso mudou mês a mês; por fim, quais produtos e clientes explicam o resultado."]}
+          plainLink={{ label: "Ver o painel", href: "#dashboard-title" }}
+          technical={["Power Query para tratar e normalizar a base em Excel", "Modelo semântico com medidas DAX explícitas (DIVIDE em margem e ticket médio)", "Projeto salvo em PBIP, versionável como texto", "Filtros de mês, cliente, produto, origem e pagamento na mesma página"]}
+          technicalLink={{ label: "Ir para as medidas DAX", href: "#metrics-title" }}
+        />
 
         <div className={styles.leadStatement}><span>Decisão central</span><blockquote>O dashboard organiza a leitura comercial: do resultado geral até o produto ou cliente que explica esse resultado.</blockquote></div>
 

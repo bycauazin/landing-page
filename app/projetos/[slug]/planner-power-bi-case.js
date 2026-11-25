@@ -1,8 +1,8 @@
 import Link from "next/link";
-import { BeforeAfter, FlowDiagram, ImpactCards, LeadQuote } from "./case-shared";
+import CaseHeader from "./case-header";
+import { BeforeAfter, FlowDiagram, LeadQuote, ReadingGuide } from "./case-shared";
 import CaseFloatingActions from "./case-floating-actions";
 import styles from "./planner-power-bi-case.module.css";
-import BrandLogo from "../../components/brand-logo";
 
 const oldProcess = [
   "Planner com tarefas e prazos",
@@ -78,10 +78,7 @@ function Flow({ label, items, accent = false }) {
 export default function PlannerPowerBICase() {
   return (
     <div className={styles.page} id="top">
-      <header className={styles.header}>
-        <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><BrandLogo /> bycauazin</Link>
-        <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
-      </header>
+      <CaseHeader styles={styles} />
 
       <main>
         <section className={styles.hero} aria-labelledby="case-title">
@@ -119,13 +116,16 @@ export default function PlannerPowerBICase() {
           </div>
         </section>
 
-        <LeadQuote text="O dashboard deixou de depender de uma planilha atualizada manualmente e passou a receber os dados automaticamente, mantendo o acompanhamento mais confiável." />
+        <ReadingGuide
+          className={styles.section}
+          minutes={7}
+          plain={["Os gestores acompanhavam as tarefas das equipes num painel do Power BI, mas alguém precisava copiar os dados do Planner para uma planilha antes. Se esquecesse, o painel mostrava informação velha.", "Montei uma automação que busca as tarefas sozinha e entrega ao painel já atualizadas. Ninguém precisa mais copiar nada, e o painel passou a merecer confiança."]}
+          plainLink={{ label: "Ver o painel", href: "#dashboard-title" }}
+          technical={["Power Automate chamando o Microsoft Graph para ler planos e tarefas do Planner", "Arquivos JSON numa biblioteca do SharePoint como camada intermediária", "Power BI lê o SharePoint e atualiza sozinho no serviço online", "A primeira versão (consulta direta) não se sustentou em produção; a seção 03 conta por quê"]}
+          technicalLink={{ label: "Ir para a arquitetura", href: "#architecture-title" }}
+        />
 
-        <ImpactCards cards={[
-          { title: "Problema", text: "Tarefas registradas no Planner precisavam ser copiadas manualmente para uma planilha usada como base do dashboard." },
-          { title: "Solução", text: "Desenvolvi uma automação para consultar os dados do ambiente Microsoft e organizar a base para o painel." },
-          { title: "Impacto", text: "O acompanhamento deixou de depender de atualização manual e passou a refletir melhor a realidade operacional." },
-        ]} />
+        <LeadQuote text="O dashboard deixou de depender de uma planilha atualizada manualmente e passou a receber os dados automaticamente, mantendo o acompanhamento mais confiável." />
 
         <BeforeAfter
           before={["Planner", "Pessoa atualiza planilha", "Power BI", "Dados dependem de revisão manual"]}

@@ -1,9 +1,14 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { categoryLabels, getProject, projects, statusLabels } from "../../data/projects";
 import TechnologyIcon from "../../components/technology-icon";
 import AccessExpirationCase from "./access-expiration-case";
+import CaseFloatingActions from "./case-floating-actions";
+import CaseHeader from "./case-header";
 import CaseMotion from "./case-motion";
+import CaseRail from "./case-rail";
+import { ReadingGuide } from "./case-shared";
 import CourseAccessCase from "./course-access-case";
 import DashboardSalesCase from "./dashboard-sales-case";
 import ExportacaoDiariaCase from "./exportacao-diaria-case";
@@ -11,18 +16,40 @@ import FolderCreationCase from "./folder-creation-case";
 import GovernancaTeamsCase from "./governanca-teams-case";
 import PlannerPowerBICase from "./planner-power-bi-case";
 import styles from "./project.module.css";
-import BrandLogo from "../../components/brand-logo";
+
+const pad = (n) => String(n).padStart(2, "0");
+
+// Print da tela no topo da página (a mesma foto de capa do cartão), numa moldura de navegador.
+function HeroShot({ project, preview = false }) {
+  return (
+    <figure className={styles.heroShot}>
+      <div className={styles.shotBar} aria-hidden="true"><i /><i /><i /><span>{project.liveUrl ? project.liveUrl.replace(/^https?:\/\//, "") : project.title}</span></div>
+      <Image src={project.image} alt={`Tela do ${project.title}`} width={1280} height={800} sizes="(max-width: 900px) 100vw, 520px" priority />
+      {preview && <figcaption>Prévia do que já está pronto</figcaption>}
+    </figure>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className={styles.footer}>
+      <span>© {new Date().getFullYear()} Cauã · bycauazin</span>
+      <Link href="/projetos">Voltar aos projetos ↑</Link>
+    </footer>
+  );
+}
 
 function ProjectUnderDevelopment({ project }) {
+  const topics = [{ href: "#dev-title", label: "Em desenvolvimento" }];
+  if (project.features) topics.push({ href: "#features-title", label: "O que está sendo construído" });
+  if (project.progress) topics.push({ href: "#progress-title", label: "Pronto e próximas etapas" });
+
   return (
-    <div className={styles.page}>
-      <header className={styles.header}>
-        <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><BrandLogo /> bycauazin</Link>
-        <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
-      </header>
+    <div className={styles.page} id="top">
+      <CaseHeader styles={styles} />
 
       <main>
-        <section className={styles.developmentHero} aria-labelledby="project-title">
+        <section className={`${styles.developmentHero} ${project.image ? styles.developmentHeroShot : ""}`} aria-labelledby="project-title">
           <div className={styles.developmentBadgeWrap}>
             <p className={styles.kicker}>{categoryLabels[project.category]}</p>
             <span className={`${styles.projectStatus} ${styles.developmentStatus}`}>
@@ -30,15 +57,20 @@ function ProjectUnderDevelopment({ project }) {
             </span>
           </div>
 
-          <div className={styles.developmentVisual} aria-hidden="true">
-            <div className={styles.devOrb} />
-            <div className={styles.devSignal} />
-          </div>
+          {project.image ? (
+            <HeroShot project={project} preview />
+          ) : (
+            <div className={styles.developmentVisual} aria-hidden="true">
+              <div className={styles.devOrb} />
+              <div className={styles.devSignal} />
+            </div>
+          )}
 
           <div className={styles.developmentText}>
             <h1 id="project-title">{project.title}</h1>
             <p className={styles.projectGroup}>{project.group}</p>
             <p className={styles.summary}>{project.description}</p>
+            <div className={styles.tags}>{project.technologies.map((technologyId) => <TechnologyIcon className={styles.techTag} technology={technologyId} size="sm" showLabel key={technologyId} />)}</div>
             <div className={styles.devIndicator}>
               <span className={styles.devDot} />
               <span>Desenvolvimento em andamento</span>
@@ -46,19 +78,19 @@ function ProjectUnderDevelopment({ project }) {
           </div>
         </section>
 
-        <section className={styles.developmentMessage}>
+        <section className={styles.developmentMessage} aria-labelledby="dev-title">
           <div className={styles.messageHeader}>
             <span>01</span>
-            <h2>Em desenvolvimento</h2>
+            <h2 id="dev-title">Em desenvolvimento</h2>
           </div>
 
           <div className={styles.messageBody}>
             <p>
-              {project.title} está sendo desenvolvido e ainda não possui uma versão completa disponível para apresentação.
+              {project.title} está sendo construído e ainda não tem uma versão aberta ao público.
             </p>
             {project.developmentSummary && <p>{project.developmentSummary}</p>}
             <p>
-              O projeto ainda está em desenvolvimento. À medida que novas etapas forem concluídas, esta página será atualizada com detalhes técnicos, decisões de interface e evolução do produto.
+              Esta página acompanha o projeto: a cada etapa concluída ela ganha telas, decisões técnicas e o que mudou.
             </p>
           </div>
         </section>
@@ -72,19 +104,36 @@ function ProjectUnderDevelopment({ project }) {
             <ul className={styles.featureList}>
               {project.features.map((feature, index) => (
                 <li key={feature}>
-                  <span>{String(index + 1).padStart(2, "0")}</span>
+                  <span>{pad(index + 1)}</span>
                   {feature}
                 </li>
               ))}
             </ul>
           </section>
         )}
+
+        {project.progress && (
+          <section className={styles.developmentMessage} aria-labelledby="progress-title">
+            <div className={styles.messageHeader}>
+              <span>{pad(project.features ? 3 : 2)}</span>
+              <h2 id="progress-title">O que já está pronto e o que vem depois</h2>
+            </div>
+            <div className={styles.progressGrid}>
+              <article className={styles.progressDone}>
+                <span>Pronto</span>
+                <ul>{project.progress.done.map((item) => <li key={item}>{item}</li>)}</ul>
+              </article>
+              <article>
+                <span>Próximas etapas</span>
+                <ol>{project.progress.next.map((item) => <li key={item}>{item}</li>)}</ol>
+              </article>
+            </div>
+          </section>
+        )}
       </main>
 
-      <footer className={styles.footer}>
-        <span>© {new Date().getFullYear()} Cauã · bycauazin</span>
-        <Link href="/projetos">Voltar aos projetos ↑</Link>
-      </footer>
+      {topics.length > 1 && <CaseFloatingActions sections={topics} />}
+      <Footer />
     </div>
   );
 }
@@ -107,17 +156,28 @@ export async function generateMetadata({ params }) {
   };
 }
 
-// Todas as páginas de projeto recebem as mesmas animações (CaseMotion).
-// A key garante que elas rodem de novo ao navegar de um projeto para outro.
+// Todas as páginas de projeto recebem as mesmas animações (CaseMotion) e a barra
+// lateral de seções (CaseRail). A key faz as duas recomeçarem ao trocar de projeto.
 export default async function ProjectPage({ params }) {
   const { slug } = await params;
   return (
     <>
-      <CaseMotion key={slug} />
+      <CaseMotion key={`motion-${slug}`} />
       <ProjectContent params={params} />
+      <CaseRail key={`rail-${slug}`} />
     </>
   );
 }
+
+const caseComponents = {
+  "governanca-corporativa": GovernancaTeamsCase,
+  "atalho-acesso-cursos": CourseAccessCase,
+  "criador-pastas-alunos": FolderCreationCase,
+  "planner-power-bi": PlannerPowerBICase,
+  "account-manager-exportacao-excel": ExportacaoDiariaCase,
+  "account-manager-remocao-acesso": AccessExpirationCase,
+  "dashboard-vendas": DashboardSalesCase,
+};
 
 async function ProjectContent({ params }) {
   const { slug } = await params;
@@ -125,112 +185,92 @@ async function ProjectContent({ params }) {
 
   if (!project) notFound();
 
-  if (project.slug === "governanca-corporativa") {
-    return <GovernancaTeamsCase />;
-  }
+  // Estudos de caso escritos à mão (cada um com a sua página).
+  const Case = caseComponents[project.slug];
+  if (Case) return <Case />;
 
   if (project.status === "em-desenvolvimento") {
     return <ProjectUnderDevelopment project={project} />;
   }
 
-  if (project.slug === "atalho-acesso-cursos") {
-    return <CourseAccessCase />;
-  }
-
-  if (project.slug === "criador-pastas-alunos") {
-    return <FolderCreationCase />;
-  }
-
-  if (project.slug === "planner-power-bi") {
-    return <PlannerPowerBICase />;
-  }
-
-  if (project.slug === "account-manager-exportacao-excel") {
-    return <ExportacaoDiariaCase />;
-  }
-
-  if (project.slug === "account-manager-remocao-acesso") {
-    return <AccessExpirationCase />;
-  }
-
-  if (project.slug === "dashboard-vendas") {
-    return <DashboardSalesCase />;
-  }
-
+  // Página gerada pelos dados (Finance, o próprio portfólio): as seções entram na ordem
+  // em que existem, e a numeração acompanha.
   const relatedProjects = (project.related ?? [])
     .map((relatedSlug) => getProject(relatedSlug))
     .filter(Boolean);
 
-  // A lista de recursos, quando existe, vira a seção 01 e empurra as outras.
-  const sectionNumber = (n) => String(n + (project.features ? 1 : 0)).padStart(2, "0");
-
+  const isSite = project.type === "Site";
   const details = [
-    ["Problema", project.sections.problem],
-    ["Solução", project.sections.solution],
+    ["O problema", project.sections.problem],
+    ["A solução", project.sections.solution],
     ["Minha participação", project.sections.role],
     ["Resultado", project.sections.result],
-    ["Evidências", project.sections.evidence],
+    ["Onde ver", project.sections.evidence],
   ];
 
+  let n = 0;
+  const next = () => pad(++n);
+  const topics = [];
+  if (project.guide) topics.push({ href: "#guide-title", label: "Em poucas palavras" });
+  if (project.features) topics.push({ href: "#features-title", label: isSite ? "O que o site tem" : "O que o app faz" });
+  topics.push({ href: "#flow-title", label: "Como as partes se conectam" });
+  topics.push({ href: "#details-title", label: "Problema, solução e resultado" });
+  if (relatedProjects.length) topics.push({ href: "#related-title", label: "Projetos relacionados" });
+
   return (
-    <div className={styles.page}>
-      <header className={styles.header}>
-        <Link className={styles.brand} href="/#projetos"><BrandLogo /> bycauazin</Link>
-        <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
-      </header>
+    <div className={styles.page} id="top">
+      <CaseHeader styles={styles} />
 
       <main>
-        <section className={styles.hero}>
-          <div className={styles.heroTop}>
-            <p>{categoryLabels[project.category]}</p>
-            <span className={project.status === "em-desenvolvimento" ? styles.developmentStatus : ""}>{statusLabels[project.status]}</span>
+        <section className={`${styles.hero} ${project.image ? styles.heroWithShot : ""}`} aria-labelledby="project-title">
+          <div className={styles.heroCopy}>
+            <div className={styles.heroTop}>
+              <p>{categoryLabels[project.category]}</p>
+              <span>{statusLabels[project.status]}</span>
+            </div>
+            <h1 id="project-title">{project.title}</h1>
+            <p className={styles.projectGroup}>{project.group} · {project.type}</p>
+            <p className={styles.summary}>{project.description}</p>
+            <div className={styles.tags}>{project.technologies.map((technologyId) => <TechnologyIcon className={styles.techTag} technology={technologyId} size="sm" showLabel key={technologyId} />)}</div>
+            {project.liveUrl && <a className={styles.liveLink} href={project.liveUrl} target="_blank" rel="noreferrer">{project.liveLabel ?? "Abrir o app e testar a demonstração"} <span aria-hidden="true">↗</span></a>}
           </div>
-          <h1>{project.title}</h1>
-          <p className={styles.projectGroup}>{project.group} · {project.type}</p>
-          <p className={styles.summary}>{project.description}</p>
-          <div className={styles.tags}>{project.technologies.map((technologyId) => <TechnologyIcon className={styles.techTag} technology={technologyId} size="sm" showLabel key={technologyId} />)}</div>
-          {project.liveUrl && <a className={styles.liveLink} href={project.liveUrl} target="_blank" rel="noreferrer">{project.liveLabel ?? "Abrir o app e testar a demonstração"} <span aria-hidden="true">↗</span></a>}
+          {project.image && <HeroShot project={project} />}
         </section>
+
+        {project.guide && (
+          <ReadingGuide
+            className={styles.flowSection}
+            plain={project.guide.plain}
+            plainLink={{ label: "Ver o resultado", href: "#details-title" }}
+            technical={project.guide.technical}
+            technicalLink={{ label: "Ver como as partes se conectam", href: "#flow-title" }}
+          />
+        )}
 
         {project.features && (
           <section className={styles.flowSection} aria-labelledby="features-title">
-            <div className={styles.sectionLabel}><span>01</span><h2 id="features-title">O que o app faz</h2></div>
+            <div className={styles.sectionLabel}><span>{next()}</span><h2 id="features-title">{isSite ? "O que o site tem" : "O que o app faz"}</h2></div>
             <ul className={styles.featureList}>
               {project.features.map((feature, index) => (
-                <li key={feature}><span>{String(index + 1).padStart(2, "0")}</span>{feature}</li>
+                <li key={feature}><span>{pad(index + 1)}</span>{feature}</li>
               ))}
             </ul>
           </section>
         )}
 
         <section className={styles.flowSection} aria-labelledby="flow-title">
-          <div className={styles.sectionLabel}><span>{sectionNumber(1)}</span><h2 id="flow-title">Como as partes se conectam</h2></div>
+          <div className={styles.sectionLabel}><span>{next()}</span><h2 id="flow-title">Como as partes se conectam</h2></div>
+          <p className={styles.sectionIntro}>Da tela até o banco de dados, em ordem.</p>
           <ol className={styles.flow}>
             {project.flow.map((step, index) => (
-              <li key={step}><span>{String(index + 1).padStart(2, "0")}</span><strong>{step}</strong></li>
+              <li key={step}><span>{pad(index + 1)}</span><strong>{step}</strong></li>
             ))}
           </ol>
         </section>
 
-        {project.chapters && (
-          <section className={styles.chapterSection} aria-labelledby="chapter-title">
-            <div className={styles.sectionLabel}><span>{sectionNumber(2)}</span><h2 id="chapter-title">Um projeto, duas perspectivas</h2></div>
-            <p className={styles.sectionIntro}>A integração continua sendo um único estudo de caso. Estes atalhos levam direto à etapa de automação ou à etapa de Power BI.</p>
-            <div className={styles.chapterGrid}>
-              {project.chapters.map((chapter) => (
-                <a href={`#${chapter.id}`} id={chapter.id} key={chapter.id}>
-                  <span>{chapter.label}</span>
-                  <strong>{chapter.description}</strong>
-                  <small>Ver esta etapa ↓</small>
-                </a>
-              ))}
-            </div>
-          </section>
-        )}
-
         <section className={styles.detailsSection} aria-labelledby="details-title">
-          <div className={styles.sectionLabel}><span>{sectionNumber(project.chapters ? 3 : 2)}</span><h2 id="details-title">Estrutura do estudo de caso</h2></div>
-          <p className={styles.sectionIntro}>A estrutura de cada estudo de caso foi organizada para apresentar o problema, a solução, a participação e o impacto de forma direta.</p>
+          <div className={styles.sectionLabel}><span>{next()}</span><h2 id="details-title">Problema, solução e resultado</h2></div>
+          <p className={styles.sectionIntro}>A história do projeto em cinco partes curtas.</p>
           <div className={styles.detailGrid}>
             {details.map(([title, content]) => (
               <article key={title}><h3>{title}</h3><div>{content}</div></article>
@@ -259,10 +299,8 @@ async function ProjectContent({ params }) {
         )}
       </main>
 
-      <footer className={styles.footer}>
-        <span>© {new Date().getFullYear()} Cauã · bycauazin</span>
-        <Link href="/projetos">Voltar aos projetos ↑</Link>
-      </footer>
+      <CaseFloatingActions sections={topics} />
+      <Footer />
     </div>
   );
 }

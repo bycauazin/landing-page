@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import CaseHeader from "./case-header";
 import CaseFloatingActions from "./case-floating-actions";
-import { BeforeAfter, FlowDiagram, ImpactCards, LeadQuote } from "./case-shared";
+import { BeforeAfter, FlowDiagram, LeadQuote, ReadingGuide } from "./case-shared";
 import styles from "./course-access-case.module.css";
-import BrandLogo from "../../components/brand-logo";
 
 const oldFlow = ["Entrar no diretório", "Navegar por pastas", "Localizar a matrícula", "Abrir os arquivos", "Acessar as aulas"];
 const newFlow = ["Abrir o aplicativo", "Digitar a matrícula", "Pesquisar", "Acessar arquivos e aulas"];
@@ -41,10 +41,7 @@ function Flow({ label, items, accent = false }) {
 export default function CourseAccessCase() {
   return (
     <div className={styles.page} id="top">
-      <header className={styles.header}>
-        <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><BrandLogo /> bycauazin</Link>
-        <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
-      </header>
+      <CaseHeader styles={styles} />
 
       <main>
         <section className={styles.hero} aria-labelledby="case-title">
@@ -64,13 +61,16 @@ export default function CourseAccessCase() {
             {[["Py", "Python"], ["Tk", "Tkinter"], ["Au", "Automação"], ["PC", "Desktop"]].map(([mark, label]) => <span key={label}><b aria-hidden="true">{mark}</b>{label}</span>)}
           </div>
         </section>
-        <LeadQuote text="O aluno passou a acessar seus arquivos informando apenas sua matrícula, sem navegar por vários diretórios e sem depender da orientação manual da equipe." />
 
-        <ImpactCards cards={[
-          { title: "Problema", text: "Os alunos precisavam localizar arquivos em vários níveis de pastas antes mesmo de começar a aula." },
-          { title: "Solução", text: "Desenvolvi uma aplicação para localizar a pasta correta a partir da matrícula e abrir o material necessário." },
-          { title: "Impacto", text: "O processo ficou mais rápido, mais simples e menos dependente de ajuda manual durante o horário de pico." },
-        ]} />
+        <ReadingGuide
+          className={styles.section}
+          minutes={4}
+          plain={["Numa escola de informática, cada aluno tinha a sua pasta de arquivos escondida em cinco níveis de pastas do computador. Muita gente vinha uma vez por semana, esquecia o caminho e a aula começava com o professor ajudando um por um.", "Criei um programa simples: o aluno digita a matrícula, clica em Pesquisar e a pasta dele abre junto com a plataforma de aulas. Nos horários cheios, os pedidos de ajuda caíram cerca de 60%."]}
+          plainLink={{ label: "Ver como ficou a tela", href: "#interface-title" }}
+          technical={["Python + Tkinter, empacotado como .exe: o aluno não precisa de Python nem de terminal", "Validação da entrada (só números) antes de procurar", "Busca da pasta pela matrícula percorrendo os diretórios com a biblioteca padrão do Python", "Abre a pasta local e a plataforma web de aulas no navegador"]}
+          technicalLink={{ label: "Ir para a solução técnica", href: "#solution-title" }}
+        />
+        <LeadQuote text="O aluno passou a acessar seus arquivos informando apenas sua matrícula, sem navegar por vários diretórios e sem depender da orientação manual da equipe." />
 
         <BeforeAfter
           before={["Aluno procura diretório", "Navega entre pastas", "Solicita ajuda", "Acesso atrasa a aula"]}

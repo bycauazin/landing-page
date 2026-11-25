@@ -1,7 +1,8 @@
 import Link from "next/link";
+import CaseHeader from "./case-header";
+import { ReadingGuide } from "./case-shared";
 import CaseFloatingActions from "./case-floating-actions";
 import styles from "./exportacao-diaria-case.module.css";
-import BrandLogo from "../../components/brand-logo";
 
 const pipeline = [
   ["01", "Coletar", "Consultar dados do Account Manager e do Moodle."],
@@ -98,10 +99,7 @@ function SectionHeading({ number, eyebrow, title, id }) {
 export default function ExportacaoDiariaCase() {
   return (
     <div className={styles.page} id="top">
-      <header className={styles.header}>
-        <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><BrandLogo /> bycauazin</Link>
-        <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
-      </header>
+      <CaseHeader styles={styles} />
 
       <main>
         <section className={styles.hero} aria-labelledby="case-title">
@@ -122,6 +120,15 @@ export default function ExportacaoDiariaCase() {
           </div>
           <div className={styles.tags}>{["JavaScript", "Node.js", "ExcelJS", "PostgreSQL", "MySQL", "Microsoft Graph", "SharePoint"].map((tag) => <span key={tag}>{tag}</span>)}</div>
         </section>
+
+        <ReadingGuide
+          className={styles.section}
+          minutes={6}
+          plain={["Uma equipe precisava de uma planilha de Excel com informações de alunos e cursos que estavam espalhadas em três lugares diferentes. Montar esse arquivo à mão era demorado e fácil de errar.", "Construí uma rotina que roda sozinha de hora em hora: busca os dados nos três lugares, junta tudo, monta a planilha e publica no SharePoint, onde a equipe já trabalhava. Se algo dá errado, ela avisa."]}
+          plainLink={{ label: "Ver o resultado", href: "#result-title" }}
+          technical={["Node.js lendo PostgreSQL (Account Manager) e MySQL (Moodle) com paginação", "Workbook gerado em memória com ExcelJS, uma aba por conjunto de dados", "Merge de planilhas do SharePoint reescrevendo as fórmulas quando uma aba muda de nome", "Agendamento + worker thread para não travar a API; publicação pelo Microsoft Graph"]}
+          technicalLink={{ label: "Ir para o pipeline", href: "#pipeline-title" }}
+        />
 
         <div className={styles.leadStatement}><span>Decisão central</span><blockquote>O arquivo não é apenas exportado. Ele é construído a partir de fontes que precisam ser reconciliadas.</blockquote></div>
 

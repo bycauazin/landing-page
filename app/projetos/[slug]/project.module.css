@@ -284,3 +284,42 @@
 @media (prefers-reduced-motion: reduce) {
   .chapterGrid a, .relatedSection > a { transition: none; }
 }
+
+/* ---------- topo com foto de capa (Finance, Routine, portfólio) ---------- */
+.heroWithShot { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .95fr); gap: 56px; align-items: center; }
+.heroWithShot h1 { font-size: clamp(46px, 6.4vw, 88px); }
+.heroShot { position: relative; margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); box-shadow: 0 30px 70px rgb(0 0 0 / .32); transform: perspective(1400px) rotateY(-6deg) rotateX(2deg); transition: transform 500ms cubic-bezier(.2, .8, .2, 1); }
+.heroShot:hover { transform: perspective(1400px) rotateY(0) rotateX(0); }
+.heroShot img { display: block; width: 100%; height: auto; }
+.shotBar { display: flex; align-items: center; gap: 6px; height: 34px; padding: 0 12px; border-bottom: 1px solid var(--line); }
+.shotBar i { width: 9px; height: 9px; border-radius: 50%; background: rgb(var(--tint-rgb) / .25); }
+.shotBar i:first-child { background: var(--blue); }
+.shotBar span { flex: 1; overflow: hidden; margin-left: 10px; padding: 4px 10px; border-radius: 999px; color: var(--muted); background: rgb(var(--tint-rgb) / .07); font-family: var(--font-ui); font-size: 11px; text-overflow: ellipsis; white-space: nowrap; }
+.heroShot figcaption { position: absolute; right: 12px; bottom: 12px; padding: 6px 10px; border-radius: 999px; color: var(--on-accent); background: var(--blue); font-family: var(--font-ui); font-size: 11px; font-weight: 650; }
+:global(html[data-theme="light"]) .heroShot { box-shadow: 0 24px 60px rgb(var(--midnight-ink-rgb) / .16); }
+
+.developmentHeroShot .heroShot { align-self: center; }
+.developmentText .tags { margin-top: 22px; }
+
+/* ---------- pronto × próximas etapas ---------- */
+.progressGrid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-left: 70px; }
+.progressGrid article { padding: 26px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.progressGrid span { color: var(--muted); font-family: var(--font-ui); font-size: 11px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
+.progressDone span { color: var(--blue-light); }
+.progressGrid ul, .progressGrid ol { display: grid; gap: 10px; margin: 18px 0 0; padding: 0; list-style: none; font-size: 15px; line-height: 1.5; }
+.progressGrid li { display: flex; gap: 10px; color: var(--muted); }
+.progressGrid li::before { flex: none; width: 20px; color: var(--muted); content: "○"; }
+.progressDone li { color: var(--paper); }
+.progressDone li::before { color: var(--blue); content: "✓"; }
+
+@media (max-width: 900px) {
+  .heroWithShot { grid-template-columns: 1fr; gap: 40px; }
+  .heroShot { transform: none; }
+}
+@media (max-width: 700px) {
+  .progressGrid { grid-template-columns: 1fr; margin-left: 0; }
+  .developmentHero { grid-template-columns: 1fr; padding-top: 64px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .heroShot { transform: none; transition: none; }
+}

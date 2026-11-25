@@ -17,6 +17,7 @@ import HeroCircuitField from "./components/hero-circuit-field";
 import SnapCursor from "./components/snap-cursor";
 import HeroOutline from "./components/hero-outline";
 import MobileMenu from "./components/mobile-menu";
+import { useLightMode } from "./components/use-theme";
 
 const mobileLinks = [
   { href: "#projetos", label: "Projetos" },
@@ -51,7 +52,7 @@ const heroBackgroundMobile = "/hero/codigo-monitor-desfocado-mobile.jpg";
 const { props: heroBackgroundProps } = getImageProps({ src: heroBackground, alt: "", fill: true, sizes: "100vw" });
 
 export default function Home() {
-  const [lightMode, setLightMode] = useState(false);
+  const [lightMode, toggleTheme] = useLightMode();
   const [showAllTech, setShowAllTech] = useState(false);
 
   return (
@@ -65,7 +66,7 @@ export default function Home() {
       <header className={styles.header}>
         <a className={styles.brand} href="#inicio" aria-label="Voltar ao inicio"><BrandLogo className={styles.brandMark} size={42} /><span>bycauazin</span></a>
         <nav className={styles.nav} aria-label="Navegação principal"><a href="#projetos">Projetos</a><a href="#sobre">Sobre</a></nav>
-        <div className={styles.headerActions}><button className={styles.themeToggle} type="button" onClick={() => setLightMode(!lightMode)} aria-label={lightMode ? "Ativar tema escuro" : "Ativar tema claro"} title={lightMode ? "Ativar tema escuro" : "Ativar tema claro"}><span aria-hidden="true">{lightMode ? "☾" : "☼"}</span></button><a className={styles.headerCta} href="#contato">Vamos conversar <span aria-hidden="true">↗</span></a><MobileMenu links={mobileLinks} /></div>
+        <div className={styles.headerActions}><button className={styles.themeToggle} type="button" onClick={toggleTheme} aria-label={lightMode ? "Ativar tema escuro" : "Ativar tema claro"} title={lightMode ? "Ativar tema escuro" : "Ativar tema claro"}><span aria-hidden="true">{lightMode ? "☾" : "☼"}</span></button><a className={styles.headerCta} href="#contato">Vamos conversar <span aria-hidden="true">↗</span></a><MobileMenu links={mobileLinks} /></div>
       </header>
 
       <main>

@@ -1,9 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
+import CaseHeader from "./case-header";
 import CaseFloatingActions from "./case-floating-actions";
-import { BeforeAfter, FlowDiagram, ImpactCards, LeadQuote } from "./case-shared";
+import { BeforeAfter, FlowDiagram, LeadQuote, ReadingGuide } from "./case-shared";
 import styles from "./course-access-case.module.css";
-import BrandLogo from "../../components/brand-logo";
 
 const manualFlow = ["Consultar dados", "Identificar cursos", "Criar pasta", "Localizar a base", "Copiar módulos", "Conferir estrutura"];
 const automatedFlow = ["Informar os dados", "Validar", "Clicar em Criar", "Estrutura pronta"];
@@ -38,10 +38,7 @@ function Flow({ label, items, accent = false, six = false }) {
 export default function FolderCreationCase() {
   return (
     <div className={styles.page} id="top">
-      <header className={styles.header}>
-        <Link className={styles.brand} href="/#projetos" aria-label="Voltar ao início"><BrandLogo /> bycauazin</Link>
-        <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
-      </header>
+      <CaseHeader styles={styles} />
 
       <main>
         <section className={styles.hero} aria-labelledby="case-title">
@@ -58,13 +55,16 @@ export default function FolderCreationCase() {
           <div className={styles.tags} aria-label="Tecnologias e características do projeto">{[["Py", "Python"], ["Tk", "Tkinter"], ["Au", "Automação"], ["PC", "Desktop"]].map(([mark, label]) => <span key={label}><b aria-hidden="true">{mark}</b>{label}</span>)}</div>
         </section>
 
-        <LeadQuote text="Em vez de preparar cada pasta manualmente, a estrutura do aluno passou a ser gerada automaticamente, com menos retrabalho e mais consistência." />
+        <ReadingGuide
+          className={styles.section}
+          minutes={4}
+          plain={["Quando um aluno novo chegava à escola, o professor parava o que estava fazendo para criar a pasta dele e copiar, um por um, os arquivos de cada curso contratado. Com dois ou três alunos começando juntos, virava fila.", "Fiz um programa em que o professor preenche nome, matrícula e curso e clica em um botão: a pasta sai pronta, já com os arquivos certos dentro."]}
+          plainLink={{ label: "Ver como ficou a tela", href: "#folder-interface" }}
+          technical={["Python + Tkinter, formulário com validações (campos obrigatórios, matrícula, pasta que já existe)", "Pacotes padrão reaproveitam uma estrutura-base; cursos personalizados copiam só os módulos marcados", "Nunca sobrescreve uma pasta existente", "Trabalha junto com o Atalho de acesso: a pasta criada aqui é a que o aluno abre lá"]}
+          technicalLink={{ label: "Ir para os cursos personalizados", href: "#folder-custom" }}
+        />
 
-        <ImpactCards cards={[
-          { title: "Problema", text: "Cada aluno exigia uma estrutura específica de arquivos e módulos, e a preparação dependia de trabalho manual repetitivo." },
-          { title: "Solução", text: "Criei uma aplicação para validar os dados, criar a pasta e copiar a estrutura correta automaticamente." },
-          { title: "Impacto", text: "A operação ficou mais padronizada e menos sujeita a erro humano ou à cópia manual de módulos." },
-        ]} />
+        <LeadQuote text="Em vez de preparar cada pasta manualmente, a estrutura do aluno passou a ser gerada automaticamente, com menos retrabalho e mais consistência." />
 
         <BeforeAfter
           before={["Consulta dados", "Identifica curso", "Cria pasta manual", "Copia módulos", "Confere estrutura"]}
