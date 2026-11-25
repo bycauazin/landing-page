@@ -10,4 +10,6 @@ Edite a identificação “Cauã · desenvolvedor & instrutor” e o título pri
 
 A home mostra **Aulas particulares** logo depois de **Projetos em destaque**. Os temas anunciados são Power BI, Python, JavaScript e SQL/PostgreSQL. Edite os temas e os materiais em [private-lessons.js](private-lessons.js). Os estilos da seção estão em [private-lessons.module.css](private-lessons.module.css).
 
+Os cartões de serviços em **Projetos em destaque** e os de materiais em **Aulas particulares** usam [detail-cards.module.css](detail-cards.module.css).
+
 Use `npm run lint` e `npm run build` para validar. Confira a seção em tela estreita, nos dois temas e na home exportada em `out/index.html`.

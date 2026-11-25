@@ -11,6 +11,7 @@ import SocialIcon from "./components/social-icon";
 import SocialVideo from "./components/social-video";
 import TechnologyIcon from "./components/technology-icon";
 import WhatsAppIcon from "./components/whatsapp-icon";
+import cards from "./detail-cards.module.css";
 import styles from "./page.module.css";
 import BrandLogo from "./components/brand-logo";
 import HeroCircuitField from "./components/hero-circuit-field";
@@ -95,7 +96,23 @@ export default function Home() {
           </div>
         </section>
 
-        <section className={styles.casesSection} id="projetos" data-circuit-sweep="0" aria-labelledby="cases-title"><div className={styles.sectionHeading} data-motion-project-intro=""><div><p className={styles.kicker}>Projetos</p><RevealText id="cases-title" label="Projetos em destaque" lines={["Projetos em", <em key="featured">destaque</em>]} /><p className={styles.sectionSubtitle}>Desenvolvimento web, automação e dados, na prática.</p></div></div><ul className={styles.skillStrip} id="servicos" aria-label="O que eu faço">{services.map((service) => <li className={styles.skillItem} data-motion-skill="" key={service.number}><span className={styles.skillIcon} aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">{skillIcons[service.icon]}</svg></span><div><h3>{service.title}</h3><p>{service.description}</p></div></li>)}</ul><ProjectExplorer featuredOnly showFilters={false} /><div className={styles.projectsCtaWrap} data-motion-project-cta=""><Link className={styles.buttonPrimary} href="/projetos">Acessar meus projetos <span aria-hidden="true">→</span></Link></div></section>
+        <section className={styles.casesSection} id="projetos" data-circuit-sweep="0" aria-labelledby="cases-title"><div className={styles.sectionHeading} data-motion-project-intro=""><div><p className={styles.kicker}>Projetos</p><RevealText id="cases-title" label="Projetos em destaque" lines={["Projetos em", <em key="featured">destaque</em>]} /><p className={styles.sectionSubtitle}>Desenvolvimento web, automação e dados, na prática.</p></div></div>
+          <ul className={`${cards.list} ${styles.skillStrip}`} id="servicos" aria-label="O que eu faço">
+            {services.map((service) => (
+              <li className={cards.card} data-motion-skill="" key={service.number}>
+                <span className={cards.icon} aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+                    {skillIcons[service.icon]}
+                  </svg>
+                </span>
+                <div>
+                  <h3>{service.title}</h3>
+                  <p>{service.description}</p>
+                </div>
+              </li>
+            ))}
+          </ul>
+          <ProjectExplorer featuredOnly showFilters={false} /><div className={styles.projectsCtaWrap} data-motion-project-cta=""><Link className={styles.buttonPrimary} href="/projetos">Acessar meus projetos <span aria-hidden="true">→</span></Link></div></section>
 
         <PrivateLessons />
 

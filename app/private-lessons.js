@@ -2,6 +2,7 @@ import TechnologyIcon from "./components/technology-icon";
 import WhatsAppIcon from "./components/whatsapp-icon";
 import { Icon } from "./projetos/[slug]/case-icons";
 import homeStyles from "./page.module.css";
+import cards from "./detail-cards.module.css";
 import styles from "./private-lessons.module.css";
 
 const topics = [
@@ -66,10 +67,10 @@ export default function PrivateLessons() {
 
       <div className={styles.details}>
         <h3>O que faz parte das aulas</h3>
-        <ul className={styles.resources}>
+        <ul className={cards.list}>
           {resources.map(({ icon, title, description }) => (
-            <li className={styles.panel} key={title}>
-              <span className={styles.resourceIcon}><Icon name={icon} /></span>
+            <li className={cards.card} key={title}>
+              <span className={cards.icon}><Icon name={icon} /></span>
               <div>
                 <h4>{title}</h4>
                 <p>{description}</p>
