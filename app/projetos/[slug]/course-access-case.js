@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import CaseHeader from "./case-header";
+import { Icon, SectionIcon, StepDot } from "./case-icons";
 import CaseFloatingActions from "./case-floating-actions";
 import { BeforeAfter, FlowDiagram, LeadQuote, ReadingGuide } from "./case-shared";
 import styles from "./course-access-case.module.css";
@@ -8,32 +9,22 @@ import styles from "./course-access-case.module.css";
 const oldFlow = ["Entrar no diretório", "Navegar por pastas", "Localizar a matrícula", "Abrir os arquivos", "Acessar as aulas"];
 const newFlow = ["Abrir o aplicativo", "Digitar a matrícula", "Pesquisar", "Acessar arquivos e aulas"];
 const operationSteps = [
-  ["01", "Valida a matrícula", "A entrada aceita apenas números."],
-  ["02", "Percorre os diretórios", "A aplicação busca entre as pastas disponíveis."],
-  ["03", "Localiza o aluno", "A matrícula identifica a pasta correspondente."],
-  ["04", "Abre os recursos", "Pasta e plataforma de aulas ficam acessíveis."],
+  ["check", "Valida a matrícula", "A entrada aceita apenas números."],
+  ["folder", "Percorre os diretórios", "A aplicação busca entre as pastas disponíveis."],
+  ["search", "Localiza o aluno", "A matrícula identifica a pasta correspondente."],
+  ["screen", "Abre os recursos", "Pasta e plataforma de aulas ficam acessíveis."],
 ];
 
-function CaseIcon({ type }) {
-  const icons = {
-    problem: <><circle cx="24" cy="24" r="17" /><path d="M24 14v12M24 33h.01" /></>,
-    solution: <><path d="M9 15h21v22H9z" /><path d="M14 21h11M14 27h8M34 12v18M29 17l5-5 5 5" /></>,
-    interface: <><rect x="7" y="9" width="34" height="26" rx="2" /><path d="M17 41h14M24 35v6M13 15h22M13 21h15" /></>,
-    challenge: <><path d="m24 7 15 8v18l-15 8-15-8V15z" /><path d="m9 15 15 8 15-8M24 23v18" /></>,
-    result: <><path d="M8 39h32M12 34l8-9 7 5 11-15" /><path d="M31 15h7v7" /></>,
-  };
-  return <span className={styles.sectionIcon} aria-hidden="true"><svg viewBox="0 0 48 48">{icons[type]}</svg></span>;
-}
 
-function SectionHeading({ number, eyebrow, title, id, icon }) {
-  return <div className={styles.sectionHeading}><span className={styles.sectionNumber}>{number}</span><div className={styles.sectionTitle}><p>{eyebrow}</p><h2 id={id}>{title}</h2></div><CaseIcon type={icon} /></div>;
+function SectionHeading({ eyebrow, title, id }) {
+  return <div className={styles.sectionHeading}><span className={styles.sectionNumber}><SectionIcon label={eyebrow} /></span><div className={styles.sectionTitle}><p>{eyebrow}</p><h2 id={id}>{title}</h2></div></div>;
 }
 
 function Flow({ label, items, accent = false }) {
   return (
     <div className={`${styles.flowBlock} ${accent ? styles.accentFlow : ""}`}>
       <p>{label}</p>
-      <ol>{items.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span><strong>{item}</strong></li>)}</ol>
+      <ol>{items.map((item, index) => <li key={item}><StepDot n={index + 1} /><strong>{item}</strong></li>)}</ol>
     </div>
   );
 }
@@ -85,7 +76,7 @@ export default function CourseAccessCase() {
         <nav className={styles.caseNav} aria-label="Etapas do estudo de caso">
           {[
             ["01", "Problema", "problem-title"], ["02", "Solução", "solution-title"], ["03", "Interface", "interface-title"], ["04", "Desafio", "challenge-title"], ["05", "Resultado", "result-title"],
-          ].map(([number, label, target]) => <a href={`#${target}`} key={number}><span>{number}</span><strong>{label}</strong><b aria-hidden="true">↓</b></a>)}
+          ].map(([number, label, target]) => <a href={`#${target}`} key={number}><span><Icon label={label} /></span><strong>{label}</strong><b aria-hidden="true">↓</b></a>)}
         </nav>
 
         <section className={styles.section} aria-labelledby="problem-title">
@@ -102,7 +93,7 @@ export default function CourseAccessCase() {
           <div className={styles.solutionIntro}><p>Desenvolvi uma aplicação desktop em Python e Tkinter. O aluno informava a matrícula; o programa localizava a pasta e abria os recursos.</p><div className={styles.pythonBadge}><Image src="/technology-icons/python.svg" width={52} height={52} alt="Python" /><strong>Menos orientação manual.<br />Acesso direto ao que importava.</strong></div></div>
           <Flow label="Novo processo" items={newFlow} accent />
           <ol className={styles.operationGrid} aria-label="Funcionamento técnico da aplicação">
-            {operationSteps.map(([number, title, description]) => <li key={number}><span>{number}</span><div><h3>{title}</h3><p>{description}</p></div></li>)}
+            {operationSteps.map(([icon, title, description]) => <li key={title}><span><Icon name={icon} /></span><div><h3>{title}</h3><p>{description}</p></div></li>)}
           </ol>
           <p className={styles.technicalNote}>A busca utilizava recursos do Python para manipular diretórios e localizar a pasta cujo nome continha a matrícula informada. Todos os exemplos apresentados neste case são fictícios.</p>
         </section>

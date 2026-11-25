@@ -5,9 +5,11 @@ import { categoryLabels, getProject, projects, statusLabels } from "../../data/p
 import TechnologyIcon from "../../components/technology-icon";
 import AccessExpirationCase from "./access-expiration-case";
 import CaseFloatingActions from "./case-floating-actions";
+import CaseGallery from "./case-gallery";
 import CaseHeader from "./case-header";
 import CaseMotion from "./case-motion";
 import CaseRail from "./case-rail";
+import { Icon, SectionIcon, iconFor } from "./case-icons";
 import { ReadingGuide } from "./case-shared";
 import CourseAccessCase from "./course-access-case";
 import DashboardSalesCase from "./dashboard-sales-case";
@@ -16,7 +18,31 @@ import FolderCreationCase from "./folder-creation-case";
 import PlannerPowerBICase from "./planner-power-bi-case";
 import styles from "./project.module.css";
 
-const pad = (n) => String(n).padStart(2, "0");
+// Recurso: { icon, title, text } (ou só um texto, que ganha o ícone pelas palavras).
+const asFeature = (f) => (typeof f === "string" ? { icon: iconFor(f), title: f, text: "" } : f);
+
+// Título de seção: ícone no lugar do antigo número "01", "02".
+function SectionTitle({ icon, id, title, intro }) {
+  return (
+    <>
+      <div className={styles.sectionLabel}><SectionIcon name={icon} label={title} /><h2 id={id}>{title}</h2></div>
+      {intro && <p className={styles.sectionIntro}>{intro}</p>}
+    </>
+  );
+}
+
+function FeatureGrid({ features }) {
+  return (
+    <ul className={styles.featureGrid}>
+      {features.map(asFeature).map((f) => (
+        <li key={f.title}>
+          <span className={styles.featureIcon}><Icon name={f.icon} label={f.title} /></span>
+          <div><strong>{f.title}</strong>{f.text && <p>{f.text}</p>}</div>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 // Print da tela no topo da página (a mesma foto de capa do cartão), numa moldura de navegador.
 function HeroShot({ project, preview = false }) {
@@ -79,51 +105,39 @@ function ProjectUnderDevelopment({ project }) {
 
         <section className={styles.developmentMessage} aria-labelledby="dev-title">
           <div className={styles.messageHeader}>
-            <span>01</span>
+            <SectionIcon name="flag" />
             <h2 id="dev-title">Em desenvolvimento</h2>
           </div>
 
           <div className={styles.messageBody}>
-            <p>
-              {project.title} está sendo construído e ainda não tem uma versão aberta ao público.
-            </p>
             {project.developmentSummary && <p>{project.developmentSummary}</p>}
-            <p>
-              Esta página acompanha o projeto: a cada etapa concluída ela ganha telas, decisões técnicas e o que mudou.
-            </p>
+            <p>A cada etapa concluída, esta página ganha telas e novidades.</p>
           </div>
         </section>
 
         {project.features && (
           <section className={styles.developmentMessage} aria-labelledby="features-title">
             <div className={styles.messageHeader}>
-              <span>02</span>
+              <SectionIcon name="list" />
               <h2 id="features-title">O que está sendo construído</h2>
             </div>
-            <ul className={styles.featureList}>
-              {project.features.map((feature, index) => (
-                <li key={feature}>
-                  <span>{pad(index + 1)}</span>
-                  {feature}
-                </li>
-              ))}
-            </ul>
+            <FeatureGrid features={project.features} />
           </section>
         )}
 
         {project.progress && (
           <section className={styles.developmentMessage} aria-labelledby="progress-title">
             <div className={styles.messageHeader}>
-              <span>{pad(project.features ? 3 : 2)}</span>
+              <SectionIcon name="result" />
               <h2 id="progress-title">O que já está pronto e o que vem depois</h2>
             </div>
             <div className={styles.progressGrid}>
               <article className={styles.progressDone}>
-                <span>Pronto</span>
+                <span><Icon name="check" /> Pronto</span>
                 <ul>{project.progress.done.map((item) => <li key={item}>{item}</li>)}</ul>
               </article>
               <article>
-                <span>Próximas etapas</span>
+                <span><Icon name="arrow" /> Próximas etapas</span>
                 <ol>{project.progress.next.map((item) => <li key={item}>{item}</li>)}</ol>
               </article>
             </div>
@@ -191,25 +205,22 @@ async function ProjectContent({ params }) {
     return <ProjectUnderDevelopment project={project} />;
   }
 
-  // Página gerada pelos dados (Finance, o próprio portfólio): as seções entram na ordem
-  // em que existem, e a numeração acompanha.
+  // Página gerada pelos dados (Finance, o próprio portfólio).
   const relatedProjects = (project.related ?? [])
     .map((relatedSlug) => getProject(relatedSlug))
     .filter(Boolean);
 
   const isSite = project.type === "Site";
-  const details = [
-    ["O problema", project.sections.problem],
-    ["A solução", project.sections.solution],
-    ["Minha participação", project.sections.role],
-    ["Resultado", project.sections.result],
-    ["Onde ver", project.sections.evidence],
+  const host = project.liveUrl ? project.liveUrl.replace(/^https?:\/\//, "") : project.title;
+  const story = [
+    ["problem", "O problema", project.sections.problem],
+    ["solution", "A solução", project.sections.solution],
+    ["result", "O resultado", project.sections.result],
   ];
 
-  let n = 0;
-  const next = () => pad(++n);
   const topics = [];
-  if (project.guide) topics.push({ href: "#guide-title", label: "Em poucas palavras" });
+  if (project.guide) topics.push({ href: "#guide-title", label: "Resumo" });
+  if (project.screens) topics.push({ href: "#screens-title", label: "As telas" });
   if (project.features) topics.push({ href: "#features-title", label: isSite ? "O que o site tem" : "O que o app faz" });
   topics.push({ href: "#flow-title", label: "Como as partes se conectam" });
   topics.push({ href: "#details-title", label: "Problema, solução e resultado" });
@@ -239,50 +250,58 @@ async function ProjectContent({ params }) {
           <ReadingGuide
             className={styles.flowSection}
             plain={project.guide.plain}
-            plainLink={{ label: "Ver o resultado", href: "#details-title" }}
+            plainLink={project.screens ? { label: "Ver as telas", href: "#screens-title" } : { label: "Ver o resultado", href: "#details-title" }}
             technical={project.guide.technical}
             technicalLink={{ label: "Ver como as partes se conectam", href: "#flow-title" }}
           />
         )}
 
+        {project.screens && (
+          <section className={styles.flowSection} aria-labelledby="screens-title" data-rail="As telas" data-rail-icon="screen">
+            <SectionTitle icon="screen" id="screens-title" title="As telas" intro={isSite ? "Do próprio site, como está no ar." : "Da conta de demonstração, com dados fictícios."} />
+            <CaseGallery screens={project.screens} host={host} />
+          </section>
+        )}
+
         {project.features && (
           <section className={styles.flowSection} aria-labelledby="features-title">
-            <div className={styles.sectionLabel}><span>{next()}</span><h2 id="features-title">{isSite ? "O que o site tem" : "O que o app faz"}</h2></div>
-            <ul className={styles.featureList}>
-              {project.features.map((feature, index) => (
-                <li key={feature}><span>{pad(index + 1)}</span>{feature}</li>
-              ))}
-            </ul>
+            <SectionTitle icon="list" id="features-title" title={isSite ? "O que o site tem" : "O que o app faz"} />
+            <FeatureGrid features={project.features} />
           </section>
         )}
 
         <section className={styles.flowSection} aria-labelledby="flow-title">
-          <div className={styles.sectionLabel}><span>{next()}</span><h2 id="flow-title">Como as partes se conectam</h2></div>
-          <p className={styles.sectionIntro}>Da tela até o banco de dados, em ordem.</p>
-          <ol className={styles.flow}>
-            {project.flow.map((step, index) => (
-              <li key={step}><span>{pad(index + 1)}</span><strong>{step}</strong></li>
-            ))}
+          <SectionTitle icon="flow" id="flow-title" title="Como as partes se conectam" />
+          <ol className={styles.pipeline}>
+            {project.flow.map((step) => {
+              const item = typeof step === "string" ? { icon: iconFor(step), label: step } : step;
+              return (
+                <li key={item.label}>
+                  <span className={styles.pipelineIcon}><Icon name={item.icon} label={item.label} /></span>
+                  <strong>{item.label}</strong>
+                  {item.note && <small>{item.note}</small>}
+                </li>
+              );
+            })}
           </ol>
         </section>
 
         <section className={styles.detailsSection} aria-labelledby="details-title">
-          <div className={styles.sectionLabel}><span>{next()}</span><h2 id="details-title">Problema, solução e resultado</h2></div>
-          <p className={styles.sectionIntro}>A história do projeto em cinco partes curtas.</p>
-          <div className={styles.detailGrid}>
-            {details.map(([title, content]) => (
-              <article key={title}><h3>{title}</h3><div>{content}</div></article>
+          <SectionTitle icon="result" id="details-title" title="Problema, solução e resultado" />
+          <div className={styles.storyGrid}>
+            {story.map(([icon, title, text]) => (
+              <article key={title}>
+                <span className={styles.featureIcon}><Icon name={icon} /></span>
+                <h3>{title}</h3>
+                <p>{text}</p>
+              </article>
             ))}
           </div>
+          <ul className={styles.storyMeta}>
+            <li><Icon name="user" /><span><strong>Minha parte:</strong> {project.sections.role}</span></li>
+            <li><Icon name="eye" /><span><strong>Onde ver:</strong> {project.sections.evidence}</span></li>
+          </ul>
         </section>
-
-        {project.publication && <section className={styles.publicationSection} aria-labelledby="publication-title">
-          <div>
-            <p className={styles.kicker}>Publicação recomendada</p>
-            <h2 id="publication-title">{project.publication}</h2>
-          </div>
-          <div className={styles.confidentiality}><span>Antes de publicar</span><p>{project.confidentiality}</p></div>
-        </section>}
 
         {relatedProjects.length > 0 && (
           <section className={styles.relatedSection} aria-labelledby="related-title">

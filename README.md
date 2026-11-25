@@ -62,7 +62,7 @@ app/
 └── page.js                  # Página inicial
 ```
 
-O tema claro/escuro vale no site inteiro e fica guardado no navegador. Os estudos de caso têm uma barra lateral de ícones (uma parada por seção) e começam com "Em poucas palavras": um resumo sem termos técnicos e outro para quem é da área.
+O tema claro/escuro vale no site inteiro e fica guardado no navegador. Os estudos de caso têm uma barra lateral de ícones (uma parada por seção), começam com "O projeto em um minuto" (em poucas palavras + parte técnica) e usam ícones no lugar de números.
 
 ## Executando localmente
 
@@ -117,7 +117,10 @@ Campos opcionais que mudam a página e o cartão:
 
 ```js
 image: "/project-images/nome.jpg",           // foto da tela (16:10) como capa; sem ela, o cartão mostra os ícones das tecnologias
-guide: { plain: ["..."], technical: ["..."] }, // bloco "Em poucas palavras" (leigos e técnicos)
+guide: { plain: ["..."], technical: ["..."] }, // "O projeto em um minuto": em poucas palavras + parte técnica
+screens: [{ src, label, icon, caption, phone? }], // galeria de telas (prints com dados fictícios)
+features: [{ icon, title, text }],           // recursos curtos, com ícone (nada de 01, 02, 03)
+flow: [{ icon, label, note }],               // como as partes se conectam
 progress: { done: ["..."], next: ["..."] },   // projetos em desenvolvimento: o que está pronto e o que vem depois
 ```
 

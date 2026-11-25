@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CaseHeader from "./case-header";
+import { Icon, SectionIcon } from "./case-icons";
 import { ReadingGuide } from "./case-shared";
 import CaseFloatingActions from "./case-floating-actions";
 import styles from "./dashboard-sales-case.module.css";
@@ -39,7 +40,7 @@ function DaxEditor() {
 }
 
 function SectionHeading({ number, eyebrow, title, id }) {
-  return <div className={styles.sectionHeading}><span>{number}</span><div><p>{eyebrow}</p><h2 id={id}>{title}</h2></div></div>;
+  return <div className={styles.sectionHeading}><span><SectionIcon label={eyebrow} /></span><div><p>{eyebrow}</p><h2 id={id}>{title}</h2></div></div>;
 }
 
 function DashboardMockup() {
@@ -89,13 +90,13 @@ export default function DashboardSalesCase() {
         <div className={styles.leadStatement}><span>Decisão central</span><blockquote>O dashboard organiza a leitura comercial: do resultado geral até o produto ou cliente que explica esse resultado.</blockquote></div>
 
         <nav className={styles.caseNav} aria-label="Etapas do estudo de caso">
-          {[["01","Problema","problem-title"],["02","Dados","data-title"],["03","Indicadores","metrics-title"],["04","Dashboard","dashboard-title"],["05","Decisões","decisions-title"],["06","Resultado","result-title"]].map(([number,label,target]) => <a href={`#${target}`} key={number}><span>{number}</span><strong>{label}</strong><b>↓</b></a>)}
+          {[["01","Problema","problem-title"],["02","Dados","data-title"],["03","Indicadores","metrics-title"],["04","Dashboard","dashboard-title"],["05","Decisões","decisions-title"],["06","Resultado","result-title"]].map(([number,label,target]) => <a href={`#${target}`} key={number}><span><Icon label={label} /></span><strong>{label}</strong><b>↓</b></a>)}
         </nav>
 
         <section className={styles.section} aria-labelledby="problem-title">
           <SectionHeading number="01" eyebrow="Contexto e problema" title="Uma base extensa não é o mesmo que uma visão comercial" id="problem-title" />
           <div className={styles.twoColumns}><div className={styles.prose}><p>A base reunia pedidos, clientes, produtos, quantidade, custo, valor de venda, lucro, forma de pagamento e origem dos itens. Consultar linhas isoladas não mostrava com clareza como o resultado se distribuía.</p><p>O desafio foi organizar essas informações em uma experiência única: primeiro os indicadores principais, depois a evolução no tempo e, por fim, os rankings e detalhamentos que ajudam a explicar o desempenho.</p></div><aside className={styles.callout}><span>Da base à pergunta</span><strong>Quanto vendemos — e o que explica esse resultado?</strong><p>O painel conecta visão executiva e análise detalhada na mesma página.</p></aside></div>
-          <div className={styles.questionGrid}>{["Como o resultado evolui por mês?","Quais produtos concentram faturamento?","Quais clientes lideram o ranking?","Como margem e lucro se comportam?"].map((item,index) => <article key={item}><span>0{index+1}</span><p>{item}</p></article>)}</div>
+          <div className={styles.questionGrid}>{["Como o resultado evolui por mês?","Quais produtos concentram faturamento?","Quais clientes lideram o ranking?","Como margem e lucro se comportam?"].map((item,index) => <article key={item}><span><Icon name="help" /></span><p>{item}</p></article>)}</div>
         </section>
 
         <section className={styles.section} aria-labelledby="data-title">
@@ -106,7 +107,7 @@ export default function DashboardSalesCase() {
 
         <section className={styles.section} aria-labelledby="metrics-title">
           <SectionHeading number="03" eyebrow="Indicadores" title="Medidas que traduzem a operação comercial" id="metrics-title" />
-          <div className={styles.metricGrid}>{["Faturamento","Custo total","Lucro total","Margem","Quantidade","Pedidos distintos","Ticket médio","Ranking de clientes"].map((metric,index) => <span key={metric}><b>{String(index+1).padStart(2,"0")}</b>{metric}</span>)}</div>
+          <div className={styles.metricGrid}>{[["money","Faturamento"],["card","Custo total"],["result","Lucro total"],["chart","Margem"],["package","Quantidade"],["list","Pedidos distintos"],["file","Ticket médio"],["users","Ranking de clientes"]].map(([icon,metric]) => <span key={metric}><b><Icon name={icon} /></b>{metric}</span>)}</div>
           <div className={styles.codeNarrative}><div><span>DAX</span><h3>Cálculos separados da interface</h3><p>Faturamento, custo e lucro partem de agregações explícitas. Margem e ticket médio usam <code>DIVIDE</code>, evitando que a regra dependa de cálculos visuais improvisados.</p><p>Trechos reais simplificados. Nomes e dados sensíveis não são exibidos.</p></div><DaxEditor /></div>
         </section>
 
@@ -125,7 +126,7 @@ export default function DashboardSalesCase() {
 
         <section className={`${styles.section} ${styles.resultSection}`} aria-labelledby="result-title">
           <SectionHeading number="06" eyebrow="Participação e resultado" title="Uma base comercial transformada em narrativa visual" id="result-title" />
-          <div className={styles.roleResultGrid}><article><span>Minha participação</span><p>Atuei na preparação e validação da base, nas transformações do Power Query, na criação das medidas DAX, na organização da página e na escolha dos visuais e filtros que estruturam a análise comercial.</p></article><article><span>Resultado</span><p>O projeto passou a reunir indicadores, evolução, distribuição, rankings e detalhamento em uma única experiência. O painel facilita a leitura dos resultados sem alterar a fonte original e mantém a lógica dos indicadores documentada no modelo.</p></article></div>
+          <div className={styles.roleResultGrid}><article><span>Minha participação</span><p>Preparei a base no Power Query, criei as medidas DAX e desenhei a página: visuais, ordem de leitura e filtros.</p></article><article><span>Resultado</span><p>Números, evolução, rankings e detalhes numa página só, que se lê de cima para baixo, sem mexer na fonte original.</p></article></div>
           <div className={styles.outcomeGrid}>{["Indicadores centralizados","Comparação mensal","Ranking de clientes","Análise de produtos","Filtros comerciais","Base preservada"].map((item) => <span key={item}>{item}</span>)}</div>
           <div className={styles.learningBlock}><span>Aprendizados</span><div><article><strong>Hierarquia antes da decoração</strong><p>A ordem dos visuais define como o resultado será interpretado.</p></article><article><strong>Medidas precisam ser explícitas</strong><p>DAX concentra a regra e mantém os visuais consistentes.</p></article><article><strong>Detalhe com contexto</strong><p>Rankings e tabelas funcionam melhor depois da visão geral.</p></article><article><strong>Dado seguro também comunica</strong><p>Uma recriação fictícia preserva a experiência sem expor a fonte.</p></article></div></div>
           <div className={styles.techGrid}>{["Power BI","Power Query","DAX","PBIP","Modelo semântico","Excel","Visualização de dados"].map((tech) => <span key={tech}>{tech}</span>)}</div>

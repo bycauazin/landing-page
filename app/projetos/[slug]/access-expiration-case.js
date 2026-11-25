@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CaseHeader from "./case-header";
+import { Icon, SectionIcon } from "./case-icons";
 import { ReadingGuide } from "./case-shared";
 import CaseFloatingActions from "./case-floating-actions";
 import styles from "./access-expiration-case.module.css";
@@ -12,10 +13,10 @@ const relationCards = [
 ];
 
 const expirationFlow = [
-  ["01", "Identificar", "Localizar relações com prazo vencido que ainda estão ativas."],
-  ["02", "Aplicar regras", "Desativar o vínculo correto e tratar regras específicas, como o Tier Open."],
-  ["03", "Registrar", "Gravar o tipo de relação, o alvo e a ação executada no histórico."],
-  ["04", "Sincronizar", "Preparar e aplicar no Moodle as mudanças externas necessárias."],
+  ["search", "Identificar", "Localizar relações com prazo vencido que ainda estão ativas."],
+  ["sliders", "Aplicar regras", "Desativar o vínculo correto e tratar regras específicas, como o Tier Open."],
+  ["history", "Registrar", "Gravar o tipo de relação, o alvo e a ação executada no histórico."],
+  ["refresh", "Sincronizar", "Preparar e aplicar no Moodle as mudanças externas necessárias."],
 ];
 
 const architecture = ["Endpoint autenticado", "Validação", "Controller", "ExpirationService", "ExpirationDao", "PostgreSQL", "Plano Moodle", "Moodle"];
@@ -105,7 +106,7 @@ function CodeEditor({ filename, label, lines }) {
 function SectionHeading({ number, eyebrow, title, id }) {
   return (
     <div className={styles.sectionHeading}>
-      <span>{number}</span>
+      <span><SectionIcon label={eyebrow} /></span>
       <div><p>{eyebrow}</p><h2 id={id}>{title}</h2></div>
     </div>
   );
@@ -141,7 +142,7 @@ export default function AccessExpirationCase() {
               <div className={styles.visualLabel}>Expiração por vínculo</div>
               <div className={styles.studentNode}><span>Aluno</span><small>cadastro preservado</small></div>
               <div className={styles.relationOrbit}>
-                {relationCards.map(([label], index) => <span key={label}><b>{String(index + 1).padStart(2, "0")}</b><strong>{label}</strong><i>expiresAt</i></span>)}
+                {relationCards.map(([label]) => <span key={label}><strong>{label}</strong><i>expiresAt</i></span>)}
               </div>
               <div className={styles.visualRule}><i aria-hidden="true" />Cada relação tem seu próprio prazo</div>
             </div>
@@ -173,7 +174,7 @@ export default function AccessExpirationCase() {
             ["04", "Tier Open", "open-title"],
             ["05", "Arquitetura", "architecture-title"],
             ["06", "Resultado", "result-title"],
-          ].map(([number, label, target]) => <a href={`#${target}`} key={number}><span>{number}</span><strong>{label}</strong><b aria-hidden="true">↓</b></a>)}
+          ].map(([number, label, target]) => <a href={`#${target}`} key={number}><span><Icon label={label} /></span><strong>{label}</strong><b aria-hidden="true">↓</b></a>)}
         </nav>
 
         <section className={styles.section} aria-labelledby="problem-title">
@@ -193,7 +194,7 @@ export default function AccessExpirationCase() {
         <section className={styles.section} aria-labelledby="flow-title">
           <SectionHeading number="02" eyebrow="Como funciona" title="Da data vencida à ação correta" id="flow-title" />
           <ol className={styles.processGrid}>
-            {expirationFlow.map(([number, title, text]) => <li key={number}><span>{number}</span><div><h3>{title}</h3><p>{text}</p></div></li>)}
+            {expirationFlow.map(([icon, title, text]) => <li key={title}><span><Icon name={icon} /></span><div><h3>{title}</h3><p>{text}</p></div></li>)}
           </ol>
           <div className={styles.codeNarrative}>
             <div className={styles.codeCopy}><span>Regra no banco</span><h3>Vencido e ainda ativo</h3><p>O DAO recebe um model Sequelize e procura relações cuja data já chegou. O filtro também considera vínculos em que o estado ativo ainda está nulo, preservando o comportamento atual da aplicação.</p><p>A atualização posterior altera apenas <code>isActive</code>; a data original permanece no vínculo para rastreabilidade.</p></div>
@@ -239,10 +240,10 @@ export default function AccessExpirationCase() {
 
           <div className={styles.challengeHeader}><span>Desafios técnicos</span><h3>Detalhes que impedem uma automação ingênua</h3></div>
           <div className={styles.challengeGrid}>
-            <article><b>01</b><h4>Relações independentes</h4><p>Não existe apenas “aluno expirado”; cada tipo de vínculo precisa ser avaliado separadamente.</p></article>
-            <article><b>02</b><h4>Chaves reais do model</h4><p>O DAO lê as chaves primárias configuradas no Sequelize, sem assumir que toda associação é identificada apenas por um campo chamado <code>id</code>.</p></article>
-            <article><b>03</b><h4>Reexecução segura</h4><p>O Open existente é reutilizado, e as ações Moodle são deduplicadas antes da aplicação.</p></article>
-            <article><b>04</b><h4>Histórico preservado</h4><p>Cada expiração registra relação, alvo, ação e contexto; a data original não é apagada.</p></article>
+            <article><b><Icon name="link" /></b><h4>Relações independentes</h4><p>Não existe apenas “aluno expirado”; cada tipo de vínculo precisa ser avaliado separadamente.</p></article>
+            <article><b><Icon name="key" /></b><h4>Chaves reais do model</h4><p>O DAO lê as chaves primárias configuradas no Sequelize, sem assumir que toda associação é identificada apenas por um campo chamado <code>id</code>.</p></article>
+            <article><b><Icon name="refresh" /></b><h4>Reexecução segura</h4><p>O Open existente é reutilizado, e as ações Moodle são deduplicadas antes da aplicação.</p></article>
+            <article><b><Icon name="history" /></b><h4>Histórico preservado</h4><p>Cada expiração registra relação, alvo, ação e contexto; a data original não é apagada.</p></article>
           </div>
         </section>
 
@@ -257,8 +258,8 @@ export default function AccessExpirationCase() {
         <section className={`${styles.section} ${styles.resultSection}`} aria-labelledby="result-title">
           <SectionHeading number="07" eyebrow="Participação e resultado" title="Regra operacional transformada em processo controlado" id="result-title" />
           <div className={styles.roleResultGrid}>
-            <article><span>Minha participação</span><p>Atuei na análise da regra de negócio, na modelagem da expiração por relação e na implementação backend com Node.js e Sequelize. O trabalho incluiu a separação entre Service e DAO, o modo preview, o tratamento do Tier Open, o histórico, as transactions e a integração com cohorts do Moodle. Também implementei a interface de cadastro em React.js — nesta tela o usuário, ao cadastrar um aluno ou empresa, informa a data de expiração do vínculo.</p></article>
-            <article><span>Resultado</span><p>A expiração passou a considerar o prazo de cada vínculo individualmente, com um fluxo mais previsível e auditável. A automação reduz o tratamento manual, preserva o histórico e permite validar o impacto antes de aplicar mudanças.</p></article>
+            <article><span>Minha participação</span><p>Análise da regra, modelagem e backend em Node.js e Sequelize, com preview, histórico e integração com o Moodle. Também fiz a tela de cadastro em React, onde se informa a data de expiração de cada vínculo.</p></article>
+            <article><span>Resultado</span><p>Cada acesso vence na sua própria data, com histórico guardado e simulação antes de aplicar. Menos trabalho manual.</p></article>
           </div>
           <div className={styles.outcomeGrid}>
             {["Menos tratamento manual", "Regras aplicadas por relação", "Histórico preservado", "Preview antes da aplicação", "Integração local → Moodle", "Processo auditável"].map((item) => <span key={item}>{item}</span>)}

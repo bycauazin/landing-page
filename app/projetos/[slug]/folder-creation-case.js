@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import CaseHeader from "./case-header";
+import { Icon, SectionIcon, StepDot } from "./case-icons";
 import CaseFloatingActions from "./case-floating-actions";
 import { BeforeAfter, FlowDiagram, LeadQuote, ReadingGuide } from "./case-shared";
 import styles from "./course-access-case.module.css";
@@ -8,31 +9,21 @@ import styles from "./course-access-case.module.css";
 const manualFlow = ["Consultar dados", "Identificar cursos", "Criar pasta", "Localizar a base", "Copiar módulos", "Conferir estrutura"];
 const automatedFlow = ["Informar os dados", "Validar", "Clicar em Criar", "Estrutura pronta"];
 const operationSteps = [
-  ["01", "Recebe os dados", "Nome, matrícula, curso e configuração."],
-  ["02", "Valida a entrada", "Campos obrigatórios e matrícula são verificados."],
-  ["03", "Protege a estrutura", "O sistema verifica se a pasta já existe."],
-  ["04", "Identifica os módulos", "Pacote padrão ou seleção personalizada."],
-  ["05", "Cria e copia", "A pasta recebe os arquivos-base necessários."],
-  ["06", "Entrega o ambiente", "A estrutura fica pronta para o novo aluno."],
+  ["file", "Recebe os dados", "Nome, matrícula, curso e configuração."],
+  ["check", "Valida a entrada", "Campos obrigatórios e matrícula são verificados."],
+  ["shield", "Protege a estrutura", "O sistema verifica se a pasta já existe."],
+  ["list", "Identifica os módulos", "Pacote padrão ou seleção personalizada."],
+  ["copy", "Cria e copia", "A pasta recebe os arquivos-base necessários."],
+  ["rocket", "Entrega o ambiente", "A estrutura fica pronta para o novo aluno."],
 ];
 
-function CaseIcon({ type }) {
-  const icons = {
-    problem: <><circle cx="24" cy="24" r="17" /><path d="M24 14v12M24 33h.01" /></>,
-    solution: <><path d="M8 15h13l4 5h15v19H8z" /><path d="M24 25v9M19.5 29.5h9" /></>,
-    custom: <><path d="M10 10h12v12H10zM26 10h12v12H26zM10 26h12v12H10z" /><path d="M32 27v11M26.5 32.5h11" /></>,
-    interface: <><rect x="7" y="9" width="34" height="26" rx="2" /><path d="M17 41h14M24 35v6M13 15h22M13 21h15" /></>,
-    result: <><path d="M8 39h32M12 34l8-9 7 5 11-15" /><path d="M31 15h7v7" /></>,
-  };
-  return <span className={styles.sectionIcon} aria-hidden="true"><svg viewBox="0 0 48 48">{icons[type]}</svg></span>;
-}
 
-function SectionHeading({ number, eyebrow, title, id, icon }) {
-  return <div className={styles.sectionHeading}><span className={styles.sectionNumber}>{number}</span><div className={styles.sectionTitle}><p>{eyebrow}</p><h2 id={id}>{title}</h2></div><CaseIcon type={icon} /></div>;
+function SectionHeading({ eyebrow, title, id }) {
+  return <div className={styles.sectionHeading}><span className={styles.sectionNumber}><SectionIcon label={eyebrow} /></span><div className={styles.sectionTitle}><p>{eyebrow}</p><h2 id={id}>{title}</h2></div></div>;
 }
 
 function Flow({ label, items, accent = false, six = false }) {
-  return <div className={`${styles.flowBlock} ${accent ? styles.accentFlow : ""} ${six ? styles.sixStepFlow : ""}`}><p>{label}</p><ol>{items.map((item, index) => <li key={item}><span>{String(index + 1).padStart(2, "0")}</span><strong>{item}</strong></li>)}</ol></div>;
+  return <div className={`${styles.flowBlock} ${accent ? styles.accentFlow : ""} ${six ? styles.sixStepFlow : ""}`}><p>{label}</p><ol>{items.map((item, index) => <li key={item}><StepDot n={index + 1} /><strong>{item}</strong></li>)}</ol></div>;
 }
 
 export default function FolderCreationCase() {
@@ -78,7 +69,7 @@ export default function FolderCreationCase() {
         ]} />
 
         <nav className={styles.caseNav} aria-label="Etapas do estudo de caso">
-          {[["01", "Problema", "folder-problem"], ["02", "Solução", "folder-solution"], ["03", "Personalização", "folder-custom"], ["04", "Interface", "folder-interface"], ["05", "Resultado", "folder-result"]].map(([number, label, target]) => <a href={`#${target}`} key={number}><span>{number}</span><strong>{label}</strong><b aria-hidden="true">↓</b></a>)}
+          {[["01", "Problema", "folder-problem"], ["02", "Solução", "folder-solution"], ["03", "Personalização", "folder-custom"], ["04", "Interface", "folder-interface"], ["05", "Resultado", "folder-result"]].map(([number, label, target]) => <a href={`#${target}`} key={number}><span><Icon label={label} /></span><strong>{label}</strong><b aria-hidden="true">↓</b></a>)}
         </nav>
 
         <section className={styles.section} aria-labelledby="folder-problem">
@@ -94,7 +85,7 @@ export default function FolderCreationCase() {
           <SectionHeading number="02" eyebrow="A solução" title="Dados preenchidos, estrutura criada" id="folder-solution" icon="solution" />
           <div className={styles.solutionIntro}><p>Desenvolvi sozinho uma aplicação em Python e Tkinter para conduzir todo o processo. O professor informava os dados uma vez e o programa criava a pasta e copiava os conteúdos corretos.</p><div className={styles.pythonBadge}><Image src="/technology-icons/python.svg" width={52} height={52} alt="Python" /><strong>Não eram pastas vazias.<br />Os arquivos dos cursos também eram copiados.</strong></div></div>
           <Flow label="Novo processo" items={automatedFlow} accent />
-          <ol className={styles.operationGrid} aria-label="Funcionamento técnico da aplicação">{operationSteps.map(([number, title, description]) => <li key={number}><span>{number}</span><div><h3>{title}</h3><p>{description}</p></div></li>)}</ol>
+          <ol className={styles.operationGrid} aria-label="Funcionamento técnico da aplicação">{operationSteps.map(([icon, title, description]) => <li key={title}><span><Icon name={icon} /></span><div><h3>{title}</h3><p>{description}</p></div></li>)}</ol>
           <div className={styles.validationStrip}><span>Validações</span><ul><li>Nome obrigatório</li><li>Matrícula válida</li><li>Configuração preenchida</li><li>Pasta ainda não existente</li></ul></div>
         </section>
 

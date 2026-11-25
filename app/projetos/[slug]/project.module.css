@@ -27,10 +27,10 @@
 .liveLink:hover { color: var(--on-accent); transform: translateY(-2px); }
 
 .flowSection, .chapterSection, .detailsSection, .publicationSection, .relatedSection { padding: 90px 0; border-top: 1px solid var(--line); }
-.sectionLabel { display: grid; grid-template-columns: 70px 1fr; align-items: baseline; margin-bottom: 42px; }
+.sectionLabel { display: grid; grid-template-columns: 70px 1fr; align-items: center; margin-bottom: 36px; }
 .sectionLabel > span { color: var(--blue); font-size: 11px; }
 .sectionLabel h2, .publicationSection h2, .relatedSection h2 { font-size: clamp(30px, 4vw, 48px); font-weight: 480; line-height: 1.08; }
-.sectionIntro { max-width: 640px; margin: -22px 0 42px 70px; color: var(--muted); font-size: 15px; line-height: 1.65; }
+.sectionIntro { max-width: 640px; margin: -18px 0 36px 70px; color: var(--muted); font-size: 15px; line-height: 1.65; }
 .flow { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); padding: 0; list-style: none; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .flow li { position: relative; display: flex; min-height: 140px; padding: 20px; flex-direction: column; justify-content: space-between; border-right: 1px solid var(--line); }
 .flow li:last-child { border-right: 0; }
@@ -193,7 +193,7 @@
 .messageHeader {
   display: grid;
   grid-template-columns: 70px 1fr;
-  align-items: baseline;
+  align-items: center;
   margin-bottom: 32px;
 }
 
@@ -269,7 +269,7 @@
   .hero { padding: 72px 0 65px; }
   .hero h1 { font-size: clamp(46px, 15vw, 70px); }
   .flowSection, .chapterSection, .detailsSection, .publicationSection, .relatedSection { padding: 68px 0; }
-  .sectionLabel { grid-template-columns: 38px 1fr; }
+  .sectionLabel, .messageHeader { grid-template-columns: 56px 1fr; }
   .sectionIntro, .chapterGrid, .detailGrid { margin-left: 0; }
   .flow { grid-template-columns: 1fr 1fr; }
   .flow li:nth-child(2n) { border-right: 0; }
@@ -322,4 +322,53 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .heroShot { transform: none; transition: none; }
+}
+
+/* ---------- recursos com ícone (no lugar da lista numerada) ---------- */
+.featureGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0 0 0 70px; padding: 0; list-style: none; font-family: var(--font-ui); }
+.featureGrid li { display: flex; align-items: flex-start; gap: 14px; padding: 20px; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); transition: border-color 200ms ease, transform 200ms ease; }
+.featureGrid li:hover { border-color: color-mix(in srgb, var(--blue) 45%, var(--line)); transform: translateY(-2px); }
+.featureGrid strong { display: block; color: var(--paper); font-size: 15px; font-weight: 650; line-height: 1.3; }
+.featureGrid p { margin-top: 5px; color: var(--muted); font-size: 13.5px; line-height: 1.5; }
+.featureIcon { display: grid; width: 40px; height: 40px; flex: none; place-items: center; border-radius: 11px; color: var(--blue); background: color-mix(in srgb, var(--blue) 12%, transparent); }
+.featureIcon svg { width: 20px; height: 20px; }
+
+/* ---------- como as partes se conectam: ícones ligados por uma linha, sem números ---------- */
+.pipeline { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 12px; margin: 0 0 0 70px; padding: 0; list-style: none; font-family: var(--font-ui); }
+.pipeline::before { position: absolute; top: 31px; right: 8%; left: 8%; height: 2px; border-radius: 2px; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--blue) 55%, transparent) 12%, color-mix(in srgb, var(--blue) 55%, transparent) 88%, transparent); content: ""; }
+.pipeline li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.pipelineIcon { display: grid; width: 64px; height: 64px; margin-bottom: 8px; place-items: center; border: 1px solid color-mix(in srgb, var(--blue) 35%, var(--line)); border-radius: 50%; color: var(--blue); background: var(--ink); box-shadow: 0 0 0 6px var(--ink); transition: transform 220ms ease, background-color 220ms ease, color 220ms ease; }
+.pipelineIcon svg { width: 26px; height: 26px; }
+.pipeline li:hover .pipelineIcon { color: var(--on-accent); background: var(--blue); transform: translateY(-3px); }
+.pipeline strong { color: var(--paper); font-size: 15px; font-weight: 650; }
+.pipeline small { color: var(--muted); font-size: 12.5px; }
+
+/* ---------- problema, solução e resultado ---------- */
+.storyGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-left: 70px; font-family: var(--font-ui); }
+.storyGrid article { padding: 24px; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); }
+.storyGrid h3 { margin: 18px 0 8px; color: var(--paper); font-size: 19px; font-weight: 600; }
+.storyGrid p { color: var(--muted); font-size: 15px; line-height: 1.6; }
+.storyMeta { display: flex; flex-wrap: wrap; gap: 10px; margin: 14px 0 0 70px; padding: 0; list-style: none; font-family: var(--font-ui); }
+.storyMeta li { display: inline-flex; align-items: center; gap: 9px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 13.5px; }
+.storyMeta svg { width: 17px; height: 17px; color: var(--blue); }
+.storyMeta strong { color: var(--paper); font-weight: 650; }
+.progressGrid span { display: inline-flex; align-items: center; gap: 8px; }
+.progressGrid span svg { width: 16px; height: 16px; }
+:global(html[data-theme="light"]) .featureGrid li, :global(html[data-theme="light"]) .storyGrid article { box-shadow: 0 1px 2px rgb(var(--midnight-ink-rgb) / .05); }
+
+@media (max-width: 900px) {
+  .featureGrid, .storyGrid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 700px) {
+  .featureGrid, .storyGrid, .pipeline, .storyMeta { margin-left: 0; }
+  .featureGrid, .storyGrid { grid-template-columns: 1fr; }
+  .pipeline { grid-template-columns: 1fr; gap: 0; }
+  .pipeline::before { top: 32px; bottom: 32px; left: 31px; right: auto; width: 2px; height: auto; background: color-mix(in srgb, var(--blue) 45%, transparent); }
+  .pipeline li { flex-direction: row; gap: 14px; padding: 6px 0; text-align: left; }
+  .pipelineIcon { width: 56px; height: 56px; margin: 0 6px 0 4px; }
+  .pipeline li > small { margin-left: auto; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .featureGrid li, .pipelineIcon { transition: none; }
+  .featureGrid li:hover, .pipeline li:hover .pipelineIcon { transform: none; }
 }

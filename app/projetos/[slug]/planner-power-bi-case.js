@@ -1,5 +1,6 @@
 import Link from "next/link";
 import CaseHeader from "./case-header";
+import { Icon, SectionIcon, StepDot } from "./case-icons";
 import { BeforeAfter, FlowDiagram, LeadQuote, ReadingGuide } from "./case-shared";
 import CaseFloatingActions from "./case-floating-actions";
 import styles from "./planner-power-bi-case.module.css";
@@ -21,13 +22,13 @@ const goalFlow = [
 ];
 
 const automationSequence = [
-  ["01", "Fluxo diário", "O processo é iniciado automaticamente pela manhã e acessa os dados do ambiente Microsoft."],
-  ["02", "Grupos e planos", "São consultados os grupos e os planos relacionados às tarefas da operação."],
-  ["03", "Buckets e tarefas", "Os buckets e as tarefas são coletados para reconstruir o contexto de trabalho."],
-  ["04", "Usuários e responsáveis", "As informações de usuários e responsáveis são relacionadas às tarefas."],
-  ["05", "Estruturação", "Dados como status, prazos, atraso, responsável e plano são organizados em um formato consistente."],
-  ["06", "JSON e SharePoint", "Os arquivos JSON são gerados e armazenados em uma pasta do SharePoint para uso posterior."],
-  ["07", "Consumo no Power BI", "O dashboard passa a utilizar essa base como fonte para os indicadores gerenciais."],
+  ["clock", "Fluxo diário", "O processo é iniciado automaticamente pela manhã e acessa os dados do ambiente Microsoft."],
+  ["users", "Grupos e planos", "São consultados os grupos e os planos relacionados às tarefas da operação."],
+  ["list", "Buckets e tarefas", "Os buckets e as tarefas são coletados para reconstruir o contexto de trabalho."],
+  ["user", "Usuários e responsáveis", "As informações de usuários e responsáveis são relacionadas às tarefas."],
+  ["layers", "Estruturação", "Dados como status, prazos, atraso, responsável e plano são organizados em um formato consistente."],
+  ["folder", "JSON e SharePoint", "Os arquivos JSON são gerados e armazenados em uma pasta do SharePoint para uso posterior."],
+  ["chart", "Consumo no Power BI", "O dashboard passa a utilizar essa base como fonte para os indicadores gerenciais."],
 ];
 
 const dashboardCards = [
@@ -50,7 +51,7 @@ const capabilityTags = ["Microsoft Planner", "Microsoft Graph", "Power Automate"
 function SectionHeading({ number, eyebrow, title, id }) {
   return (
     <div className={styles.sectionHeading}>
-      <span className={styles.sectionNumber}>{number}</span>
+      <span className={styles.sectionNumber}><SectionIcon label={eyebrow} /></span>
       <div className={styles.sectionTitle}>
         <p>{eyebrow}</p>
         <h2 id={id}>{title}</h2>
@@ -66,7 +67,7 @@ function Flow({ label, items, accent = false }) {
       <ol>
         {items.map((item, index) => (
           <li key={item}>
-            <span>{String(index + 1).padStart(2, "0")}</span>
+            <StepDot n={index + 1} />
             <strong>{item}</strong>
           </li>
         ))}
@@ -150,7 +151,7 @@ export default function PlannerPowerBICase() {
             ["06", "Dashboard", "dashboard-title"],
             ["07", "Resultado", "result-title"],
           ].map(([number, label, target]) => (
-            <a href={`#${target}`} key={number}><span>{number}</span><strong>{label}</strong><b aria-hidden="true">↓</b></a>
+            <a href={`#${target}`} key={number}><span><Icon label={label} /></span><strong>{label}</strong><b aria-hidden="true">↓</b></a>
           ))}
         </nav>
 
@@ -250,9 +251,9 @@ export default function PlannerPowerBICase() {
           <Flow label="Representação simplificada do fluxo de automação" items={goalFlow} accent />
 
           <ol className={styles.operationGrid} aria-label="Etapas do processo automatizado">
-            {automationSequence.map(([number, title, description]) => (
-              <li key={number}>
-                <span>{number}</span>
+            {automationSequence.map(([icon, title, description]) => (
+              <li key={title}>
+                <span><Icon name={icon} /></span>
                 <div>
                   <h3>{title}</h3>
                   <p>{description}</p>
@@ -405,22 +406,19 @@ export default function PlannerPowerBICase() {
         <section className={styles.section} aria-labelledby="result-title">
           <SectionHeading number="08" eyebrow="Minha participação" title="Arquitetura, automação e preparação dos dados" id="result-title" />
           <div className={styles.mainCopy}>
-            <p>Fui responsável pela análise do problema, pela definição da arquitetura, pela primeira tentativa de integração, pela pesquisa da alternativa, pelo desenvolvimento do fluxo no Power Automate, pela integração com Microsoft Graph, pela estruturação do armazenamento no SharePoint e pela preparação dos dados consumidos pelo Power BI.</p>
-            <p>Fui responsável principalmente pela engenharia dos dados e pela automação que passou a alimentar o dashboard. A construção visual original do Power BI não foi desenvolvida por mim.</p>
+            <p>A arquitetura, a automação no Power Automate com o Microsoft Graph e a preparação dos dados que alimentam o painel. O visual original do Power BI não foi feito por mim.</p>
           </div>
 
           <div className={styles.resultPanel}>
             <div>
               <p className={styles.kicker}>Resultado</p>
               <h3>De atualização manual para coleta automática</h3>
-              <p>O dashboard deixou de depender da replicação diária das tarefas em uma planilha e passou a consumir dados coletados automaticamente do ambiente Microsoft. Essa mudança reduziu o esforço operacional e aumentou a confiabilidade das informações apresentadas aos gestores.</p>
+              <p>Ninguém mais copia tarefas para planilha: o painel recebe os dados sozinho e os gestores confiam no que veem.</p>
             </div>
             <ul>
-              <li>Redução significativa do trabalho manual;</li>
-              <li>Eliminação da necessidade de atualizar uma planilha diariamente;</li>
-              <li>Atualização automática de dados;</li>
-              <li>Mais confiança no dashboard;</li>
-              <li>Melhor visibilidade de atrasos e tarefas sem prazo.</li>
+              <li>Fim da planilha atualizada à mão</li>
+              <li>Dados atualizados sozinhos</li>
+              <li>Atrasos e tarefas sem prazo à vista</li>
             </ul>
           </div>
         </section>

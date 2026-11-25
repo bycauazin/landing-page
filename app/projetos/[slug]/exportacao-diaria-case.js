@@ -1,15 +1,16 @@
 import Link from "next/link";
 import CaseHeader from "./case-header";
+import { Icon, SectionIcon } from "./case-icons";
 import { ReadingGuide } from "./case-shared";
 import CaseFloatingActions from "./case-floating-actions";
 import styles from "./exportacao-diaria-case.module.css";
 
 const pipeline = [
-  ["01", "Coletar", "Consultar dados do Account Manager e do Moodle."],
-  ["02", "Relacionar", "Cruzar fontes e construir estruturas derivadas para o arquivo."],
-  ["03", "Gerar", "Criar um workbook com abas, cabeçalhos e datas formatadas."],
-  ["04", "Combinar", "Incorporar planilhas auxiliares e preservar suas referências."],
-  ["05", "Publicar", "Enviar o arquivo final ao SharePoint e comunicar o resultado."],
+  ["data", "Coletar", "Consultar dados do Account Manager e do Moodle."],
+  ["link", "Relacionar", "Cruzar fontes e construir estruturas derivadas para o arquivo."],
+  ["file", "Gerar", "Criar um workbook com abas, cabeçalhos e datas formatadas."],
+  ["copy", "Combinar", "Incorporar planilhas auxiliares e preservar suas referências."],
+  ["upload", "Publicar", "Enviar o arquivo final ao SharePoint e comunicar o resultado."],
 ];
 
 const orchestrationCode = [
@@ -93,7 +94,7 @@ function CodeEditor({ filename, label, lines }) {
 }
 
 function SectionHeading({ number, eyebrow, title, id }) {
-  return <div className={styles.sectionHeading}><span>{number}</span><div><p>{eyebrow}</p><h2 id={id}>{title}</h2></div></div>;
+  return <div className={styles.sectionHeading}><span><SectionIcon label={eyebrow} /></span><div><p>{eyebrow}</p><h2 id={id}>{title}</h2></div></div>;
 }
 
 export default function ExportacaoDiariaCase() {
@@ -133,7 +134,7 @@ export default function ExportacaoDiariaCase() {
         <div className={styles.leadStatement}><span>Decisão central</span><blockquote>O arquivo não é apenas exportado. Ele é construído a partir de fontes que precisam ser reconciliadas.</blockquote></div>
 
         <nav className={styles.caseNav} aria-label="Etapas do estudo de caso">
-          {[["01", "Problema", "problem-title"], ["02", "Pipeline", "pipeline-title"], ["03", "Workbook", "workbook-title"], ["04", "Merge", "merge-title"], ["05", "Arquitetura", "architecture-title"], ["06", "Resultado", "result-title"]].map(([number, label, target]) => <a href={`#${target}`} key={number}><span>{number}</span><strong>{label}</strong><b aria-hidden="true">↓</b></a>)}
+          {[["01", "Problema", "problem-title"], ["02", "Pipeline", "pipeline-title"], ["03", "Workbook", "workbook-title"], ["04", "Merge", "merge-title"], ["05", "Arquitetura", "architecture-title"], ["06", "Resultado", "result-title"]].map(([number, label, target]) => <a href={`#${target}`} key={number}><span><Icon label={label} /></span><strong>{label}</strong><b aria-hidden="true">↓</b></a>)}
         </nav>
 
         <section className={styles.section} aria-labelledby="problem-title">
@@ -143,15 +144,15 @@ export default function ExportacaoDiariaCase() {
             <aside className={styles.callout}><span>O desafio</span><strong>Transformar várias fontes em um único contrato de dados.</strong><p>Sem esconder que cada origem possui regras, formatos e limites próprios.</p></aside>
           </div>
           <div className={styles.sourceGrid}>
-            <article><span>01</span><strong>Account Manager</strong><p>Dados relacionais consultados no PostgreSQL por meio dos DAOs da aplicação.</p><small>Cadastros e vínculos locais</small></article>
-            <article><span>02</span><strong>Moodle</strong><p>Tabelas permitidas lidas do MySQL com paginação, filtros e ordenação controlada.</p><small>Uso e estruturas educacionais</small></article>
-            <article><span>03</span><strong>SharePoint</strong><p>Workbooks auxiliares obtidos pelo Microsoft Graph e incorporados ao arquivo final.</p><small>Fontes complementares</small></article>
+            <article><span><Icon name="server" /></span><strong>Account Manager</strong><p>Dados relacionais consultados no PostgreSQL por meio dos DAOs da aplicação.</p><small>Cadastros e vínculos locais</small></article>
+            <article><span><Icon name="learning" /></span><strong>Moodle</strong><p>Tabelas permitidas lidas do MySQL com paginação, filtros e ordenação controlada.</p><small>Uso e estruturas educacionais</small></article>
+            <article><span><Icon name="folder" /></span><strong>SharePoint</strong><p>Workbooks auxiliares obtidos pelo Microsoft Graph e incorporados ao arquivo final.</p><small>Fontes complementares</small></article>
           </div>
         </section>
 
         <section className={styles.section} aria-labelledby="pipeline-title">
           <SectionHeading number="02" eyebrow="Pipeline" title="Da coleta à publicação" id="pipeline-title" />
-          <ol className={styles.pipelineGrid}>{pipeline.map(([number, title, description]) => <li key={number}><span>{number}</span><h3>{title}</h3><p>{description}</p></li>)}</ol>
+          <ol className={styles.pipelineGrid}>{pipeline.map(([icon, title, description]) => <li key={title}><span><Icon name={icon} /></span><h3>{title}</h3><p>{description}</p></li>)}</ol>
           <div className={styles.codeNarrative}>
             <div className={styles.codeCopy}><span>Orquestração</span><h3>Uma sequência explícita de transformações</h3><p>O job coleta as fontes, constrói relações derivadas, enriquece registros, gera o Excel base, combina os anexos e só então publica o resultado.</p><p>Cada etapa tem uma responsabilidade visível e pode produzir avisos para o relatório final da execução.</p></div>
             <CodeEditor filename="ExportExcelDaily.js" label="Trecho simplificado da orquestração da exportação" lines={orchestrationCode} />
@@ -199,18 +200,18 @@ export default function ExportacaoDiariaCase() {
           <div className={styles.resilienceNote}><span>Falha parcial</span><p>Quando uma consulta isolada do Account Manager falha, a rotina registra o aviso e mantém aquela coleção vazia para continuar o fluxo. Erros que impedem a exportação completa são propagados e comunicados como falha.</p></div>
           <div className={styles.challengeHeader}><span>Desafios técnicos</span><h3>O trabalho está nas bordas entre as fontes</h3></div>
           <div className={styles.challengeGrid}>
-            <article><b>01</b><h4>Dois bancos</h4><p>PostgreSQL e MySQL possuem estruturas e estratégias de consulta diferentes.</p></article>
-            <article><b>02</b><h4>Dados derivados</h4><p>Algumas abas dependem de relações construídas em memória a partir de mais de uma origem.</p></article>
-            <article><b>03</b><h4>Workbooks externos</h4><p>Abas, estilos e fórmulas precisam sobreviver ao processo de combinação.</p></article>
-            <article><b>04</b><h4>Publicação remota</h4><p>Autenticação, upload e resposta do Microsoft Graph fazem parte da entrega.</p></article>
+            <article><b><Icon name="data" /></b><h4>Dois bancos</h4><p>PostgreSQL e MySQL possuem estruturas e estratégias de consulta diferentes.</p></article>
+            <article><b><Icon name="link" /></b><h4>Dados derivados</h4><p>Algumas abas dependem de relações construídas em memória a partir de mais de uma origem.</p></article>
+            <article><b><Icon name="file" /></b><h4>Workbooks externos</h4><p>Abas, estilos e fórmulas precisam sobreviver ao processo de combinação.</p></article>
+            <article><b><Icon name="upload" /></b><h4>Publicação remota</h4><p>Autenticação, upload e resposta do Microsoft Graph fazem parte da entrega.</p></article>
           </div>
         </section>
 
         <section className={`${styles.section} ${styles.resultSection}`} aria-labelledby="result-title">
           <SectionHeading number="06" eyebrow="Participação e resultado" title="De fontes dispersas para um arquivo centralizado" id="result-title" />
           <div className={styles.roleResultGrid}>
-            <article><span>Minha participação</span><p>Atuei na arquitetura e implementação da rotina em Node.js, na coleta dos dois bancos, nas regras de transformação e enriquecimento, na geração do workbook com ExcelJS, no merge das fontes auxiliares e na publicação pelo Microsoft Graph. Também trabalhei no agendamento, isolamento em worker e tratamento das notificações.</p></article>
-            <article><span>Resultado</span><p>O arquivo passou a ser produzido por um processo recorrente e padronizado. A rotina concentra coleta, relacionamento, formatação, consolidação e publicação, reduzindo a dependência de montagem manual e deixando a execução mais observável.</p></article>
+            <article><span>Minha participação</span><p>Arquitetura e código da rotina: coleta nos dois bancos, geração e merge do Excel, publicação no SharePoint, agendamento e avisos.</p></article>
+            <article><span>Resultado</span><p>O arquivo passou a sair sozinho, sempre no mesmo formato, e qualquer falha é avisada.</p></article>
           </div>
           <div className={styles.outcomeGrid}>{["Coleta recorrente", "Fontes reconciliadas", "Workbook padronizado", "Fórmulas preservadas", "Publicação centralizada", "Falhas comunicadas"].map((item) => <span key={item}>{item}</span>)}</div>
           <div className={styles.learningBlock}><span>Aprendizados</span><div><article><strong>Exportar é modelar</strong><p>Um arquivo útil depende de relações e transformações, não apenas de consultas.</p></article><article><strong>Planilhas também têm dependências</strong><p>Nomes de abas e fórmulas formam referências que precisam ser preservadas.</p></article><article><strong>Rotinas pesadas pedem isolamento</strong><p>O worker reduz o impacto da exportação sobre a API principal.</p></article><article><strong>Falhas precisam de contexto</strong><p>Avisos e resumos tornam a execução mais fácil de acompanhar.</p></article></div></div>

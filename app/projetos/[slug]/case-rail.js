@@ -2,70 +2,8 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import chrome from "./case-chrome.module.css";
+import { ICONS, findIcon, iconFor } from "./case-icons";
 
-// Ícones em traço (24×24, currentColor), no estilo dos ícones da faixa "o que eu faço" da home.
-const ICONS = {
-  start: <><path d="M3 10.5 12 3l9 7.5" /><path d="M5 9.5V21h14V9.5" /><path d="M10 21v-6h4v6" /></>,
-  summary: <><path d="M4 5h16M4 10h16M4 15h10M4 20h7" /></>,
-  context: <><circle cx="12" cy="12" r="9" /><path d="m15.5 8.5-2 5-5 2 2-5z" /></>,
-  problem: <><circle cx="12" cy="12" r="9" /><path d="M12 7.5v5.5M12 16.5h.01" /></>,
-  solution: <><path d="M9 18h6M10 21h4" /><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z" /></>,
-  goal: <><circle cx="12" cy="12" r="9" /><circle cx="12" cy="12" r="5" /><circle cx="12" cy="12" r="1" /></>,
-  flow: <><rect x="3" y="3" width="7" height="7" rx="2" /><rect x="14" y="14" width="7" height="7" rx="2" /><path d="M6.5 10v3a3.5 3.5 0 0 0 3.5 3.5h4" /><path d="m12 14.5 2 2-2 2" /></>,
-  layers: <><path d="m12 3 9 5-9 5-9-5z" /><path d="m3 13 9 5 9-5" /></>,
-  data: <><ellipse cx="12" cy="5.5" rx="8" ry="2.5" /><path d="M4 5.5v13c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5v-13" /><path d="M4 12c0 1.4 3.6 2.5 8 2.5s8-1.1 8-2.5" /></>,
-  chart: <><path d="M3 20h18" /><path d="M6.5 16v-3" /><path d="M11 16V9" /><path d="M15.5 16v-5" /><path d="M20 16V5" /></>,
-  screen: <><rect x="3" y="4" width="18" height="12" rx="2" /><path d="M8 20h8M12 16v4" /></>,
-  code: <><path d="m8 7-5 5 5 5" /><path d="m16 7 5 5-5 5" /><path d="m13.5 4-3 16" /></>,
-  shield: <><path d="M12 3 4.5 6v6c0 4.5 3.2 7.8 7.5 9 4.3-1.2 7.5-4.5 7.5-9V6z" /><path d="m9 12 2 2 4-4" /></>,
-  sliders: <><path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0" /><circle cx="16" cy="6" r="2" /><circle cx="10" cy="12" r="2" /><circle cx="18" cy="18" r="2" /></>,
-  puzzle: <><path d="M9 4h3a2 2 0 1 1 4 0h3v5a2 2 0 1 1 0 4v6h-6a2 2 0 1 0-4 0H4v-5a2 2 0 1 0 0-4V4z" /></>,
-  plug: <><path d="M9 3v5M15 3v5" /><path d="M6 8h12v3a6 6 0 0 1-12 0z" /><path d="M12 17v4" /></>,
-  compare: <><path d="M4 8h13l-3-3M20 16H7l3 3" /></>,
-  list: <><path d="M9 6h11M9 12h11M9 18h11" /><path d="M4 6h.01M4 12h.01M4 18h.01" /></>,
-  user: <><circle cx="12" cy="8" r="4" /><path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" /></>,
-  result: <><path d="M3 20h18" /><path d="m5 15 5-5 4 3 6-7" /><path d="M15 6h5v5" /></>,
-  learning: <><path d="M3 9 12 4l9 5-9 5z" /><path d="M7 11.5V16c0 1.5 2.2 3 5 3s5-1.5 5-3v-4.5" /></>,
-  flag: <><path d="M5 21V4" /><path d="M5 4h12l-2 4 2 4H5" /></>,
-  alert: <><path d="M12 3 2 20h20z" /><path d="M12 10v4M12 17h.01" /></>,
-  tools: <><path d="M14.5 6.5a4 4 0 0 0 5 5L12 19l-3-3 7.5-7.5" /><path d="M4 20l5-5" /></>,
-  link: <><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1" /><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1" /></>,
-  calendar: <><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M3 10h18M8 3v4M16 3v4" /></>,
-  globe: <><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.5 3.5 5.5 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-5.5-3.5-9S9.5 5.5 12 3z" /></>,
-};
-
-// Seção sem ícone escolhido: o ícone vem do título (a primeira regra que bater).
-const BY_WORD = [
-  [/poucas palavras|resumo/i, "summary"],
-  [/antes e depois/i, "compare"],
-  [/aprendiz/i, "learning"],
-  [/participa|minha atua/i, "user"],
-  [/resultado|impacto/i, "result"],
-  [/relacionad|conex/i, "link"],
-  [/tecnologia|ferramenta/i, "tools"],
-  [/ocorr[eê]ncia/i, "alert"],
-  [/problema/i, "problem"],
-  [/contexto/i, "context"],
-  [/objetivo/i, "goal"],
-  [/solu[cç]/i, "solution"],
-  [/desafio/i, "puzzle"],
-  [/personaliz|filtro|decis/i, "sliders"],
-  [/seguran|simular/i, "shield"],
-  [/regra/i, "sliders"],
-  [/moodle|integra/i, "plug"],
-  [/dashboard|indicador|m[eé]trica/i, "chart"],
-  [/interface|tela|visual|experi[eê]ncia/i, "screen"],
-  [/c[oó]digo|dax|trecho|gera[cç][aã]o do arquivo/i, "code"],
-  [/arquitetura|estrutura/i, "layers"],
-  [/dado|base|planilha|lista|consolida/i, "data"],
-  [/fluxo|pipeline|como funciona|como a|conectam|abordagem/i, "flow"],
-  [/situa[cç][aã]o|status|evolu|futur|em desenvolvimento|pronto|pr[oó]xima/i, "flag"],
-  [/o que o app|recurso|constru/i, "list"],
-  [/publica/i, "globe"],
-  [/agenda|rotina|semana/i, "calendar"],
-];
-
-const iconFor = (text) => BY_WORD.find(([pattern]) => pattern.test(text))?.[1] ?? "layers";
 
 // Paradas da barra: o hero (Início) e cada seção da página que tem título (aria-labelledby).
 // O nome é o "chapéu" curto do título (ex.: "O problema"); sem ele, o próprio título.
@@ -78,7 +16,7 @@ function findSections(main) {
     if (!title) return;
     const eyebrow = title.previousElementSibling?.matches("p") ? title.previousElementSibling.textContent : "";
     const label = (section.dataset.rail || eyebrow || title.textContent).trim().slice(0, 42);
-    stops.push({ el: section, label, icon: section.dataset.railIcon || iconFor(`${label} ${title.textContent}`) });
+    stops.push({ el: section, label, icon: section.dataset.railIcon || findIcon(label) || iconFor(title.textContent) });
   });
   return stops;
 }
