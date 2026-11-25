@@ -4,7 +4,7 @@ A home usa [page.js](page.js), [page.module.css](page.module.css) e os [componen
 
 ## Título da home
 
-Edite a identificação e o título principal em [page.js](page.js). A linha em destaque fica no elemento `<em>`. Confira a quebra do título em tela estreita.
+Edite a identificação “Cauã · desenvolvedor & instrutor” e o título principal em [page.js](page.js). A linha em destaque fica no elemento `<em>`. Confira a quebra do título em tela estreita.
 
 ## Aulas particulares
 
