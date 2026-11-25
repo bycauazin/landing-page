@@ -1,5 +1,4 @@
 .page { position:relative; isolation:isolate; min-height:100vh; overflow:hidden; color:var(--paper); background:var(--ink); font-family:var(--font-display); }
-.page::before,.page::after { display:none; pointer-events:none; }
 .header,.hero,.caseNav,.section,.footer { position:relative; z-index:1; width:min(1180px,calc(100% - 64px)); margin-inline:auto; }
 .header { display:flex; height:88px; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line); }
 .brand { display:inline-flex; align-items:center; gap:10px; font-size:15px; font-weight:650; }
@@ -172,11 +171,6 @@
 .footer { display:flex; min-height:88px; align-items:center; justify-content:space-between; border-top:1px solid var(--line); color:var(--muted); font-size:12px; }
 .brand,.backLink,.heroMeta,.tags,.caseNav,.sectionHeading,.flowBlock,.operationGrid,.technicalNote,.validationStrip,.courseModes,.interfaceCopy,.capabilities,.benefitGrid,.connectedCard,.footer { font-family:var(--font-ui); }
 
-@media (min-width:1200px) {
-  .page::before,.page::after { position:fixed; top:20vh; bottom:12vh; z-index:0; display:block; width:min(112px,calc((100vw - 1180px)/2 - 36px)); background-repeat:no-repeat; opacity:.7; -webkit-mask-image:linear-gradient(to bottom,transparent,#000 8%,#000 92%,transparent); mask-image:linear-gradient(to bottom,transparent,#000 8%,#000 92%,transparent); content:""; }
-  .page::before { left:18px; width:clamp(26px,calc((100vw - 1180px)/2 - 28px),112px); border-left:1px solid rgb(var(--tint-rgb) / .55); background-image:linear-gradient(90deg,rgb(var(--tint-rgb) / .68),transparent),linear-gradient(90deg,rgb(var(--tint-rgb) / .48),transparent),linear-gradient(90deg,rgb(var(--tint-rgb) / .68),transparent); background-position:left 18%,left 50%,left 82%; background-size:46px 1px,78px 1px,46px 1px; }
-  .page::after { right:18px; width:clamp(26px,calc((100vw - 1180px)/2 - 28px),112px); border-right:1px solid rgb(var(--tint-rgb) / .55); background-image:linear-gradient(270deg,rgb(var(--tint-rgb) / .68),transparent),linear-gradient(270deg,rgb(var(--tint-rgb) / .48),transparent),linear-gradient(270deg,rgb(var(--tint-rgb) / .68),transparent); background-position:right 18%,right 50%,right 82%; background-size:46px 1px,78px 1px,46px 1px; }
-}
 @media (max-width:800px) {
   .heroGrid,.problemGrid,.solutionIntro,.interfaceLayout,.challengeGrid,.resultGrid { grid-template-columns:1fr; gap:26px; }
   .hero aside { max-width:500px; }
@@ -234,7 +228,5 @@
 .connectedCard b svg { width: 28px; height: 28px; transition: transform 200ms ease; }
 .connectedCard:hover b svg { transform: translateX(4px); }
 .exeCard b svg { width: 26px; height: 26px; }
-/* com a barra lateral na tela, o circuito da direita fica estreito e a barra vai para o lado dele */
-:global(html[data-case-rail]) .page::after { width: 24px !important; }
 
 .operationGrid li:last-child:nth-child(odd) { grid-column: 1 / -1; background: linear-gradient(110deg, color-mix(in srgb, var(--blue) 14%, var(--ink)), var(--ink) 65%); }

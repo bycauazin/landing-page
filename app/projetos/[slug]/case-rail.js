@@ -5,18 +5,20 @@ import chrome from "./case-chrome.module.css";
 import { ICONS, findIcon, iconFor } from "./case-icons";
 
 
-// Paradas da barra: o hero (Início) e cada seção da página que tem título (aria-labelledby).
+// Paradas da barra: o hero (Início) e as seções com título ou nome explícito.
 // O nome é o "chapéu" curto do título (ex.: "O problema"); sem ele, o próprio título.
 function findSections(main) {
   const [hero, ...rest] = main.querySelectorAll(":scope > section");
   const stops = hero ? [{ el: hero, label: "Início", icon: "start" }] : [];
   rest.forEach((section) => {
-    if (!section.hasAttribute("aria-labelledby")) return;
+    const explicitLabel = section.dataset.rail;
+    if (!explicitLabel && !section.hasAttribute("aria-labelledby")) return;
     const title = section.querySelector("h2");
-    if (!title) return;
-    const eyebrow = title.previousElementSibling?.matches("p") ? title.previousElementSibling.textContent : "";
-    const label = (section.dataset.rail || eyebrow || title.textContent).trim().slice(0, 42);
-    stops.push({ el: section, label, icon: section.dataset.railIcon || findIcon(label) || iconFor(title.textContent) });
+    if (!explicitLabel && !title) return;
+    const previous = title?.previousElementSibling;
+    const eyebrow = previous?.matches("p") ? previous.textContent : "";
+    const label = (explicitLabel || eyebrow || title.textContent).trim().slice(0, 42);
+    stops.push({ el: section, label, icon: section.dataset.railIcon || findIcon(label) || iconFor(title?.textContent ?? label) });
   });
   return stops;
 }
@@ -24,13 +26,13 @@ function findSections(main) {
 const RAIL_ROOM = 88; // largura da barra + folga até o texto
 
 /**
- * Barra lateral dos estudos de caso (a mesma ideia do SectionRail do Finance):
+ * Barra lateral do portfólio, no estilo do SectionRail do Finance:
  * uma coluna de ícones à direita, um por seção. O da seção na tela fica em
  * destaque (o fundo desliza até ele), o clique leva à seção, o nome aparece ao
  * passar o mouse e a barrinha embaixo mostra quanto da página já foi lido.
- * Só aparece onde cabe ao lado do texto; nas telas menores fica o botão "Tópicos".
+ * Só aparece onde cabe ao lado do texto. Nos estudos de caso, substitui o botão "Tópicos".
  */
-export default function CaseRail() {
+export default function CaseRail({ fitSelector, controlsCaseActions = true }) {
   const [sections, setSections] = useState([]);
   const [active, setActive] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -62,32 +64,36 @@ export default function CaseRail() {
   }, []);
 
   useEffect(() => {
+    const fitReference = fitSelector ? document.querySelector(fitSelector) : null;
+    const main = document.querySelector("main");
     const fit = () => {
-      const hero = els.current[0];
-      const right = hero ? hero.getBoundingClientRect().right : window.innerWidth;
-      // nas páginas com o circuito na borda, a barra fica mais para dentro (ver case-chrome.module.css)
-      const room = RAIL_ROOM + (document.querySelector("[data-edge-deco]") ? 36 : 0);
-      setFits(window.innerWidth - right >= room && window.innerHeight >= 520);
+      const reference = fitReference ?? els.current[0];
+      const right = reference?.getBoundingClientRect().right ?? window.innerWidth;
+      setFits(window.innerWidth - right >= RAIL_ROOM && window.innerHeight >= 520);
     };
     const onResize = () => { fit(); measure(); };
     onResize();
+    const observer = new ResizeObserver(onResize);
+    if (main) observer.observe(main);
     window.addEventListener("scroll", measure, { passive: true });
     window.addEventListener("resize", onResize);
     return () => {
+      observer.disconnect();
       window.removeEventListener("scroll", measure);
       window.removeEventListener("resize", onResize);
     };
-  }, [measure, sections]);
+  }, [fitSelector, measure, sections]);
 
-  const visible = fits && sections.length > 2;
+  const visible = fits && sections.length > 1;
 
   // Com a barra na tela, os botões flutuantes "Tópicos" e "Topo" (das telas menores) saem de cena.
   useEffect(() => {
+    if (!controlsCaseActions) return undefined;
     const html = document.documentElement;
     if (visible) html.dataset.caseRail = "";
     else delete html.dataset.caseRail;
     return () => { delete html.dataset.caseRail; };
-  }, [visible]);
+  }, [controlsCaseActions, visible]);
 
   if (!visible) return null;
 

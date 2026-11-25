@@ -62,7 +62,7 @@ app/
 └── page.js                  # Página inicial
 ```
 
-O tema claro/escuro vale no site inteiro e fica guardado no navegador. Os estudos de caso têm uma barra lateral de ícones (uma parada por seção), começam com "O projeto em um minuto" (em poucas palavras + parte técnica) e usam ícones no lugar de números.
+O tema claro/escuro vale no site inteiro e fica guardado no navegador. Nas telas largas, a home, o catálogo e os estudos de caso usam o circuito decorativo à esquerda e uma barra de navegação por seções à direita. Os estudos de caso começam com "O projeto em um minuto" (em poucas palavras + parte técnica) e usam ícones no lugar de números.
 
 A home apresenta [aulas particulares](app/README.md#aulas-particulares) logo depois dos projetos em destaque.
 

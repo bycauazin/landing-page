@@ -10,6 +10,7 @@ import BrandLogo from "./brand-logo";
 import HeroCircuitField from "./hero-circuit-field";
 import MobileMenu from "./mobile-menu";
 import SnapCursor from "./snap-cursor";
+import CaseRail from "../projetos/[slug]/case-rail";
 import { useLightMode } from "./use-theme";
 
 const mobileLinks = [
@@ -28,7 +29,7 @@ export default function ProjectsPage() {
       <HeroCircuitField className={homeStyles.pageField} variant="sweep" light={lightMode} />
       <SnapCursor />
       <ProjectsMotion />
-      <div className={homeStyles.progressRail} aria-hidden="true"><span data-motion-progress="" /></div>
+      <CaseRail fitSelector="#catalogo" controlsCaseActions={false} />
       <header className={homeStyles.header}>
         <Link className={homeStyles.brand} href="/" aria-label="Voltar ao início"><BrandLogo className={homeStyles.brandMark} size={42} /><span>bycauazin</span></Link>
         <nav className={homeStyles.nav} aria-label="Navegação principal"><Link href="/projetos" aria-current="page">Projetos</Link><Link href="/#sobre">Sobre</Link></nav>
@@ -47,7 +48,7 @@ export default function ProjectsPage() {
           <span>Filtre os projetos pelas tecnologias utilizadas.</span>
         </section>
 
-        <section className={styles.catalogSection} aria-label="Lista de projetos" data-circuit-sweep="0">
+        <section className={styles.catalogSection} id="catalogo" aria-label="Lista de projetos" data-rail="Lista de projetos" data-rail-icon="folder" data-circuit-sweep="0">
           <ProjectExplorer />
         </section>
       </main>

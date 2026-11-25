@@ -73,6 +73,29 @@ body {
   margin: 0;
 }
 
+@media (min-width: 1280px) {
+  body::before {
+    position: fixed;
+    z-index: 2;
+    top: 20vh;
+    bottom: 12vh;
+    left: clamp(16px, calc((100% - 1180px) / 2 - 40px), 42px);
+    width: clamp(16px, calc((100% - 1180px) / 2 - 54px), 112px);
+    border-left: 1px solid rgb(var(--tint-rgb) / .38);
+    background-image:
+      linear-gradient(90deg, rgb(var(--vermilion-rgb) / .7), transparent),
+      linear-gradient(90deg, rgb(var(--tint-rgb) / .4), transparent),
+      linear-gradient(90deg, rgb(var(--tint-rgb) / .55), transparent);
+    background-position: left 18%, left 50%, left 82%;
+    background-repeat: no-repeat;
+    background-size: 46px 1px, 78px 1px, 46px 1px;
+    opacity: .7;
+    mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
+    pointer-events: none;
+    content: "";
+  }
+}
+
 a {
   color: inherit;
   text-decoration: none;

@@ -7,7 +7,6 @@
   background: var(--ink);
   font-family: var(--font-display);
 }
-.page::before, .page::after { display: none; pointer-events: none; }
 /* Circuito vivo atrás da página inteira (fixo na tela, abaixo de todo o conteúdo) */
 .pageField { position: fixed; z-index: -1; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0; transition: opacity 900ms ease; }
 .pageField[data-ready] { opacity: 1; }
@@ -119,7 +118,6 @@
 .light .heroCircuit, .light .heroCircuit span { border-color: rgb(var(--midnight-ink-rgb) / 0.4); }
 .light .heroCircuit::before, .light .heroCircuit::after { background: var(--light-bg); }
 .light .headerCta:hover, .light .buttonPrimary:hover, .light .contactButton:hover { background: #b23c21; }
-.light .progressRail span { background: var(--blue); }
 .light .avatarFrame { border-color: #fff; box-shadow: 0 0 0 14px rgb(var(--midnight-ink-rgb) / 0.06), 0 30px 80px rgb(var(--midnight-ink-rgb) / 0.25); }
 .avatar span, .aboutMark span { color: var(--blue); }
 
@@ -248,42 +246,6 @@
 .footer { display: flex; justify-content: space-between; align-items: center; min-height: 88px; color: var(--muted); font-size: 11px; }
 .socials { display: flex; gap: 22px; }
 
-@media (min-width: 1380px) {
-  .page::before, .page::after {
-    position: fixed;
-    top: 20vh;
-    bottom: 12vh;
-    z-index: 0;
-    display: block;
-    width: min(112px, calc((100vw - 1180px) / 2 - 36px));
-    background-repeat: no-repeat;
-    opacity: .7;
-    -webkit-mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
-    mask-image: linear-gradient(to bottom, transparent, #000 8%, #000 92%, transparent);
-    content: "";
-  }
-  .page::before {
-    left: 42px;
-    border-left: 1px solid rgb(var(--tint-rgb) / .38);
-    background-image:
-      linear-gradient(90deg, rgb(var(--vermilion-rgb) / .7), transparent),
-      linear-gradient(90deg, rgb(var(--tint-rgb) / .4), transparent),
-      linear-gradient(90deg, rgb(var(--tint-rgb) / .55), transparent);
-    background-position: left 18%, left 50%, left 82%;
-    background-size: 46px 1px, 78px 1px, 46px 1px;
-  }
-  .page::after {
-    right: 42px;
-    border-right: 1px solid rgb(var(--tint-rgb) / .38);
-    background-image:
-      linear-gradient(270deg, rgb(var(--tint-rgb) / .55), transparent),
-      linear-gradient(270deg, rgb(var(--tint-rgb) / .4), transparent),
-      linear-gradient(270deg, rgb(var(--vermilion-rgb) / .7), transparent);
-    background-position: right 18%, right 50%, right 82%;
-    background-size: 46px 1px, 78px 1px, 46px 1px;
-  }
-}
-
 @keyframes filterIn { from { opacity: 0; transform: translateY(7px); } to { opacity: 1; transform: translateY(0); } }
 
 
@@ -300,9 +262,6 @@
   .heroField[data-ready] { opacity: 0.6; }
   .heroShade { background: linear-gradient(180deg, rgb(var(--midnight-ink-rgb) / 0.9), rgb(var(--midnight-ink-rgb) / 0.82) 55%, rgb(var(--midnight-ink-rgb) / 0.96)); }
   .light .heroShade { background: linear-gradient(180deg, rgb(var(--light-bg-rgb) / 0.92), rgb(var(--light-bg-rgb) / 0.84) 55%, rgb(var(--light-bg-rgb) / 0.96)); }
-  .techHeading { display: block; }
-  .techToggle { margin-top: 24px; }
-  .techGrid { grid-template-columns: 1fr; }
   .contactSection { margin: 0 8px 8px; padding: 100px 20px; border-radius: 24px; }
   .caseItem { padding: 20px; border-radius: 22px; }
   .aboutCopy { padding: 28px; }
@@ -350,8 +309,6 @@
 .page :global(.motion-mask-line) { display: block; overflow: hidden; padding: .055em 0; margin: -.055em 0; perspective: 900px; }
 .page :global(.motion-mask-inner) { display: block; transform-origin: 50% 100%; }
 
-.progressRail { position: fixed; z-index: 12; top: 50%; right: 24px; width: 3px; border-radius: 3px; height: 112px; overflow: hidden; background: var(--line); transform: translateY(-50%); pointer-events: none; }
-.progressRail span { display: block; width: 100%; height: 100%; background: var(--blue); transform: scaleY(0); transform-origin: top center; }
 
 .techSection { position: relative; }
 .techSection::before { position: absolute; top: -1px; left: 0; width: 82px; height: 2px; background: var(--blue); content: ""; }
@@ -407,7 +364,6 @@
 }
 
 @media (max-width: 900px) {
-  .progressRail { display: none; }
   .serviceGrid { grid-template-columns: 1fr; }
   .serviceCard { min-height: 250px; }
 }
@@ -422,7 +378,6 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .progressRail { display: none; }
   .filterResults { animation: none; }
   .techTrack { animation: none; }
   .techAppear { animation: none; }
@@ -433,11 +388,11 @@
   .socialMedia img { will-change: auto; }
 }
 
-/* Phones: the title of the technologies and the "Mostrar tudo" button stacked. Declared here, after the
-   general .techHeading rule, so it is not overridden by it (the copy inside the 760px block above was). */
+/* No celular, o botão e as categorias ficam empilhados. */
 @media (max-width: 760px) {
   .techHeading { display: block; }
   .techToggle { margin-top: 20px; }
+  .techGrid { grid-template-columns: minmax(0, 1fr); }
 }
 
 /* Tema claro: cartões brancos com sombra suave (em vez de cinza-azulado sobre o fundo claro) */

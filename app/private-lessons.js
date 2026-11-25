@@ -32,7 +32,7 @@ const resources = [
 
 export default function PrivateLessons() {
   return (
-    <section className={styles.section} id="aulas" aria-labelledby="aulas-title">
+    <section className={styles.section} id="aulas" aria-labelledby="aulas-title" data-rail="Aulas particulares" data-rail-icon="learning">
       <div className={styles.overview}>
         <div>
           <p className={homeStyles.kicker}>Aprenda na prática</p>

@@ -125,8 +125,6 @@ export default function HomeMotion() {
           .from(find(`[data-motion-contact] > p:not(.${styles.kicker})`), { y: 18, autoAlpha: 0, duration: 0.55 }, "-=0.3")
           .from(find(`.${styles.contactButton}`), { y: 20, opacity: 0, duration: 0.7, ease: "power3.out" }, "-=0.16")
           .from(find(`.${styles.contactAura}`), { scale: 0.72, autoAlpha: 0, duration: 1.15, ease: "power2.out" }, 0);
-
-        gsap.fromTo(find("[data-motion-progress]"), { scaleY: 0 }, { scaleY: 1, ease: "none", scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: 0.25 } });
       }, root);
       return () => context.revert();
     });

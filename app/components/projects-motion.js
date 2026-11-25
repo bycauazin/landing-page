@@ -46,12 +46,6 @@ export default function ProjectsMotion() {
             scrollTrigger: { trigger: card, start: "top 92%", once: true },
           });
         });
-
-        gsap.fromTo("[data-motion-progress]", { scaleY: 0 }, {
-          scaleY: 1,
-          ease: "none",
-          scrollTrigger: { trigger: root, start: "top top", end: "bottom bottom", scrub: 0.25 },
-        });
       }, root);
       return () => context.revert();
     });

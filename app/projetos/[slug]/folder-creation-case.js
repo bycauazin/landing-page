@@ -40,7 +40,7 @@ function Flow({ label, items, accent = false }) {
 
 export default function FolderCreationCase() {
   return (
-    <div className={styles.page} id="top" data-edge-deco="">
+    <div className={styles.page} id="top">
       <CaseHeader styles={styles} />
 
       <main>
