@@ -31,7 +31,7 @@ export default function ProjectsPage() {
       <ProjectsMotion />
       <CaseRail fitSelector="#catalogo" controlsCaseActions={false} />
       <header className={homeStyles.header}>
-        <Link className={homeStyles.brand} href="/" aria-label="Voltar ao início"><BrandLogo className={homeStyles.brandMark} size={42} /><span>bycauazin</span></Link>
+        <Link className={homeStyles.brand} href="/" aria-label="Voltar ao início"><BrandLogo className={homeStyles.brandMark} size={50} /><span>bycauazin</span></Link>
         <nav className={homeStyles.nav} aria-label="Navegação principal"><Link href="/projetos" aria-current="page">Projetos</Link><Link href="/#sobre">Sobre</Link></nav>
         <div className={homeStyles.headerActions}>
           <button className={homeStyles.themeToggle} type="button" onClick={toggleTheme} aria-label={lightMode ? "Ativar tema escuro" : "Ativar tema claro"} title={lightMode ? "Ativar tema escuro" : "Ativar tema claro"}><span aria-hidden="true">{lightMode ? "☾" : "☼"}</span></button>

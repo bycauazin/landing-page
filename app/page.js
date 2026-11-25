@@ -68,7 +68,7 @@ export default function Home() {
       <SnapCursor />
       <CaseRail fitSelector="#projetos" controlsCaseActions={false} />
       <header className={styles.header}>
-        <a className={styles.brand} href="#inicio" aria-label="Voltar ao inicio"><BrandLogo className={styles.brandMark} size={42} /><span>bycauazin</span></a>
+        <a className={styles.brand} href="#inicio" aria-label="Voltar ao inicio"><BrandLogo className={styles.brandMark} size={50} /><span>bycauazin</span></a>
         <nav className={styles.nav} aria-label="Navegação principal"><a href="#projetos">Projetos</a><a href="#aulas">Aulas</a><a href="#sobre">Sobre</a></nav>
         <div className={styles.headerActions}><button className={styles.themeToggle} type="button" onClick={toggleTheme} aria-label={lightMode ? "Ativar tema escuro" : "Ativar tema claro"} title={lightMode ? "Ativar tema escuro" : "Ativar tema claro"}><span aria-hidden="true">{lightMode ? "☾" : "☼"}</span></button><a className={styles.headerCta} href="#contato">Vamos conversar <span aria-hidden="true">↗</span></a><MobileMenu links={mobileLinks} /></div>
       </header>

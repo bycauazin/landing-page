@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { onIntroReveal } from "./intro-script";
 import styles from "../page.module.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -14,6 +15,7 @@ export default function HomeMotion() {
 
     const media = gsap.matchMedia();
     let active = true;
+    let stopWaiting = () => {};
 
     media.add("(prefers-reduced-motion: no-preference)", () => {
       const context = gsap.context(() => {
@@ -23,11 +25,13 @@ export default function HomeMotion() {
         const heroLines = all("#hero-title [data-motion-line]");
 
         gsap.set(heroLines, { yPercent: 115, autoAlpha: 0, rotationX: 7, transformOrigin: "50% 100%" });
-        gsap.timeline({ defaults: { ease: "power4.out" } })
+        // A entrada do topo fica pausada até a cortina da abertura subir (site-intro.js).
+        const entrance = gsap.timeline({ paused: true });
+        entrance.add(gsap.timeline({ defaults: { ease: "power4.out" } })
           .fromTo(find(`.${styles.eyebrow}`), { x: -18, autoAlpha: 0 }, { x: 0, autoAlpha: 1, duration: 0.55 }, 0.14)
           .to(heroLines, { yPercent: 0, autoAlpha: 1, rotationX: 0, duration: 0.88, stagger: 0.12 }, 0.3)
           .fromTo(find(`.${styles.heroText}`), { y: 20, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.7 }, 0.73)
-          .fromTo(find(`.${styles.heroActions}`), { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65 }, 0.9);
+          .fromTo(find(`.${styles.heroActions}`), { y: 18, opacity: 0 }, { y: 0, opacity: 1, duration: 0.65 }, 0.9), 0);
 
         // Entrada e scroll nunca animam a mesma propriedade do mesmo elemento: se o visitante rolar
         // durante a entrada, as duas animações brigariam a cada frame (era isso que "travava").
@@ -39,15 +43,16 @@ export default function HomeMotion() {
         const photo = find(`.${styles.profileImage}`);
         const circuit = find(`.${styles.heroCircuit}`);
         const grid = find(`.${styles.visualGrid}`);
-        gsap.fromTo(background, { autoAlpha: 0 }, { autoAlpha: 1, duration: 1.1, ease: "power2.out" });
-        gsap.timeline({ delay: 0.7 })
+        entrance.add(gsap.fromTo(background, { autoAlpha: 0 }, { autoAlpha: 1, duration: 1.1, ease: "power2.out" }), 0);
+        entrance.add(gsap.timeline()
           .fromTo(avatar,
             { clipPath: "circle(0% at 50% 50%)", scale: 0.82, rotation: -14 },
             { clipPath: "circle(100% at 50% 50%)", scale: 1, rotation: 0, duration: 1.5, ease: "power3.inOut", clearProps: "clipPath" }, 0)
           .fromTo(photo, { scale: 1.45 }, { scale: 1, duration: 2, ease: "power3.out" }, 0)
           .fromTo(grid, { autoAlpha: 0, scale: 0.88 }, { autoAlpha: 0.35, scale: 1, duration: 1.3, ease: "power3.out" }, 0)
           .fromTo(circuit, { scaleY: 0, autoAlpha: 0, transformOrigin: "50% 0%" }, { scaleY: 1, autoAlpha: 0.85, duration: 0.95, ease: "power3.inOut" }, 0.45)
-          .from(circuit.querySelectorAll("span"), { scaleX: 0, transformOrigin: "100% 50%", stagger: 0.1, duration: 0.45, ease: "power2.out" }, 1.05);
+          .from(circuit.querySelectorAll("span"), { scaleX: 0, transformOrigin: "100% 50%", stagger: 0.1, duration: 0.45, ease: "power2.out" }, 1.05), 0.7);
+        stopWaiting = onIntroReveal(() => entrance.play());
 
         // Scroll: só transform e opacidade (as duas mais baratas para o navegador).
         const parallax = { ease: "none", immediateRender: false };
@@ -154,7 +159,7 @@ export default function HomeMotion() {
     });
 
     document.fonts?.ready.then(() => { if (active) ScrollTrigger.refresh(); });
-    return () => { active = false; media.revert(); };
+    return () => { active = false; stopWaiting(); media.revert(); };
   }, []);
 
   return null;

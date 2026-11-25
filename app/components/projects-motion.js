@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { onIntroReveal } from "./intro-script";
 import homeStyles from "../page.module.css";
 import styles from "../projetos/projects.module.css";
 
@@ -15,13 +16,15 @@ export default function ProjectsMotion() {
     if (!root) return undefined;
 
     const media = gsap.matchMedia();
+    let stopWaiting = () => {};
 
     media.add("(prefers-reduced-motion: no-preference)", () => {
       const context = gsap.context(() => {
         const find = (selector) => root.querySelector(selector);
         const hero = find(`.${styles.projectsHero}`);
 
-        gsap.timeline({ defaults: { ease: "power4.out" } })
+        // Pausada até a cortina da abertura subir (site-intro.js).
+        const entrance = gsap.timeline({ paused: true, defaults: { ease: "power4.out" } })
           .from(find(`.${homeStyles.header}`), { y: -18, autoAlpha: 0, duration: 0.6 }, 0)
           .from(hero.querySelector(`.${homeStyles.kicker}`), { x: -20, autoAlpha: 0, duration: 0.55 }, 0.15)
           .fromTo(
@@ -32,6 +35,7 @@ export default function ProjectsMotion() {
           )
           .from(hero.querySelectorAll(":scope > p:not(:first-child), :scope > span"), { y: 20, autoAlpha: 0, stagger: 0.1, duration: 0.7 }, 0.62)
           .from(find(`.${homeStyles.filterControls}`), { y: 16, autoAlpha: 0, duration: 0.6, clearProps: "transform" }, 0.85);
+        stopWaiting = onIntroReveal(() => entrance.play());
 
         // Cards sobem ao entrar na tela (mesma animação dos destaques da home).
         gsap.utils.toArray("[data-motion-project]", root).forEach((card, index) => {
@@ -95,6 +99,7 @@ export default function ProjectsMotion() {
     document.fonts?.ready.then(() => ScrollTrigger.refresh());
     return () => {
       observer?.disconnect();
+      stopWaiting();
       media.revert();
     };
   }, []);

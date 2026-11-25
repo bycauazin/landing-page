@@ -1,0 +1,14 @@
+.logo {
+  flex: none;
+  height: auto;
+}
+
+/* !important: as classes de layout dos cabeçalhos (display: block) não podem mostrar as duas. */
+.logo.light,
+:global(:root[data-theme="light"]) .logo.dark {
+  display: none !important;
+}
+
+:global(:root[data-theme="light"]) .logo.light {
+  display: block !important;
+}

@@ -16,7 +16,7 @@ export default function CaseHeader({ styles }) {
 
   return (
     <header className={styles.header}>
-      <Link className={`${styles.brand} ${chrome.brand}`} href="/#projetos" aria-label="Voltar ao início"><BrandLogo className={chrome.brandMark} size={34} /> bycauazin</Link>
+      <Link className={`${styles.brand} ${chrome.brand}`} href="/#projetos" aria-label="Voltar ao início"><BrandLogo className={chrome.brandMark} size={44} /> bycauazin</Link>
       <div className={chrome.headerActions}>
         <Link className={styles.backLink} href="/projetos">← Todos os projetos</Link>
         <button className={chrome.themeToggle} type="button" onClick={toggleTheme} aria-label={label} title={label}>

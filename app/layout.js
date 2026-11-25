@@ -1,5 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import FloatingWhatsApp from "./components/floating-whatsapp";
+import { introScript } from "./components/intro-script";
+import SiteIntro from "./components/site-intro";
 import { themeScript } from "./components/theme-script";
 import "./globals.css";
 
@@ -38,7 +40,7 @@ export const metadata = {
     images: ["https://bycauazin.web.app/foto-perfil.jpg"],
   },
   icons: {
-    icon: { url: "/logo.svg?v=2", type: "image/svg+xml" },
+    icon: { url: "/logo-favicon.svg?v=3", type: "image/svg+xml" },
     shortcut: "/favicon.ico?v=2",
     apple: "/apple-touch-icon.png?v=2",
   },
@@ -50,8 +52,11 @@ export default function RootLayout({ children }) {
   return (
     // suppressHydrationWarning: o script do <head> pode trocar o data-theme antes do React hidratar.
     <html lang="pt-BR" className={`${geistSans.variable} ${geistMono.variable}`} suppressHydrationWarning>
-      <head><script dangerouslySetInnerHTML={{ __html: themeScript }} /></head>
-      <body>{children}<FloatingWhatsApp /></body>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: introScript }} />
+      </head>
+      <body><SiteIntro />{children}<FloatingWhatsApp /></body>
     </html>
   );
 }
