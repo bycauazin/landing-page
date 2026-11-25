@@ -181,7 +181,7 @@
 /* "antes": cinza e linha tracejada */
 .pipelineMuted::before { background: repeating-linear-gradient(90deg, rgb(var(--tint-rgb) / .35) 0 6px, transparent 6px 12px); }
 .pipelineMuted .pipelineIcon { color: var(--muted); border-color: var(--line); }
-.pipelineMuted li:hover .pipelineIcon { color: var(--paper); background: rgb(var(--tint-rgb) / .12); }
+.pipelineMuted li:hover .pipelineIcon { color: var(--paper); background: color-mix(in srgb, var(--paper) 12%, var(--ink)); } /* opaco: a linha tracejada não aparece através do ícone */
 /* vertical, para colunas estreitas (e no celular) */
 .pipelineVertical { grid-template-columns: 1fr; gap: 0; }
 .pipelineVertical::before { top: 30px; bottom: 30px; left: 27px; right: auto; width: 2px; height: auto; background: color-mix(in srgb, var(--blue) 45%, transparent); }

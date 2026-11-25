@@ -236,3 +236,5 @@
 .exeCard b svg { width: 26px; height: 26px; }
 /* com a barra lateral na tela, o circuito da direita fica estreito e a barra vai para o lado dele */
 :global(html[data-case-rail]) .page::after { width: 24px !important; }
+
+.operationGrid li:last-child:nth-child(odd) { grid-column: 1 / -1; background: linear-gradient(110deg, color-mix(in srgb, var(--blue) 14%, var(--ink)), var(--ink) 65%); }

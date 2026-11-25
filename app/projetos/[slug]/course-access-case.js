@@ -61,7 +61,7 @@ export default function CourseAccessCase() {
 
         <ReadingGuide
           className={styles.section}
-          highlight={{ prefix: "≈", value: "60%", text: "menos pedidos de ajuda nos horários cheios", href: "#result-title" }}
+          highlight={{ value: "60%", text: "menos chamados dos alunos à equipe nos horários cheios", href: "#result-title" }}
           minutes={4}
           plain={["Numa escola de informática, cada aluno tinha a sua pasta de arquivos escondida em cinco níveis de pastas do computador. Muita gente vinha uma vez por semana, esquecia o caminho e a aula começava com o professor ajudando um por um.", "Criei um programa simples: o aluno digita a matrícula, clica em Pesquisar e a pasta dele abre junto com a plataforma de aulas. Nos horários cheios, os pedidos de ajuda caíram cerca de 60%."]}
           plainLink={{ label: "Ver como ficou a tela", href: "#interface-title" }}
@@ -88,10 +88,7 @@ export default function CourseAccessCase() {
 
         <section className={styles.section} aria-labelledby="problem-title">
           <SectionHeading number="01" eyebrow="O problema" title="Cinco níveis de pastas para começar uma aula" id="problem-title" icon="problem" />
-          <div className={styles.problemGrid}>
-            <div className={styles.mainCopy}><p>Os alunos precisavam encontrar sua pasta individual e abrir a plataforma de aulas. Como muitos frequentavam a unidade uma vez por semana, esqueciam o caminho.</p><p>Nos horários de pico, até 10 alunos podiam chegar juntos e pedir a mesma orientação, interrompendo professores e equipe.</p></div>
-            <div className={styles.fact}><strong>≈ 5</strong><span>níveis de diretórios até a pasta individual</span></div>
-          </div>
+          <div className={styles.problemGrid}><div className={styles.mainCopy}><p>Nos horários de pico, até 10 alunos podiam chegar juntos e pedir a mesma orientação, interrompendo professores e equipe.</p></div></div>
           <Flow label="Processo anterior" items={oldFlow} />
         </section>
 
@@ -129,7 +126,7 @@ export default function CourseAccessCase() {
         <section className={`${styles.section} ${styles.result}`} aria-labelledby="result-title">
           <SectionHeading number="05" eyebrow="Resultado" title="Menos interrupções nos horários de pico" id="result-title" icon="result" />
           <div className={styles.resultGrid}>
-            <div className={styles.metric}><span>≈</span><strong>60%</strong><p>redução estimada dos chamados sobre acesso às aulas e aos arquivos.</p></div>
+            <div className={styles.metric}><strong>60%</strong><p>menos chamados dos alunos à equipe, em estimativa.</p></div>
             <div className={styles.resultCopy}><p>A estimativa veio da observação da rotina, não de uma medição formal. Com menos dúvidas operacionais, os professores puderam dedicar mais tempo ao conteúdo dos cursos.</p><div><span>Aprendizado</span><p>Esse projeto mostrou, no início da minha experiência com desenvolvimento, como usar programação para resolver um problema real do próprio ambiente de trabalho.</p></div></div>
           </div>
           <div className={styles.capabilities} aria-label="Competências aplicadas no projeto"><span>Python</span><span>Interface desktop</span><span>Automação</span><span>Pesquisa técnica</span><span>Resolução de problemas</span></div>

@@ -894,3 +894,14 @@
 .pipelineBlock > p { margin-bottom: 24px; color: var(--blue-light); font-family: var(--font-ui); font-size: 12px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
 .caseNav b svg { width: 15px; height: 15px; }
 @media (max-width: 760px) { .pipelineBlock { margin-left: 0; } }
+
+/* Lista com número ímpar de cartões: o último ocupa a linha toda, em destaque (fecha a sequência). */
+.operationGrid li:last-child:nth-child(odd) { grid-column: 1 / -1; border-color: color-mix(in srgb, var(--blue) 45%, var(--line)); background: linear-gradient(110deg, color-mix(in srgb, var(--blue) 14%, var(--surface)), var(--surface) 65%); }
+.operationGrid li:last-child:nth-child(odd) h3 { font-size: 22px; }
+.mainCopy strong { color: var(--paper); font-weight: 650; }
+.galleryBlock { margin-top: 34px; }
+.galleryNote { margin-top: 12px; color: var(--muted); font-family: var(--font-ui); font-size: 12px; text-align: center; }
+.roleLine { display: flex; flex-wrap: wrap; gap: 10px; margin: 16px 0 0; padding: 0; list-style: none; font-family: var(--font-ui); }
+.roleLine li { display: inline-flex; align-items: center; gap: 9px; padding: 10px 14px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); font-size: 14px; }
+.roleLine svg { width: 17px; height: 17px; color: var(--blue); }
+.roleLine strong { color: var(--paper); font-weight: 650; }

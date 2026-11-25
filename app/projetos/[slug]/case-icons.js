@@ -105,6 +105,7 @@ const BY_WORD = [
   [/seguran|simular/i, "shield"],
   [/regra/i, "sliders"],
   [/moodle|integra/i, "plug"],
+  [/painel/i, "screen"],
   [/dashboard|indicador|m[eé]trica/i, "chart"],
   [/interface|tela|visual|experi[eê]ncia/i, "screen"],
   [/c[oó]digo|dax|trecho|gera[cç][aã]o do arquivo/i, "code"],

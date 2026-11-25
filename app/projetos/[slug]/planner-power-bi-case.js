@@ -1,42 +1,36 @@
 import Link from "next/link";
+import CaseGallery from "./case-gallery";
 import CaseHeader from "./case-header";
-import { Icon, SectionIcon, StepDot } from "./case-icons";
-import { BeforeAfter, FlowDiagram, LeadQuote, ReadingGuide, Pipeline } from "./case-shared";
+import { Icon, SectionIcon } from "./case-icons";
+import { LeadQuote, Pipeline, ReadingGuide } from "./case-shared";
 import CaseFloatingActions from "./case-floating-actions";
 import styles from "./planner-power-bi-case.module.css";
 
-const oldProcess = [{ icon: "list", label: "Planner com tarefas e prazos" }, { icon: "user", label: "Atualização manual de planilha" }, { icon: "file", label: "Planilha como origem do dashboard" }, { icon: "alert", label: "Dados potencialmente desatualizados" }, { icon: "refresh", label: "Manutenção humana constante" }];
+const oldProcess = [{ icon: "list", label: "Planner com tarefas e prazos" }, { icon: "user", label: "Alguém copia para a planilha" }, { icon: "file", label: "Planilha alimenta o painel" }, { icon: "alert", label: "Dados desatualizados" }];
 
-const goalFlow = [{ icon: "list", label: "Planner", note: "Fonte operacional" }, { icon: "plug", label: "Microsoft Graph", note: "Coleta automática" }, { icon: "flow", label: "Power Automate", note: "Orquestra o fluxo" }, { icon: "folder", label: "SharePoint", note: "JSON estruturado" }, { icon: "chart", label: "Power BI", note: "Atualiza o dashboard" }];
+const solutionFlow = [{ icon: "list", label: "Planner", note: "Onde as tarefas vivem" }, { icon: "plug", label: "Microsoft Graph", note: "Lê planos e tarefas" }, { icon: "flow", label: "Power Automate", note: "Roda todo dia" }, { icon: "folder", label: "SharePoint", note: "Guarda os JSON" }, { icon: "screen", label: "Painel", note: "Mostra os indicadores" }];
 
+// Sete passos: o último (o painel recebendo os dados) ocupa a linha toda, em destaque.
 const automationSequence = [
-  ["clock", "Fluxo diário", "O processo é iniciado automaticamente pela manhã e acessa os dados do ambiente Microsoft."],
-  ["users", "Grupos e planos", "São consultados os grupos e os planos relacionados às tarefas da operação."],
-  ["list", "Buckets e tarefas", "Os buckets e as tarefas são coletados para reconstruir o contexto de trabalho."],
-  ["user", "Usuários e responsáveis", "As informações de usuários e responsáveis são relacionadas às tarefas."],
-  ["layers", "Estruturação", "Dados como status, prazos, atraso, responsável e plano são organizados em um formato consistente."],
-  ["folder", "JSON e SharePoint", "Os arquivos JSON são gerados e armazenados em uma pasta do SharePoint para uso posterior."],
-  ["chart", "Consumo no Power BI", "O dashboard passa a utilizar essa base como fonte para os indicadores gerenciais."],
+  ["clock", "Todo dia, pela manhã", "O fluxo começa sozinho e acessa o ambiente Microsoft."],
+  ["users", "Grupos e planos", "Busca os planos ligados às tarefas da operação."],
+  ["list", "Buckets e tarefas", "Coleta as tarefas e o contexto de cada uma."],
+  ["user", "Responsáveis", "Liga cada tarefa às pessoas responsáveis."],
+  ["layers", "Organização", "Status, prazo, atraso e plano no mesmo formato."],
+  ["folder", "JSON no SharePoint", "Os arquivos ficam numa pasta, prontos para o painel."],
+  ["chart", "O painel atualizado", "Os indicadores leem essa base e se atualizam sem ninguém copiar nada."],
 ];
 
-const dashboardCards = [
-  { label: "Total de tarefas", value: "1.248" },
-  { label: "Concluídas", value: "873" },
-  { label: "Em andamento", value: "96" },
-  { label: "Atrasadas", value: "54" },
-  { label: "Sem prazo", value: "31" },
+// Telas da demonstração do painel (dados fictícios gerados no navegador).
+const dashboardScreens = [
+  { src: "/project-images/planner/conformidade-graficos.jpg", label: "Conformidade", icon: "chart", caption: "Tarefas sem prazo, sem responsável e em atraso, por plano e por pessoa." },
+  { src: "/project-images/planner/conformidade-lista.jpg", label: "Listagens", icon: "list", caption: "A lista de cada problema, com filtros e busca pelo nome da tarefa." },
+  { src: "/project-images/planner/acompanhamento-individual.jpg", label: "Individual", icon: "user", caption: "O andamento de cada pessoa: não iniciadas, em andamento, concluídas e atrasos." },
 ];
 
-const taskRows = [
-  ["Revisar documentação", "Desenvolvimento", "João Silva", "Em andamento", "22/09"],
-  ["Atualizar backlog", "Produto", "Maria Santos", "Não iniciada", "25/09"],
-  ["Preparar relatório", "Operações", "Pedro Costa", "Concluída", "18/09"],
-  ["Validar processo", "Marketing", "Ana Moreira", "Atrasada", "20/09"],
-];
+const capabilityTags = ["Microsoft Planner", "Microsoft Graph", "Power Automate", "SharePoint", "JSON", "HTML/CSS/JavaScript", "Dashboard web"];
 
-const capabilityTags = ["Microsoft Planner", "Microsoft Graph", "Power Automate", "SharePoint", "Power BI", "JSON", "Automação", "Integração de dados"];
-
-function SectionHeading({ number, eyebrow, title, id }) {
+function SectionHeading({ eyebrow, title, id }) {
   return (
     <div className={styles.sectionHeading}>
       <span className={styles.sectionNumber}><SectionIcon label={eyebrow} /></span>
@@ -48,10 +42,6 @@ function SectionHeading({ number, eyebrow, title, id }) {
   );
 }
 
-function Flow({ label, items, accent = false }) {
-  return <div className={styles.pipelineBlock}><p>{label}</p><Pipeline steps={items} muted={!accent} /></div>;
-}
-
 export default function PlannerPowerBICase() {
   return (
     <div className={styles.page} id="top">
@@ -60,7 +50,7 @@ export default function PlannerPowerBICase() {
       <main>
         <section className={styles.hero} aria-labelledby="case-title">
           <div className={styles.heroMeta}>
-            <p>Automação · Integração de dados</p>
+            <p>Automação · Dados · Dashboard</p>
             <span>Estudo de caso</span>
           </div>
 
@@ -68,13 +58,12 @@ export default function PlannerPowerBICase() {
             <div>
               <h1 id="case-title">Automação de dados do Planner para Power BI</h1>
               <p className={styles.heroSummary}>
-                Integração com Microsoft Graph, Power Automate e SharePoint para automatizar a coleta de tarefas e alimentar dashboards gerenciais.
+                As tarefas do Planner chegam sozinhas a um painel de gestão. Primeiro a coleta automática; depois, o próprio painel, que migrei do Power BI para uma página web.
               </p>
             </div>
 
             <aside className={styles.heroAside}>
-              <Pipeline vertical label="Arquitetura conceitual do projeto" steps={[{ icon: "list", label: "Planner" }, { icon: "plug", label: "Microsoft Graph" }, { icon: "flow", label: "Power Automate" }, { icon: "folder", label: "SharePoint" }]} />
-              <small>Representação visual criada para demonstrar o funcionamento da solução.</small>
+              <Pipeline vertical label="Como os dados chegam ao painel" steps={[{ icon: "list", label: "Planner" }, { icon: "flow", label: "Power Automate" }, { icon: "folder", label: "SharePoint" }, { icon: "screen", label: "Painel web" }]} />
             </aside>
           </div>
 
@@ -88,114 +77,53 @@ export default function PlannerPowerBICase() {
         <ReadingGuide
           className={styles.section}
           highlight={{ icon: "refresh", value: "Zero", text: "planilhas atualizadas à mão: o painel recebe os dados sozinho", href: "#result-title" }}
-          minutes={7}
-          plain={["Os gestores acompanhavam as tarefas das equipes num painel do Power BI, mas alguém precisava copiar os dados do Planner para uma planilha antes. Se esquecesse, o painel mostrava informação velha.", "Montei uma automação que busca as tarefas sozinha e entrega ao painel já atualizadas. Ninguém precisa mais copiar nada, e o painel passou a merecer confiança."]}
+          minutes={4}
+          plain={["Os gestores acompanhavam as tarefas das equipes num painel, mas alguém precisava copiar os dados do Planner para uma planilha antes. Se esquecesse, o painel mostrava informação velha.", "Montei uma automação que busca as tarefas sozinha. Depois, refiz o próprio painel como uma página web, com filtros, listas de pendências e o andamento de cada pessoa."]}
           plainLink={{ label: "Ver o painel", href: "#dashboard-title" }}
-          technical={["Power Automate chamando o Microsoft Graph para ler planos e tarefas do Planner", "Arquivos JSON numa biblioteca do SharePoint como camada intermediária", "Power BI lê o SharePoint e atualiza sozinho no serviço online", "A primeira versão (consulta direta) não se sustentou em produção; a seção 03 conta por quê"]}
-          technicalLink={{ label: "Ir para a arquitetura", href: "#architecture-title" }}
+          technical={["Power Automate + Microsoft Graph lendo planos, buckets e tarefas", "JSON numa biblioteca do SharePoint como camada intermediária", "Painel migrado do Power BI para HTML/CSS/JavaScript, embutido num site por iframe", "A primeira versão (consulta direta) não se sustentou em produção"]}
+          technicalLink={{ label: "Ir para a solução", href: "#architecture-title" }}
         />
 
-        <LeadQuote text="O dashboard deixou de depender de uma planilha atualizada manualmente e passou a receber os dados automaticamente, mantendo o acompanhamento mais confiável." />
-
-        <BeforeAfter
-          before={["Planner", "Pessoa atualiza planilha", "Power BI", "Dados dependem de revisão manual"]}
-          after={["Planner", "Automação coleta dados", "Base estruturada", "Power BI com visão atualizada"]}
-        />
-
-        <FlowDiagram steps={[
-          { icon: "list", label: "Planner", text: "Fonte operacional das tarefas." },
-          { icon: "plug", label: "Microsoft Graph", text: "Consulta os dados no ambiente Microsoft." },
-          { icon: "flow", label: "Power Automate", text: "Executa a automação e organiza o processo." },
-          { icon: "folder", label: "SharePoint", text: "Armazena a base estruturada para uso posterior." },
-          { icon: "chart", label: "Power BI", text: "Transforma os dados em indicadores e visão gerencial." },
-        ]} />
+        <LeadQuote text="O painel deixou de depender de uma planilha atualizada à mão: os dados chegam sozinhos, e o painel virou uma página que cabe no site da empresa." />
 
         <nav className={styles.caseNav} aria-label="Etapas do estudo de caso">
           {[
-            ["01", "Contexto", "context-title"],
-            ["02", "Problema", "problem-title"],
-            ["03", "Primeira abordagem", "approach-title"],
-            ["04", "Arquitetura", "architecture-title"],
-            ["05", "Fluxo", "flow-title"],
-            ["06", "Dashboard", "dashboard-title"],
-            ["07", "Resultado", "result-title"],
-          ].map(([number, label, target]) => (
-            <a href={`#${target}`} key={number}><span><Icon label={label} /></span><strong>{label}</strong><b aria-hidden="true"><Icon name="down" /></b></a>
+            ["Problema", "problem-title"],
+            ["Primeira abordagem", "approach-title"],
+            ["Solução", "architecture-title"],
+            ["Painel", "dashboard-title"],
+            ["Resultado", "result-title"],
+          ].map(([label, target]) => (
+            <a href={`#${target}`} key={target}><span><Icon label={label} /></span><strong>{label}</strong><b aria-hidden="true"><Icon name="down" /></b></a>
           ))}
         </nav>
 
-        <section className={styles.section} aria-labelledby="context-title">
-          <SectionHeading number="01" eyebrow="Contexto" title="Dados operacionais e acompanhamento gerencial" id="context-title" />
-          <div className={styles.problemGrid}>
-            <div className={styles.mainCopy}>
-              <p>As equipes utilizavam o Microsoft Planner para registrar e acompanhar tarefas, prazos, responsáveis e status das atividades diárias. Os coordenadores e gestores precisavam seguir essa situação para identificar atrasos, ajuste de capacidade e acompanhamento por setor.</p>
-              <p>Já existia um dashboard no Power BI para apoiar essa gestão. O desafio era entregar para o painel a informação correta e atualizada sem depender de trabalho manual repetitivo.</p>
-            </div>
-            <div className={styles.fact}>
-              <strong>Manual</strong>
-              <span>o dashboard dependia da atualização de uma planilha para refletir o que era registrado no Planner</span>
-            </div>
-          </div>
-        </section>
-
         <section className={styles.section} aria-labelledby="problem-title">
-          <SectionHeading number="02" eyebrow="O problema" title="Uma planilha no meio do caminho" id="problem-title" />
-          <div className={styles.problemGrid}>
-            <div className={styles.mainCopy}>
-              <p>Antes da automação, as tarefas eram registradas no Microsoft Planner e, em paralelo, precisavam ser copiadas manualmente para uma planilha. Essa planilha servia como fonte de dados para o dashboard no Power BI.</p>
-              <p>Esse processo gerava trabalho operacional recorrente e criava risco de inconsistência, porque a base do painel podia ficar diferente da realidade do Planner. Podia haver tarefas ainda não registradas, informações desatualizadas e alterações que ainda não haviam sido reflejadas na planilha.</p>
-            </div>
-            <div className={styles.fact}>
-              <strong>Risco</strong>
-              <span>informações do dashboard dependiam de revisão manual e, portanto, podia haver atraso ou inconsistência operacional</span>
-            </div>
+          <SectionHeading eyebrow="O problema" title="Uma planilha no meio do caminho" id="problem-title" />
+          <div className={styles.mainCopy}>
+            <p>As equipes registravam tarefas, prazos e responsáveis no Microsoft Planner, e os gestores acompanhavam tudo num painel. Só que o painel lia uma planilha, e essa planilha era preenchida à mão a partir do Planner.</p>
+            <p>Resultado: trabalho repetido todo dia e um painel que podia não bater com a realidade, com tarefas faltando ou status antigos.</p>
           </div>
-
-          <div className={styles.inlineNotes}>
-            <span>Trabalho repetitivo</span>
-            <span>Dependência de atualização humana</span>
-            <span>Risco de informações desatualizadas</span>
-          </div>
-
-          <Flow label="Processo anterior" items={oldProcess} />
+          <Flow label="Como era" items={oldProcess} />
         </section>
 
         <section className={styles.section} aria-labelledby="approach-title">
-          <SectionHeading number="03" eyebrow="Primeira abordagem" title="Quando a primeira solução não funciona em produção" id="approach-title" />
+          <SectionHeading eyebrow="Primeira abordagem" title="Quando a primeira solução não funciona em produção" id="approach-title" />
           <div className={styles.solutionIntro}>
-            <p>Inicialmente, tentei consumir os dados diretamente pelo Power BI. Essa abordagem funcionou durante o desenvolvimento e permitiu validar a lógica de extração e visualização.</p>
-            <p>Entretanto, quando a solução precisava operar em ambiente online e com atualização recorrente, essa primeira arquitetura apresentou uma limitação importante para a necessidade de atualização automática do dashboard no Power BI Online.</p>
+            <p>A primeira ideia foi o Power BI consultar os dados direto. Funcionou no desenvolvimento, mas não conseguia se atualizar sozinho no Power BI Online, que era justamente o que se precisava.</p>
             <div className={styles.noteBox}>
-              <strong>Limitação encontrada</strong>
-              <p>O problema não era a visualização em si, mas a capacidade da solução de continuar atualizando a base automaticamente em produção, sem depender de manutenção manual ou de uma estrutura que não atendia ao requisito operacional.</p>
+              <strong>A lição</strong>
+              <p>Uma integração não termina quando a consulta funciona: ela precisa continuar rodando em produção sem ninguém mexer.</p>
             </div>
           </div>
         </section>
 
         <section className={styles.section} aria-labelledby="architecture-title">
-          <SectionHeading number="04" eyebrow="Arquitetura final" title="Da consulta direta para uma arquitetura automatizada" id="architecture-title" />
+          <SectionHeading eyebrow="A solução" title="Uma coleta que roda sozinha todo dia" id="architecture-title" />
           <div className={styles.solutionIntro}>
-            <p>Foi necessário revisar a solução e reorganizar a arquitetura. Em vez de depender apenas do Power BI para consultar a origem de dados, passei a usar o Microsoft Graph para acessar as informações, o Power Automate para automatizar o fluxo e o SharePoint como camada de armazenamento em nuvem.</p>
+            <p>Reorganizei a arquitetura: o Power Automate usa o Microsoft Graph para ler o Planner e guarda o resultado em arquivos JSON no SharePoint. O painel lê esses arquivos, e coleta e visualização ficam separadas.</p>
           </div>
-
-          <Pipeline label="Arquitetura final da integração" steps={[{ icon: "list", label: "Planner / Microsoft 365" }, { icon: "plug", label: "Microsoft Graph" }, { icon: "flow", label: "Power Automate" }, { icon: "folder", label: "SharePoint", note: "Arquivos JSON" }, { icon: "chart", label: "Power BI" }, { icon: "screen", label: "Dashboard" }]} />
-
-          <div className={styles.architectureSummary}>
-            <div>
-              <p className={styles.kicker}>Microsoft Graph</p>
-              <p>Servia para obter as informações do ambiente Microsoft 365 e do Planner, permitindo que o fluxo consultasse os dados necessários para a análise operacional.</p>
-            </div>
-            <div>
-              <p className={styles.kicker}>SharePoint + JSON</p>
-              <p>Funcionava como camada intermediária de armazenamento em nuvem, desacoplando a coleta da visualização e tornando a estrutura mais adequada para atualização recorrente no Power BI.</p>
-            </div>
-          </div>
-        </section>
-
-        <section className={styles.section} aria-labelledby="flow-title">
-          <SectionHeading number="05" eyebrow="Como a automação funciona" title="Fluxo técnico e estrutura de dados" id="flow-title" />
-          <Flow label="Representação simplificada do fluxo de automação" items={goalFlow} accent />
-
+          <Flow label="Como ficou" items={solutionFlow} accent />
           <ol className={styles.operationGrid} aria-label="Etapas do processo automatizado">
             {automationSequence.map(([icon, title, description]) => (
               <li key={title}>
@@ -210,176 +138,41 @@ export default function PlannerPowerBICase() {
         </section>
 
         <section className={styles.section} aria-labelledby="dashboard-title">
-          <SectionHeading number="06" eyebrow="Dashboard" title="Acompanhamento por setor e por colaborador" id="dashboard-title" />
-
-          <div className={styles.dashboardIntro}>
-            <p>O dashboard já existia como referência operacional e passou a utilizar os dados coletados automaticamente como base para o acompanhamento gerencial. A visão geral ajudava a monitorar o estado das tarefas por setor, enquanto a visão individual permitia acompanhar a rotina de cada responsável.</p>
+          <SectionHeading eyebrow="O painel" title="Do Power BI para uma página web" id="dashboard-title" />
+          <div className={styles.mainCopy}>
+            <p>O painel original era em Power BI, feito por uma colega. Depois precisei levá-lo para dentro do site da empresa: migrei para uma página web (HTML, CSS e JavaScript) embutida por iframe e redesenhei as telas.</p>
+            <p>São duas visões. Em <strong>Conformidade</strong>, o que precisa de atenção: tarefas sem prazo, sem responsável e em atraso. Em <strong>Individual</strong>, o andamento de cada pessoa. Clicar num indicador ou numa barra filtra o painel inteiro.</p>
           </div>
-
-          <div className={styles.dashboardMockup} aria-label="Representação demonstrativa com dados fictícios, criada para ilustrar as funcionalidades do dashboard original">
-            <div className={styles.mockHeader}>
-              <span>Acompanhamento de tarefas</span>
-              <small>Representação demonstrativa com dados fictícios, criada para ilustrar as funcionalidades do dashboard original.</small>
-            </div>
-
-            <div className={styles.mockFilters}>
-              <span>Plano <b>Todos</b></span>
-              <span>Responsável <b>Todos</b></span>
-              <span>Status <b>Todos</b></span>
-              <span>Atrasado <b>Sim / Não</b></span>
-            </div>
-
-            <div className={styles.mockStats}>
-              {dashboardCards.map((card) => (
-                <div className={styles.mockCard} key={card.label}>
-                  <small>{card.label}</small>
-                  <strong>{card.value}</strong>
-                </div>
-              ))}
-            </div>
-
-            <div className={styles.mockColumns}>
-              <div className={styles.mockBarChart} aria-hidden="true">
-                <span style={{ height: "44%" }} />
-                <span style={{ height: "68%" }} />
-                <span style={{ height: "52%" }} />
-                <span style={{ height: "86%" }} />
-                <span style={{ height: "60%" }} />
-              </div>
-
-              <div className={styles.mockList}>
-                <div><span>Desenvolvimento</span><strong>142</strong></div>
-                <div><span>Comercial</span><strong>98</strong></div>
-                <div><span>Operações</span><strong>76</strong></div>
-                <div><span>Marketing</span><strong>45</strong></div>
-              </div>
-            </div>
-
-            <div className={styles.mockPanel}>
-              <p>Responsável</p>
-              <h3>João Silva</h3>
-              <ul>
-                <li>Atualizar documentação — Em andamento</li>
-                <li>Revisar processo interno — Atrasada</li>
-                <li>Organizar backlog — Não iniciada</li>
-                <li>Preparar relatório — Concluída</li>
-              </ul>
-            </div>
-
-            <div className={styles.mockTableWrap}>
-              <table>
-                <thead>
-                  <tr>
-                    <th>Tarefa</th>
-                    <th>Plano</th>
-                    <th>Responsável</th>
-                    <th>Status</th>
-                    <th>Prazo</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {taskRows.map(([task, plan, responsible, status, date]) => (
-                    <tr key={task}>
-                      <td>{task}</td>
-                      <td>{plan}</td>
-                      <td>{responsible}</td>
-                      <td>{status}</td>
-                      <td>{date}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div className={styles.dashboardSummary}>
-            <div>
-              <p className={styles.kicker}>Acompanhamento geral</p>
-              <p>Permitia observar tarefas em atraso, sem prazo, em andamento e por setor, ajudando coordenadores e gestores a acompanhar o andamento das equipes.</p>
-            </div>
-            <div>
-              <p className={styles.kicker}>Acompanhamento individual</p>
-              <p>Havia filtros por colaborador, plano e status, além de indicadores para total de tarefas, concluídas, atrasadas e não iniciadas.</p>
-            </div>
-          </div>
-        </section>
-
-        <section className={styles.section} aria-labelledby="beforeafter-title">
-          <SectionHeading number="07" eyebrow="Antes e depois" title="Do processo manual para a coleta automatizada" id="beforeafter-title" />
-
-          <div className={styles.compareGrid}>
-            <div className={styles.comparePanel}>
-              <p className={styles.kicker}>Antes</p>
-              <Pipeline vertical muted steps={[{ icon: "list", label: "Planner" }, { icon: "user", label: "Pessoa consulta tarefas" }, { icon: "file", label: "Atualiza planilha" }, { icon: "chart", label: "Power BI" }]} />
-              <ul>
-                <li>Trabalho repetitivo</li>
-                <li>Dependência de atualização humana</li>
-                <li>Risco de dados desatualizados</li>
-              </ul>
-            </div>
-
-            <div className={styles.comparePanel}>
-              <p className={styles.kicker}>Depois</p>
-              <Pipeline vertical steps={[{ icon: "list", label: "Planner" }, { icon: "plug", label: "Microsoft Graph" }, { icon: "flow", label: "Power Automate" }, { icon: "folder", label: "JSON no SharePoint" }, { icon: "chart", label: "Power BI" }]} />
-              <ul>
-                <li>Coleta automática</li>
-                <li>Atualização recorrente</li>
-                <li>Menor dependência manual</li>
-                <li>Mais confiança nas informações</li>
-              </ul>
-            </div>
+          <div className={styles.galleryBlock}>
+            <CaseGallery screens={dashboardScreens} host="Gestão de Tarefas" />
+            <p className={styles.galleryNote}>Telas da versão de demonstração, com dados fictícios gerados no navegador.</p>
           </div>
         </section>
 
         <section className={styles.section} aria-labelledby="result-title">
-          <SectionHeading number="08" eyebrow="Minha participação" title="Arquitetura, automação e preparação dos dados" id="result-title" />
-          <div className={styles.mainCopy}>
-            <p>A arquitetura, a automação no Power Automate com o Microsoft Graph e a preparação dos dados que alimentam o painel. O visual original do Power BI não foi feito por mim.</p>
-          </div>
-
+          <SectionHeading eyebrow="Resultado" title="Dados que chegam sozinhos, num painel que dá para usar" id="result-title" />
           <div className={styles.resultPanel}>
             <div>
-              <p className={styles.kicker}>Resultado</p>
-              <h3>De atualização manual para coleta automática</h3>
-              <p>Ninguém mais copia tarefas para planilha: o painel recebe os dados sozinho e os gestores confiam no que veem.</p>
+              <p className={styles.kicker}>O que mudou</p>
+              <h3>De planilha copiada à mão para coleta automática</h3>
+              <p>Ninguém mais copia tarefas para planilha. O painel mostra o que está no Planner, e os gestores enxergam atrasos e pendências na hora.</p>
             </div>
             <ul>
               <li>Fim da planilha atualizada à mão</li>
-              <li>Dados atualizados sozinhos</li>
-              <li>Atrasos e tarefas sem prazo à vista</li>
+              <li>Dados atualizados todo dia, sozinhos</li>
+              <li>Painel web dentro do site da empresa</li>
             </ul>
           </div>
-        </section>
-
-        <section className={`${styles.section} ${styles.learningSection}`} aria-labelledby="learning-title">
-          <SectionHeading number="09" eyebrow="Aprendizado" title="Uma integração precisa funcionar em produção" id="learning-title" />
-          <div className={styles.mainCopy}>
-            <p>Esse projeto mostrou que uma integração de dados não termina quando a consulta funciona. Também é necessário considerar como a solução será executada, atualizada e mantida no ambiente de produção.</p>
-            <p>A limitação encontrada na primeira abordagem levou à criação de uma nova arquitetura com Microsoft Graph, Power Automate e SharePoint, tornando o processo compatível com a atualização recorrente necessária para o dashboard.</p>
-          </div>
-        </section>
-
-        <section className={styles.section} aria-labelledby="tech-title">
-          <SectionHeading number="10" eyebrow="Tecnologias" title="Ferramentas envolvidas no projeto" id="tech-title" />
-          <div className={styles.techGrid}>
-            <span>Microsoft Planner</span>
-            <span>Microsoft Graph</span>
-            <span>Power Automate</span>
-            <span>SharePoint</span>
-            <span>Power BI</span>
-            <span>JSON</span>
-            <span>Automação</span>
-            <span>Integração de dados</span>
-          </div>
+          <ul className={styles.roleLine}>
+            <li><Icon name="user" /><span><strong>Minha parte:</strong> a arquitetura, a automação e o painel web, da migração ao design.</span></li>
+          </ul>
         </section>
       </main>
 
       <CaseFloatingActions sections={[
-        { href: "#context-title", label: "Contexto" }, { href: "#problem-title", label: "Problema" },
-        { href: "#approach-title", label: "Primeira abordagem" }, { href: "#architecture-title", label: "Arquitetura final" },
-        { href: "#flow-title", label: "Automação" }, { href: "#dashboard-title", label: "Dashboard" },
-        { href: "#beforeafter-title", label: "Antes e depois" }, { href: "#result-title", label: "Participação" },
-        { href: "#learning-title", label: "Aprendizado" }, { href: "#tech-title", label: "Tecnologias" },
+        { href: "#problem-title", label: "Problema" }, { href: "#approach-title", label: "Primeira abordagem" },
+        { href: "#architecture-title", label: "Solução" }, { href: "#dashboard-title", label: "Painel" },
+        { href: "#result-title", label: "Resultado" },
       ]} />
       <footer className={styles.footer}>
         <span>© {new Date().getFullYear()} Cauã · bycauazin</span>
@@ -387,4 +180,8 @@ export default function PlannerPowerBICase() {
       </footer>
     </div>
   );
+}
+
+function Flow({ label, items, accent = false }) {
+  return <div className={styles.pipelineBlock}><p>{label}</p><Pipeline steps={items} muted={!accent} /></div>;
 }

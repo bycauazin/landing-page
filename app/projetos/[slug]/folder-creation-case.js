@@ -88,7 +88,7 @@ export default function FolderCreationCase() {
         <section className={styles.section} aria-labelledby="folder-problem">
           <SectionHeading number="01" eyebrow="O problema" title="Dez passos manuais antes da primeira aula" id="folder-problem" icon="problem" />
           <div className={styles.problemGrid}>
-            <div className={styles.mainCopy}><p>Cada aluno seguia um progresso individual, marcava seus horários no laboratório e podia começar em qualquer momento do expediente. Quando alguém novo chegava, o professor precisava consultar os dados, criar a pasta e copiar cada curso ou módulo contratado.</p><p>Um mesmo aluno podia ter mais de um curso. Com dois ou três inícios simultâneos, essa preparação se tornava um gargalo enquanto a equipe também atendia os demais alunos.</p></div>
+            <div className={styles.mainCopy}><p>Cada aluno seguia um progresso individual, marcava seus horários no laboratório e podia começar em qualquer momento do expediente.</p><p>Um mesmo aluno podia ter mais de um curso. Com dois ou três inícios simultâneos, essa preparação se tornava um gargalo enquanto a equipe também atendia os demais alunos.</p></div>
             <div className={styles.fact}><strong>5–10 min</strong><span>de espera observada em determinados momentos antes da automação</span><small>Estimativa operacional, sem medição formal.</small></div>
           </div>
           <Flow label="Processo anterior" items={manualFlow} />
