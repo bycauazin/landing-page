@@ -6,7 +6,6 @@ import styles from "./private-lessons.module.css";
 
 const topics = [
   { technology: "power-bi", label: "Power BI" },
-  { technology: "excel", label: "Excel" },
   { technology: "python", label: "Python" },
   { technology: "javascript", label: "JavaScript" },
   { technology: "postgresql", label: "SQL / PostgreSQL" },
@@ -39,7 +38,7 @@ export default function PrivateLessons() {
           <h2 id="aulas-title">Aulas <em>particulares</em></h2>
           <p className={styles.intro}>
             Sou o Cauã, instrutor e ex-coordenador de uma escola de cursos.
-            Dou aulas de programação, planilhas e análise de dados com exercícios e projetos feitos durante as aulas.
+            Dou aulas de programação e análise de dados com exercícios e projetos feitos durante as aulas.
           </p>
           <a
             className={homeStyles.buttonPrimary}
