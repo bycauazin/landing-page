@@ -64,7 +64,7 @@ app/
 
 O tema claro/escuro vale no site inteiro e fica guardado no navegador. Os estudos de caso têm uma barra lateral de ícones (uma parada por seção), começam com "O projeto em um minuto" (em poucas palavras + parte técnica) e usam ícones no lugar de números.
 
-A home tem uma [prévia das aulas particulares](app/README.md#prévia-das-aulas-particulares) disponível em desenvolvimento.
+A home apresenta [aulas particulares](app/README.md#aulas-particulares) logo depois dos projetos em destaque.
 
 ## Executando localmente
 

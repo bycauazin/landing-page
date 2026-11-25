@@ -1,5 +1,6 @@
 import TechnologyIcon from "./components/technology-icon";
 import WhatsAppIcon from "./components/whatsapp-icon";
+import { Icon } from "./projetos/[slug]/case-icons";
 import homeStyles from "./page.module.css";
 import styles from "./private-lessons.module.css";
 
@@ -13,14 +14,17 @@ const topics = [
 
 const resources = [
   {
+    icon: "file",
     title: "Materiais e apostilas",
     description: "Material de apoio para acompanhar a aula e revisar o conteúdo depois.",
   },
   {
+    icon: "check",
     title: "Exercícios práticos",
     description: "Atividades para praticar o que foi explicado e tirar dúvidas durante a aula.",
   },
   {
+    icon: "code",
     title: "Projetos dos alunos",
     description: "Você desenvolve projetos durante as aulas e reúne o que aprendeu em algo que pode mostrar.",
   },
@@ -62,30 +66,18 @@ export default function PrivateLessons() {
       </div>
 
       <div className={styles.details}>
-        <div className={styles.panel}>
-          <h3>O que faz parte das aulas</h3>
-          <ul className={styles.resources}>
-            {resources.map(({ title, description }) => (
-              <li key={title}>
+        <h3>O que faz parte das aulas</h3>
+        <ul className={styles.resources}>
+          {resources.map(({ icon, title, description }) => (
+            <li className={styles.panel} key={title}>
+              <span className={styles.resourceIcon}><Icon name={icon} /></span>
+              <div>
                 <h4>{title}</h4>
                 <p>{description}</p>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className={styles.panel}>
-          <h3>Feedback dos alunos</h3>
-          <p className={styles.feedbackNote}>Aqui vão entrar prints das mensagens dos alunos no WhatsApp.</p>
-          <ul className={styles.feedbackSlots}>
-            {[1, 2].map((slot) => (
-              <li key={slot}>
-                <WhatsAppIcon size={24} />
-                <span>Print da mensagem {slot}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
+              </div>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

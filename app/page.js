@@ -20,12 +20,10 @@ import MobileMenu from "./components/mobile-menu";
 import { useLightMode } from "./components/use-theme";
 import PrivateLessons from "./private-lessons";
 
-const showPrivateLessons = process.env.NODE_ENV === "development";
-
 const mobileLinks = [
   { href: "#projetos", label: "Projetos" },
+  { href: "#aulas", label: "Aulas" },
   { href: "#sobre", label: "Sobre" },
-  ...(showPrivateLessons ? [{ href: "#aulas", label: "Aulas" }] : []),
   { href: "/projetos", label: "Todos os projetos" },
 ];
 
@@ -69,7 +67,7 @@ export default function Home() {
       <div className={styles.progressRail} aria-hidden="true"><span data-motion-progress="" /></div>
       <header className={styles.header}>
         <a className={styles.brand} href="#inicio" aria-label="Voltar ao inicio"><BrandLogo className={styles.brandMark} size={42} /><span>bycauazin</span></a>
-        <nav className={styles.nav} aria-label="Navegação principal"><a href="#projetos">Projetos</a><a href="#sobre">Sobre</a>{showPrivateLessons && <a href="#aulas">Aulas</a>}</nav>
+        <nav className={styles.nav} aria-label="Navegação principal"><a href="#projetos">Projetos</a><a href="#aulas">Aulas</a><a href="#sobre">Sobre</a></nav>
         <div className={styles.headerActions}><button className={styles.themeToggle} type="button" onClick={toggleTheme} aria-label={lightMode ? "Ativar tema escuro" : "Ativar tema claro"} title={lightMode ? "Ativar tema escuro" : "Ativar tema claro"}><span aria-hidden="true">{lightMode ? "☾" : "☼"}</span></button><a className={styles.headerCta} href="#contato">Vamos conversar <span aria-hidden="true">↗</span></a><MobileMenu links={mobileLinks} /></div>
       </header>
 
@@ -99,10 +97,9 @@ export default function Home() {
 
         <section className={styles.casesSection} id="projetos" data-circuit-sweep="0" aria-labelledby="cases-title"><div className={styles.sectionHeading} data-motion-project-intro=""><div><p className={styles.kicker}>Projetos</p><RevealText id="cases-title" label="Projetos em destaque" lines={["Projetos em", <em key="featured">destaque</em>]} /><p className={styles.sectionSubtitle}>Desenvolvimento web, automação e dados, na prática.</p></div></div><ul className={styles.skillStrip} id="servicos" aria-label="O que eu faço">{services.map((service) => <li className={styles.skillItem} data-motion-skill="" key={service.number}><span className={styles.skillIcon} aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">{skillIcons[service.icon]}</svg></span><div><h3>{service.title}</h3><p>{service.description}</p></div></li>)}</ul><ProjectExplorer featuredOnly showFilters={false} /><div className={styles.projectsCtaWrap} data-motion-project-cta=""><Link className={styles.buttonPrimary} href="/projetos">Acessar meus projetos <span aria-hidden="true">→</span></Link></div></section>
 
+        <PrivateLessons />
 
         <section className={styles.aboutSection} id="sobre" data-circuit-sweep="0" aria-labelledby="about-title"><div className={styles.socialPost} data-motion-social-post=""><div className={styles.socialPostHeader}><Image className={styles.instagramLogo} src="/foto-perfil.jpg" alt="Cauã" width={20} height={20} /><strong>bycauazin</strong><a className={styles.instagramBadge} href="https://www.instagram.com/bycauazin/" target="_blank" rel="noreferrer" aria-label="Ver @bycauazin no Instagram" title="Ver no Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><defs><radialGradient id="ig-gradient" cx="30%" cy="107%" r="150%"><stop offset="0" stopColor="#fdf497" /><stop offset="0.05" stopColor="#fdf497" /><stop offset="0.45" stopColor="#fd5949" /><stop offset="0.6" stopColor="#d6249f" /><stop offset="0.9" stopColor="#285AEB" /></radialGradient></defs><path fill="url(#ig-gradient)" d={siInstagram.path} /></svg><span>Instagram</span></a></div><div className={styles.socialMedia}><SocialVideo /></div><div className={styles.socialPostFooter}><div className={styles.postActions} aria-label="Ações da publicação"><span>♡</span><span>◯</span><span>➤</span></div><span className={styles.postLabel}>Reels no Instagram</span></div></div><div className={styles.aboutCopy} data-motion-about-copy=""><p className={styles.kicker}>Sobre mim</p><RevealText id="about-title" label="Um agoniado inteligente." lines={[<span key="restless">Um <em>agoniado</em></span>, "inteligente."]} /><p>Também crio conteúdo para redes sociais, compartilhando ideias, aprendizados e situações do universo da tecnologia de um jeito direto e autêntico.</p><p>Eu sou o Cauã. Gosto de entender o problema antes de escolher a ferramenta, organizar o que parece confuso e construir algo que realmente ajude no dia a dia.</p><p>Minha praia fica entre desenvolvimento, automação, dados e comunicação. O objetivo é transformar complexidade em clareza.</p></div></section>
-
-        {showPrivateLessons && <PrivateLessons />}
 
         <section className={styles.socialsSection} data-circuit-sweep="-70" aria-labelledby="socials-title"><div className={styles.socialsHeading} data-motion-socials-heading=""><RevealText id="socials-title" label="Onde me encontrar" lines={["Onde me", <em key="find">encontrar</em>]} /><p className={styles.socialsSubtitle}>Minhas redes sociais, ideias e conexões.</p></div><div className={styles.socialLinks}><a className={styles.socialLink} data-motion-social-link="" href="https://github.com/bycauazin" target="_blank" rel="noreferrer"><SocialIcon className={styles.socialIcon} social="github" /><span>GitHub</span><span className={styles.socialArrow} aria-hidden="true">↗</span></a><a className={styles.socialLink} data-motion-social-link="" href="https://www.instagram.com/bycauazin/" target="_blank" rel="noreferrer"><SocialIcon className={styles.socialIcon} social="instagram" /><span>Instagram</span><span className={styles.socialArrow} aria-hidden="true">↗</span></a><a className={styles.socialLink} data-motion-social-link="" href="https://www.linkedin.com/in/caua-santana-dev/" target="_blank" rel="noreferrer"><SocialIcon className={styles.socialIcon} social="linkedin" /><span>LinkedIn</span><span className={styles.socialArrow} aria-hidden="true">↗</span></a></div></section>
 
