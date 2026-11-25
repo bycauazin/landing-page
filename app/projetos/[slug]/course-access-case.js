@@ -50,7 +50,7 @@ export default function CourseAccessCase() {
                 <span>Matrícula</span><strong>10245</strong><b>Pesquisar</b><div><i />Pasta localizada</div>
               </div>
               <span>Contexto do projeto</span>
-              <p>Desenvolvido na Onbyte Penha enquanto eu atuava como coordenador de cursos.</p>
+              <p>Criei a ferramenta quando era coordenador em uma escola de cursos.</p>
               <small>Representação demonstrativa com matrícula fictícia.</small>
             </aside>
           </div>
@@ -61,9 +61,9 @@ export default function CourseAccessCase() {
 
         <ReadingGuide
           className={styles.section}
-          highlight={{ value: "60%", text: "menos chamados dos alunos à equipe nos horários cheios", href: "#result-title" }}
+          highlight={{ value: "1 busca", text: "abre os arquivos e a plataforma de aulas pela matrícula", href: "#result-title" }}
           minutes={4}
-          plain={["Numa escola de informática, cada aluno tinha a sua pasta de arquivos escondida em cinco níveis de pastas do computador. Muita gente vinha uma vez por semana, esquecia o caminho e a aula começava com o professor ajudando um por um.", "Criei um programa simples: o aluno digita a matrícula, clica em Pesquisar e a pasta dele abre junto com a plataforma de aulas. Nos horários cheios, os pedidos de ajuda caíram cerca de 60%."]}
+          plain={["Na escola de cursos onde eu trabalhava, os alunos precisavam passar por várias pastas para encontrar seus arquivos e muitas vezes pediam ajuda no início da aula.", "Criei um programa simples: o aluno digita a matrícula, clica em Pesquisar e a pasta dele abre junto com a plataforma de aulas. O acesso direto reduziu os pedidos de ajuda nos horários de pico."]}
           plainLink={{ label: "Ver como ficou a tela", href: "#interface-title" }}
           technical={["Python + Tkinter, empacotado como .exe: o aluno não precisa de Python nem de terminal", "Validação da entrada (só números) antes de procurar", "Busca da pasta pela matrícula percorrendo os diretórios com a biblioteca padrão do Python", "Abre a pasta local e a plataforma web de aulas no navegador"]}
           technicalLink={{ label: "Ir para a solução técnica", href: "#solution-title" }}
@@ -126,8 +126,8 @@ export default function CourseAccessCase() {
         <section className={`${styles.section} ${styles.result}`} aria-labelledby="result-title">
           <SectionHeading number="05" eyebrow="Resultado" title="Menos interrupções nos horários de pico" id="result-title" icon="result" />
           <div className={styles.resultGrid}>
-            <div className={styles.metric}><strong>60%</strong><p>menos chamados dos alunos à equipe, em estimativa.</p></div>
-            <div className={styles.resultCopy}><p>A estimativa veio da observação da rotina, não de uma medição formal. Com menos dúvidas operacionais, os professores puderam dedicar mais tempo ao conteúdo dos cursos.</p><div><span>Aprendizado</span><p>Esse projeto mostrou, no início da minha experiência com desenvolvimento, como usar programação para resolver um problema real do próprio ambiente de trabalho.</p></div></div>
+            <div className={styles.metric}><strong>Acesso direto</strong><p>Os alunos passaram a encontrar os arquivos do curso pela matrícula.</p></div>
+            <div className={styles.resultCopy}><p>No dia a dia, os alunos passaram a pedir menos ajuda para encontrar os arquivos. Os professores ganharam tempo para se dedicar ao conteúdo das aulas.</p><div><span>Aprendizado</span><p>Esse projeto mostrou, no início da minha experiência com desenvolvimento, como usar programação para resolver um problema real do próprio ambiente de trabalho.</p></div></div>
           </div>
           <div className={styles.capabilities} aria-label="Competências aplicadas no projeto"><span>Python</span><span>Interface desktop</span><span>Automação</span><span>Pesquisa técnica</span><span>Resolução de problemas</span></div>
           <Link className={styles.connectedCard} href="/projetos/criador-pastas-alunos"><span>Projetos conectados</span><strong>Estrutura criada <Icon name="arrow" /> matrícula localizada <Icon name="arrow" /> arquivos acessados</strong><p>Ver o case “Criação automática de pastas dos alunos”</p><b aria-hidden="true"><Icon name="arrow" /></b></Link>

@@ -6,7 +6,7 @@ import CaseFloatingActions from "./case-floating-actions";
 import styles from "./exportacao-diaria-case.module.css";
 
 const pipeline = [
-  ["data", "Coletar", "Consultar dados do Account Manager e do Moodle."],
+  ["data", "Coletar", "Consultar dados de um sistema de gestão de cursos e do Moodle."],
   ["link", "Relacionar", "Cruzar fontes e construir estruturas derivadas para o arquivo."],
   ["file", "Gerar", "Criar um workbook com abas, cabeçalhos e datas formatadas."],
   ["copy", "Combinar", "Incorporar planilhas auxiliares e preservar suas referências."],
@@ -108,7 +108,7 @@ export default function ExportacaoDiariaCase() {
           <div className={styles.heroGrid}>
             <div className={styles.heroCopy}>
               <h1 id="case-title">Exportação automatizada para Excel</h1>
-              <p>Rotina backend que reúne dados do Account Manager e do Moodle, prepara estruturas para análise, combina planilhas auxiliares e publica um workbook centralizado no SharePoint.</p>
+              <p>Automatizei a consolidação de dados de cursos, registros do Moodle e planilhas auxiliares em um arquivo Excel publicado no SharePoint.</p>
             </div>
             <div className={styles.workbookVisual} aria-label="Representação conceitual de um arquivo Excel formado por diferentes fontes">
               <div className={styles.sourceLabels}><span>PostgreSQL</span><span>MySQL · Moodle</span><span>SharePoint</span></div>
@@ -128,7 +128,7 @@ export default function ExportacaoDiariaCase() {
           minutes={6}
           plain={["Uma equipe precisava de uma planilha de Excel com informações de alunos e cursos que estavam espalhadas em três lugares diferentes. Montar esse arquivo à mão era demorado e fácil de errar.", "Construí uma rotina que roda sozinha de hora em hora: busca os dados nos três lugares, junta tudo, monta a planilha e publica no SharePoint, onde a equipe já trabalhava. Se algo dá errado, ela avisa."]}
           plainLink={{ label: "Ver o resultado", href: "#result-title" }}
-          technical={["Node.js lendo PostgreSQL (Account Manager) e MySQL (Moodle) com paginação", "Workbook gerado em memória com ExcelJS, uma aba por conjunto de dados", "Merge de planilhas do SharePoint reescrevendo as fórmulas quando uma aba muda de nome", "Agendamento + worker thread para não travar a API; publicação pelo Microsoft Graph"]}
+          technical={["Node.js lendo PostgreSQL e MySQL (Moodle) com paginação", "Workbook gerado em memória com ExcelJS, uma aba por conjunto de dados", "Merge de planilhas do SharePoint reescrevendo as fórmulas quando uma aba muda de nome", "Agendamento + worker thread para não travar a API; publicação pelo Microsoft Graph"]}
           technicalLink={{ label: "Ir para o pipeline", href: "#pipeline-title" }}
         />
 
@@ -141,11 +141,11 @@ export default function ExportacaoDiariaCase() {
         <section className={styles.section} aria-labelledby="problem-title">
           <SectionHeading number="01" eyebrow="Contexto e problema" title="Informações úteis, mas distribuídas" id="problem-title" />
           <div className={styles.twoColumns}>
-            <div className={styles.prose}><p>Os dados necessários para outros processos e análises não estavam em uma única origem. Parte existia no Account Manager, parte no banco do Moodle e outra parte chegava em planilhas mantidas no SharePoint.</p><p>Gerar o Excel exigia mais do que copiar tabelas. Era preciso consultar fontes com estruturas diferentes, relacionar registros, criar dados derivados e entregar um arquivo consistente para consumo posterior.</p></div>
+            <div className={styles.prose}><p>Os dados necessários para as análises estavam divididos entre um sistema de gestão de cursos, o Moodle e planilhas no SharePoint.</p><p>Gerar o Excel exigia mais do que copiar tabelas. Era preciso consultar fontes com estruturas diferentes, relacionar registros, criar dados derivados e entregar um arquivo consistente para consumo posterior.</p></div>
             <aside className={styles.callout}><span>O desafio</span><strong>Transformar várias fontes em um único contrato de dados.</strong><p>Sem esconder que cada origem possui regras, formatos e limites próprios.</p></aside>
           </div>
           <div className={styles.sourceGrid}>
-            <article><span><Icon name="server" /></span><strong>Account Manager</strong><p>Dados relacionais consultados no PostgreSQL por meio dos DAOs da aplicação.</p><small>Cadastros e vínculos locais</small></article>
+            <article><span><Icon name="server" /></span><strong>Sistema de gestão de cursos</strong><p>Dados relacionais consultados no PostgreSQL por meio dos DAOs da aplicação.</p><small>Cadastros e vínculos locais</small></article>
             <article><span><Icon name="learning" /></span><strong>Moodle</strong><p>Tabelas permitidas lidas do MySQL com paginação, filtros e ordenação controlada.</p><small>Uso e estruturas educacionais</small></article>
             <article><span><Icon name="folder" /></span><strong>SharePoint</strong><p>Workbooks auxiliares obtidos pelo Microsoft Graph e incorporados ao arquivo final.</p><small>Fontes complementares</small></article>
           </div>
@@ -198,7 +198,7 @@ export default function ExportacaoDiariaCase() {
             <article><span>Pré-condições</span><h3>Conexões verificadas</h3><p>PostgreSQL e MySQL são testados antes da coleta. Sem uma das fontes essenciais, o job não inicia a exportação.</p></article>
             <article><span>Observabilidade</span><h3>Avisos e notificações</h3><p>A execução reúne avisos e envia um resumo de sucesso; uma falha global gera uma notificação própria.</p></article>
           </div>
-          <div className={styles.resilienceNote}><span>Falha parcial</span><p>Quando uma consulta isolada do Account Manager falha, a rotina registra o aviso e mantém aquela coleção vazia para continuar o fluxo. Erros que impedem a exportação completa são propagados e comunicados como falha.</p></div>
+          <div className={styles.resilienceNote}><span>Falha parcial</span><p>Quando uma consulta isolada ao sistema de gestão falha, a rotina registra o aviso e mantém aquela coleção vazia para continuar o fluxo. Erros que impedem a exportação completa são propagados e comunicados como falha.</p></div>
           <div className={styles.challengeHeader}><span>Desafios técnicos</span><h3>O trabalho está nas bordas entre as fontes</h3></div>
           <div className={styles.challengeGrid}>
             <article><b><Icon name="data" /></b><h4>Dois bancos</h4><p>PostgreSQL e MySQL possuem estruturas e estratégias de consulta diferentes.</p></article>

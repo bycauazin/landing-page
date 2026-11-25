@@ -14,7 +14,7 @@ const relationCards = [
 
 const expirationFlow = [
   ["search", "Identificar", "Localizar relações com prazo vencido que ainda estão ativas."],
-  ["sliders", "Aplicar regras", "Desativar o vínculo correto e tratar regras específicas, como o Tier Open."],
+  ["sliders", "Aplicar regras", "Desativar o vínculo correto e tratar regras específicas, como o nível padrão."],
   ["history", "Registrar", "Gravar o tipo de relação, o alvo e a ação executada no histórico."],
   ["refresh", "Sincronizar", "Preparar e aplicar no Moodle as mudanças externas necessárias."],
 ];
@@ -160,7 +160,7 @@ export default function AccessExpirationCase() {
             ["01", "Problema", "problem-title"],
             ["02", "Fluxo", "flow-title"],
             ["03", "Preview", "preview-title"],
-            ["04", "Tier Open", "open-title"],
+            ["04", "Nível padrão", "open-title"],
             ["05", "Arquitetura", "architecture-title"],
             ["06", "Resultado", "result-title"],
           ].map(([number, label, target]) => <a href={`#${target}`} key={number}><span><Icon label={label} /></span><strong>{label}</strong><b aria-hidden="true"><Icon name="down" /></b></a>)}
@@ -196,7 +196,7 @@ export default function AccessExpirationCase() {
           <SectionHeading number="03" eyebrow="Segurança operacional" title="Simular antes de aplicar" id="preview-title" />
           <div className={styles.previewGrid}>
             <div className={styles.previewPanel}><span>preview = 1</span><strong>Analisar</strong><ul><li>detecta relações vencidas;</li><li>monta o plano de ações;</li><li>faz as consultas necessárias;</li><li>não persiste mudanças;</li><li>não adiciona membros no Moodle.</li></ul></div>
-            <div className={`${styles.previewPanel} ${styles.applyPanel}`}><span>preview = 0</span><strong>Aplicar</strong><ul><li>desativa os vínculos vencidos;</li><li>trata a regra do Tier Open;</li><li>registra o histórico;</li><li>executa o plano de sincronização.</li></ul></div>
+            <div className={`${styles.previewPanel} ${styles.applyPanel}`}><span>preview = 0</span><strong>Aplicar</strong><ul><li>desativa os vínculos vencidos;</li><li>trata a regra do nível padrão;</li><li>registra o histórico;</li><li>executa o plano de sincronização.</li></ul></div>
           </div>
           <div className={styles.codeNarrativeReverse}>
             <CodeEditor filename="ExpirationService.js" label="Trecho simplificado do modo preview" lines={previewCode} />
@@ -205,14 +205,14 @@ export default function AccessExpirationCase() {
         </section>
 
         <section className={styles.section} aria-labelledby="open-title">
-          <SectionHeading number="04" eyebrow="Regra de negócio" title="Do Tier expirado para o nível Open" id="open-title" />
+          <SectionHeading number="04" eyebrow="Regra de negócio" title="Do nível expirado para o acesso padrão" id="open-title" />
           <div className={styles.twoColumns}>
-            <div className={styles.prose}><p>Quando um vínculo de Tier expira, a relação anterior fica inativa e mantém sua data de expiração. Em seguida, o sistema localiza o Tier Open pelo nome e garante que o aluno tenha esse vínculo ativo.</p><p>Se o vínculo Open já existe, ele é reativado e fica sem prazo de expiração. Se ainda não existe, é criado. As duas mudanças deixam registros próprios no histórico: expiração e movimentação para Open.</p></div>
-            <Pipeline vertical steps={[{ icon: "history", label: "Tier anterior", note: "isActive: false" }, { icon: "file", label: "Histórico", note: "EXPIRE + MOVE_TO_OPEN" }, { icon: "refresh", label: "Tier Open", note: "reutilizar ou criar" }]} />
+            <div className={styles.prose}><p>Quando um vínculo de Tier expira, a relação anterior fica inativa e mantém sua data de expiração. Em seguida, o sistema localiza o nível padrão e garante que o aluno tenha esse vínculo ativo.</p><p>Se o vínculo com o nível padrão já existe, ele é reativado e fica sem prazo de expiração. Se ainda não existe, é criado. As duas mudanças deixam registros próprios no histórico: expiração e movimentação para o nível padrão.</p></div>
+            <Pipeline vertical steps={[{ icon: "history", label: "Tier anterior", note: "isActive: false" }, { icon: "file", label: "Histórico", note: "Expiração e mudança de nível" }, { icon: "refresh", label: "Nível padrão", note: "reutilizar ou criar" }]} />
           </div>
           <div className={styles.codeNarrative}>
-            <div className={styles.codeCopy}><span>Execução recorrente</span><h3>Sem duplicar o vínculo Open</h3><p>A rotina procura primeiro pela combinação aluno + Tier. Reexecutar o processo não cria uma nova relação quando ela já existe: o registro é reutilizado e colocado no estado esperado.</p></div>
-            <CodeEditor filename="ExpirationDao.js" label="Trecho simplificado da ativação do Tier Open" lines={openTierCode} />
+            <div className={styles.codeCopy}><span>Execução recorrente</span><h3>Sem duplicar o vínculo padrão</h3><p>A rotina procura primeiro pela combinação aluno + Tier. Reexecutar o processo não cria uma nova relação quando ela já existe: o registro é reutilizado e colocado no estado esperado.</p></div>
+            <CodeEditor filename="ExpirationDao.js" label="Trecho simplificado da ativação do nível padrão" lines={openTierCode} />
           </div>
         </section>
 
@@ -222,7 +222,7 @@ export default function AccessExpirationCase() {
           <div className={styles.architectureGrid}>
             <article><span>Entrada</span><h3>Endpoint, autorização e validação</h3><p>Uma rota autenticada valida o parâmetro de preview antes de entregar a operação ao controller.</p></article>
             <article><span>Orquestração</span><h3>Controller + transaction</h3><p>O controller abre a transaction Sequelize, inicia o service e monta a resposta com plano e execução.</p></article>
-            <article><span>Regra</span><h3>Service</h3><p>Coordena as relações, o Tier Open, o histórico e a construção do plano de sincronização.</p></article>
+            <article><span>Regra</span><h3>Service</h3><p>Coordena as relações, o nível padrão, o histórico e a construção do plano de sincronização.</p></article>
             <article><span>Persistência</span><h3>DAO</h3><p>Consulta vencimentos, atualiza os vínculos pela chave real do model e grava o histórico.</p></article>
           </div>
           <div className={styles.boundaryNote}><span>Limite transacional</span><p>A transaction controla as mudanças no banco local. O Moodle é um sistema externo: uma operação aceita por sua API não é desfeita automaticamente por um rollback do Sequelize.</p></div>
@@ -231,15 +231,15 @@ export default function AccessExpirationCase() {
           <div className={styles.challengeGrid}>
             <article><b><Icon name="link" /></b><h4>Relações independentes</h4><p>Não existe apenas “aluno expirado”; cada tipo de vínculo precisa ser avaliado separadamente.</p></article>
             <article><b><Icon name="key" /></b><h4>Chaves reais do model</h4><p>O DAO lê as chaves primárias configuradas no Sequelize, sem assumir que toda associação é identificada apenas por um campo chamado <code>id</code>.</p></article>
-            <article><b><Icon name="refresh" /></b><h4>Reexecução segura</h4><p>O Open existente é reutilizado, e as ações Moodle são deduplicadas antes da aplicação.</p></article>
+            <article><b><Icon name="refresh" /></b><h4>Reexecução segura</h4><p>O vínculo padrão é reutilizado quando já existe, e as ações no Moodle são deduplicadas antes da aplicação.</p></article>
             <article><b><Icon name="history" /></b><h4>Histórico preservado</h4><p>Cada expiração registra relação, alvo, ação e contexto; a data original não é apagada.</p></article>
           </div>
         </section>
 
         <section className={styles.section} aria-labelledby="moodle-title">
-          <SectionHeading number="06" eyebrow="Integração Moodle" title="Do estado local para o cohort Open" id="moodle-title" />
+          <SectionHeading number="06" eyebrow="Integração Moodle" title="Sincronização com o grupo padrão no Moodle" id="moodle-title" />
           <div className={styles.twoColumns}>
-            <div className={styles.prose}><p>Para Tiers expirados, o service cria um plano de sincronização, resolve o usuário correspondente no Moodle e localiza o cohort Open. As ações são validadas e deduplicadas antes do envio.</p><p>Na implementação atual, esse fluxo adiciona o aluno ao cohort Open. A remoção do cohort anterior não faz parte deste plano e, por isso, não é representada como comportamento do case.</p></div>
+            <div className={styles.prose}><p>Quando um nível de acesso vence, a rotina identifica o usuário e o grupo padrão no Moodle. Depois, valida e deduplica as ações antes de aplicar a mudança.</p><p>A sincronização adiciona o aluno ao grupo padrão.</p></div>
             <div className={styles.syncCard}><span>Plano atual</span><Pipeline vertical steps={[{ icon: "history", label: "Tier expirado" }, { icon: "search", label: "Resolver usuário e cohort" }, { icon: "plus", label: "ADD_TO_COHORT" }, { icon: "learning", label: "Moodle" }]} /></div>
           </div>
         </section>
@@ -266,7 +266,7 @@ export default function AccessExpirationCase() {
 
       <CaseFloatingActions sections={[
         { href: "#problem-title", label: "Contexto e problema" }, { href: "#flow-title", label: "Fluxo de expiração" },
-        { href: "#preview-title", label: "Simulação segura" }, { href: "#open-title", label: "Regra do Tier Open" },
+        { href: "#preview-title", label: "Simulação segura" }, { href: "#open-title", label: "Regra do nível padrão" },
         { href: "#architecture-title", label: "Arquitetura" }, { href: "#moodle-title", label: "Integração Moodle" },
         { href: "#result-title", label: "Resultado" },
       ]} />
