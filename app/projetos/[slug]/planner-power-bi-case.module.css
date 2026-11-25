@@ -221,28 +221,6 @@
   line-height: 1.08;
 }
 
-.statusBadge {
-  display: inline-flex;
-  align-items: center;
-  padding: 6px 9px;
-  border: 1px solid var(--line);
-  color: var(--muted);
-  font-size: 9px;
-  letter-spacing: .06em;
-  text-transform: uppercase;
-}
-
-.statusBadge::before {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  margin-right: 8px;
-  border-radius: 50%;
-  background: var(--blue);
-  box-shadow: 0 0 0 3px rgb(var(--tint-rgb) / .12);
-  content: "";
-}
-
 .problemGrid,
 .solutionIntro,
 .dashboardSummary,
@@ -322,57 +300,6 @@
   border: 1px solid var(--line);
   color: var(--muted);
   font-size: 11px;
-}
-
-.statusGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-  margin-top: 30px;
-}
-
-.statusCard {
-  display: flex;
-  flex-direction: column;
-  min-height: 220px;
-  padding: 22px;
-  border: 1px solid var(--line);
-  background: rgb(var(--tint-rgb) / .04);
-}
-
-.statusCard span {
-  color: var(--blue-light);
-  font-size: 10px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-
-.statusCard strong {
-  margin-top: 12px;
-  margin-bottom: 18px;
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 1.2;
-}
-
-.statusCard ul {
-  margin: 0;
-  padding-left: 18px;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.7;
-}
-
-.done {
-  border-color: rgb(var(--tint-rgb) / .32);
-}
-
-.progress {
-  border-color: rgb(var(--tint-rgb) / .28);
-}
-
-.planned {
-  border-color: rgb(var(--tint-rgb) / .18);
 }
 
 .listGrid {

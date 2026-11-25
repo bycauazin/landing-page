@@ -118,7 +118,7 @@
   .themeToggle:hover { transform: none; }
 }
 
-/* telas baixas: ícones menores para a coluna inteira caber (o governança tem 15 paradas) */
+/* telas baixas: ícones menores para a coluna inteira caber (os casos mais longos têm 12 paradas) */
 @media (max-height: 820px) {
   .rail { --step: 38px; }
   .rail button, .railMarker { width: 34px; height: 34px; border-radius: 10px; }

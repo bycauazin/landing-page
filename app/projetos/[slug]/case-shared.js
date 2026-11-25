@@ -70,28 +70,6 @@ export function FlowDiagram({ steps }) {
   );
 }
 
-export function RoadmapStatus({ items }) {
-  return (
-    <section className={sharedStyles.statusBoard} aria-label="Status do projeto">
-      <div className={sharedStyles.sectionHeader}>
-        <span>Status</span>
-        <h3>Evolução do projeto</h3>
-      </div>
-      <div className={sharedStyles.statusGrid}>
-        {items.map((item) => (
-          <article key={item.label} className={`${sharedStyles.statusCard} ${sharedStyles[item.variant]}`}>
-            <span>{item.label}</span>
-            <ul>
-              {item.items.map((entry) => (
-                <li key={entry}>{entry}</li>
-              ))}
-            </ul>
-          </article>
-        ))}
-      </div>
-    </section>
-  );
-}
 
 /**
  * "Em poucas palavras": a porta de entrada de cada estudo de caso, logo depois do topo.

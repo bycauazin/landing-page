@@ -166,47 +166,8 @@
   padding: 0 6px;
 }
 
-.statusBoard {
-  width: min(1180px, calc(100% - 64px));
-  margin: 32px auto 0;
-}
-
-.statusGrid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.statusCard {
-  min-height: 220px;
-  padding: 22px 22px 18px;
-  border: 1px solid var(--line);
-  background: rgb(var(--base-rgb) / 0.42);
-}
-
-.statusCard > span {
-  display: block;
-  color: var(--blue-light);
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-
-.statusCard ul {
-  margin: 16px 0 0;
-  padding-left: 18px;
-  color: var(--muted);
-  font-size: 14px;
-  line-height: 1.8;
-}
-
-.done { border-color: rgb(var(--tint-rgb) / 0.4); }
-.progress { border-color: rgb(var(--tint-rgb) / 0.35); }
-.planned { border-color: rgb(var(--tint-rgb) / 0.18); }
-
 @media (max-width: 760px) {
   .impactGrid,
-  .statusGrid,
   .beforeAfter {
     grid-template-columns: 1fr;
   }

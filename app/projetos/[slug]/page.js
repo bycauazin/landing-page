@@ -13,7 +13,6 @@ import CourseAccessCase from "./course-access-case";
 import DashboardSalesCase from "./dashboard-sales-case";
 import ExportacaoDiariaCase from "./exportacao-diaria-case";
 import FolderCreationCase from "./folder-creation-case";
-import GovernancaTeamsCase from "./governanca-teams-case";
 import PlannerPowerBICase from "./planner-power-bi-case";
 import styles from "./project.module.css";
 
@@ -170,7 +169,6 @@ export default async function ProjectPage({ params }) {
 }
 
 const caseComponents = {
-  "governanca-corporativa": GovernancaTeamsCase,
   "atalho-acesso-cursos": CourseAccessCase,
   "criador-pastas-alunos": FolderCreationCase,
   "planner-power-bi": PlannerPowerBICase,
