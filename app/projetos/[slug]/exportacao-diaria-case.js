@@ -1,7 +1,7 @@
 import Link from "next/link";
 import CaseHeader from "./case-header";
 import { Icon, SectionIcon } from "./case-icons";
-import { ReadingGuide } from "./case-shared";
+import { ReadingGuide, Pipeline } from "./case-shared";
 import CaseFloatingActions from "./case-floating-actions";
 import styles from "./exportacao-diaria-case.module.css";
 
@@ -124,6 +124,7 @@ export default function ExportacaoDiariaCase() {
 
         <ReadingGuide
           className={styles.section}
+          highlight={{ icon: "clock", value: "A cada hora", text: "o Excel se monta sozinho e é publicado no SharePoint", href: "#result-title" }}
           minutes={6}
           plain={["Uma equipe precisava de uma planilha de Excel com informações de alunos e cursos que estavam espalhadas em três lugares diferentes. Montar esse arquivo à mão era demorado e fácil de errar.", "Construí uma rotina que roda sozinha de hora em hora: busca os dados nos três lugares, junta tudo, monta a planilha e publica no SharePoint, onde a equipe já trabalhava. Se algo dá errado, ela avisa."]}
           plainLink={{ label: "Ver o resultado", href: "#result-title" }}
@@ -134,7 +135,7 @@ export default function ExportacaoDiariaCase() {
         <div className={styles.leadStatement}><span>Decisão central</span><blockquote>O arquivo não é apenas exportado. Ele é construído a partir de fontes que precisam ser reconciliadas.</blockquote></div>
 
         <nav className={styles.caseNav} aria-label="Etapas do estudo de caso">
-          {[["01", "Problema", "problem-title"], ["02", "Pipeline", "pipeline-title"], ["03", "Workbook", "workbook-title"], ["04", "Merge", "merge-title"], ["05", "Arquitetura", "architecture-title"], ["06", "Resultado", "result-title"]].map(([number, label, target]) => <a href={`#${target}`} key={number}><span><Icon label={label} /></span><strong>{label}</strong><b aria-hidden="true">↓</b></a>)}
+          {[["01", "Problema", "problem-title"], ["02", "Pipeline", "pipeline-title"], ["03", "Workbook", "workbook-title"], ["04", "Merge", "merge-title"], ["05", "Arquitetura", "architecture-title"], ["06", "Resultado", "result-title"]].map(([number, label, target]) => <a href={`#${target}`} key={number}><span><Icon label={label} /></span><strong>{label}</strong><b aria-hidden="true"><Icon name="down" /></b></a>)}
         </nav>
 
         <section className={styles.section} aria-labelledby="problem-title">
@@ -178,7 +179,7 @@ export default function ExportacaoDiariaCase() {
           <SectionHeading number="04" eyebrow="Consolidação" title="Combinar planilhas sem quebrar suas fórmulas" id="merge-title" />
           <div className={styles.twoColumns}>
             <div className={styles.prose}><p>Algumas fontes complementares já existiam como arquivos no SharePoint. O fluxo baixa esses workbooks, copia suas abas para o Excel base e ajusta nomes para respeitar limites e evitar duplicidades.</p><p>Renomear uma aba pode invalidar fórmulas que apontam para ela. Por isso, o merge mantém um mapa entre nomes antigos e novos, reescreve referências e registra quantas fórmulas foram verificadas ou atualizadas.</p></div>
-            <div className={styles.mergeFlow}><span>Excel base</span><b>+</b><span>Planilhas auxiliares</span><b>→</b><span>Abas renomeadas</span><b>→</b><span>Fórmulas ajustadas</span></div>
+            <Pipeline vertical steps={[{ icon: "file", label: "Excel base" }, { icon: "copy", label: "Planilhas auxiliares" }, { icon: "sliders", label: "Abas renomeadas" }, { icon: "check", label: "Fórmulas ajustadas" }]} />
           </div>
           <div className={styles.codeNarrative}>
             <div className={styles.codeCopy}><span>Integridade</span><h3>Referências acompanham o novo nome da aba</h3><p>O serviço percorre o mapa de renomeação e troca apenas referências de worksheet. Quando a fórmula muda, o valor da célula é atualizado e contabilizado no relatório do merge.</p></div>
@@ -189,7 +190,7 @@ export default function ExportacaoDiariaCase() {
         <section className={styles.section} aria-labelledby="architecture-title">
           <SectionHeading number="05" eyebrow="Arquitetura e operação" title="Uma rotina recorrente que não bloqueia a API" id="architecture-title" />
           <div className={styles.architectureFlow} aria-label="Arquitetura da exportação">
-            {["Scheduler", "Worker thread", "Serviços e DAOs", "ExcelJS", "Microsoft Graph", "SharePoint"].map((item, index, items) => <div key={item}><span>{item}</span>{index < items.length - 1 && <b aria-hidden="true">→</b>}</div>)}
+            <Pipeline steps={[{ icon: "clock", label: "Scheduler" }, { icon: "server", label: "Worker thread" }, { icon: "layers", label: "Serviços e DAOs" }, { icon: "file", label: "ExcelJS" }, { icon: "plug", label: "Microsoft Graph" }, { icon: "folder", label: "SharePoint" }]} />
           </div>
           <div className={styles.architectureGrid}>
             <article><span>Agendamento</span><h3>Execução recorrente</h3><p>O nome histórico do projeto foi preservado no portfólio. Na configuração atual, o scheduler dispara a exportação a cada hora em produção.</p></article>
@@ -224,7 +225,7 @@ export default function ExportacaoDiariaCase() {
         { href: "#workbook-title", label: "Geração do workbook" }, { href: "#merge-title", label: "Consolidação" },
         { href: "#architecture-title", label: "Arquitetura e operação" }, { href: "#result-title", label: "Resultado" },
       ]} />
-      <footer className={styles.footer}><span>© {new Date().getFullYear()} Cauã · bycauazin</span><Link href="/projetos">Ver todos os projetos ↑</Link></footer>
+      <footer className={styles.footer}><span>© {new Date().getFullYear()} Cauã · bycauazin</span><Link href="/projetos">Ver todos os projetos</Link></footer>
     </div>
   );
 }

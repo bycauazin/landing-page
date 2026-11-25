@@ -45,6 +45,8 @@
   backdrop-filter: blur(12px);
   list-style: none;
 }
+/* páginas com o circuito nas bordas (atalho, pastas): a barra fica ao lado dele, não por cima */
+:global(html:has([data-edge-deco])) .rail { right: 54px; }
 :global(html[data-theme="light"]) .rail ul { box-shadow: 0 12px 32px rgb(var(--midnight-ink-rgb) / .12); }
 
 .rail li { position: relative; }

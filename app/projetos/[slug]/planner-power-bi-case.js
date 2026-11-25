@@ -1,25 +1,13 @@
 import Link from "next/link";
 import CaseHeader from "./case-header";
 import { Icon, SectionIcon, StepDot } from "./case-icons";
-import { BeforeAfter, FlowDiagram, LeadQuote, ReadingGuide } from "./case-shared";
+import { BeforeAfter, FlowDiagram, LeadQuote, ReadingGuide, Pipeline } from "./case-shared";
 import CaseFloatingActions from "./case-floating-actions";
 import styles from "./planner-power-bi-case.module.css";
 
-const oldProcess = [
-  "Planner com tarefas e prazos",
-  "Atualização manual de planilha",
-  "Planilha funcionando como origem do dashboard",
-  "Dados potencialmente desatualizados",
-  "Dependência constante de manutenção humana",
-];
+const oldProcess = [{ icon: "list", label: "Planner com tarefas e prazos" }, { icon: "user", label: "Atualização manual de planilha" }, { icon: "file", label: "Planilha como origem do dashboard" }, { icon: "alert", label: "Dados potencialmente desatualizados" }, { icon: "refresh", label: "Manutenção humana constante" }];
 
-const goalFlow = [
-  "Planner como fonte operacional",
-  "Coleta automática via Microsoft Graph",
-  "Power Automate organiza e orquestra o fluxo",
-  "JSON estruturado no SharePoint",
-  "Power BI consome a base e atualiza o dashboard",
-];
+const goalFlow = [{ icon: "list", label: "Planner", note: "Fonte operacional" }, { icon: "plug", label: "Microsoft Graph", note: "Coleta automática" }, { icon: "flow", label: "Power Automate", note: "Orquestra o fluxo" }, { icon: "folder", label: "SharePoint", note: "JSON estruturado" }, { icon: "chart", label: "Power BI", note: "Atualiza o dashboard" }];
 
 const automationSequence = [
   ["clock", "Fluxo diário", "O processo é iniciado automaticamente pela manhã e acessa os dados do ambiente Microsoft."],
@@ -61,19 +49,7 @@ function SectionHeading({ number, eyebrow, title, id }) {
 }
 
 function Flow({ label, items, accent = false }) {
-  return (
-    <div className={`${styles.flowBlock} ${accent ? styles.accentFlow : ""}`}>
-      <p>{label}</p>
-      <ol>
-        {items.map((item, index) => (
-          <li key={item}>
-            <StepDot n={index + 1} />
-            <strong>{item}</strong>
-          </li>
-        ))}
-      </ol>
-    </div>
-  );
+  return <div className={styles.pipelineBlock}><p>{label}</p><Pipeline steps={items} muted={!accent} /></div>;
 }
 
 export default function PlannerPowerBICase() {
@@ -97,15 +73,7 @@ export default function PlannerPowerBICase() {
             </div>
 
             <aside className={styles.heroAside}>
-              <div className={styles.architectureMini} aria-label="Arquitetura conceitual do projeto">
-                <span>Planner</span>
-                <span className={styles.arrow}>↓</span>
-                <span>Microsoft Graph</span>
-                <span className={styles.arrow}>↓</span>
-                <span>Power Automate</span>
-                <span className={styles.arrow}>↓</span>
-                <span>SharePoint</span>
-              </div>
+              <Pipeline vertical label="Arquitetura conceitual do projeto" steps={[{ icon: "list", label: "Planner" }, { icon: "plug", label: "Microsoft Graph" }, { icon: "flow", label: "Power Automate" }, { icon: "folder", label: "SharePoint" }]} />
               <small>Representação visual criada para demonstrar o funcionamento da solução.</small>
             </aside>
           </div>
@@ -119,6 +87,7 @@ export default function PlannerPowerBICase() {
 
         <ReadingGuide
           className={styles.section}
+          highlight={{ icon: "refresh", value: "Zero", text: "planilhas atualizadas à mão: o painel recebe os dados sozinho", href: "#result-title" }}
           minutes={7}
           plain={["Os gestores acompanhavam as tarefas das equipes num painel do Power BI, mas alguém precisava copiar os dados do Planner para uma planilha antes. Se esquecesse, o painel mostrava informação velha.", "Montei uma automação que busca as tarefas sozinha e entrega ao painel já atualizadas. Ninguém precisa mais copiar nada, e o painel passou a merecer confiança."]}
           plainLink={{ label: "Ver o painel", href: "#dashboard-title" }}
@@ -134,11 +103,11 @@ export default function PlannerPowerBICase() {
         />
 
         <FlowDiagram steps={[
-          { label: "Planner", text: "Fonte operacional das tarefas." },
-          { label: "Microsoft Graph", text: "Consulta os dados no ambiente Microsoft." },
-          { label: "Power Automate", text: "Executa a automação e organiza o processo." },
-          { label: "SharePoint", text: "Armazena a base estruturada para uso posterior." },
-          { label: "Power BI", text: "Transforma os dados em indicadores e visão gerencial." },
+          { icon: "list", label: "Planner", text: "Fonte operacional das tarefas." },
+          { icon: "plug", label: "Microsoft Graph", text: "Consulta os dados no ambiente Microsoft." },
+          { icon: "flow", label: "Power Automate", text: "Executa a automação e organiza o processo." },
+          { icon: "folder", label: "SharePoint", text: "Armazena a base estruturada para uso posterior." },
+          { icon: "chart", label: "Power BI", text: "Transforma os dados em indicadores e visão gerencial." },
         ]} />
 
         <nav className={styles.caseNav} aria-label="Etapas do estudo de caso">
@@ -151,7 +120,7 @@ export default function PlannerPowerBICase() {
             ["06", "Dashboard", "dashboard-title"],
             ["07", "Resultado", "result-title"],
           ].map(([number, label, target]) => (
-            <a href={`#${target}`} key={number}><span><Icon label={label} /></span><strong>{label}</strong><b aria-hidden="true">↓</b></a>
+            <a href={`#${target}`} key={number}><span><Icon label={label} /></span><strong>{label}</strong><b aria-hidden="true"><Icon name="down" /></b></a>
           ))}
         </nav>
 
@@ -170,7 +139,7 @@ export default function PlannerPowerBICase() {
         </section>
 
         <section className={styles.section} aria-labelledby="problem-title">
-          <SectionHeading number="02" eyebrow="O problema" title="Planner → atualização manual → planilha → Power BI" id="problem-title" />
+          <SectionHeading number="02" eyebrow="O problema" title="Uma planilha no meio do caminho" id="problem-title" />
           <div className={styles.problemGrid}>
             <div className={styles.mainCopy}>
               <p>Antes da automação, as tarefas eram registradas no Microsoft Planner e, em paralelo, precisavam ser copiadas manualmente para uma planilha. Essa planilha servia como fonte de dados para o dashboard no Power BI.</p>
@@ -180,16 +149,6 @@ export default function PlannerPowerBICase() {
               <strong>Risco</strong>
               <span>informações do dashboard dependiam de revisão manual e, portanto, podia haver atraso ou inconsistência operacional</span>
             </div>
-          </div>
-
-          <div className={styles.processBlock} aria-label="Representação do processo anterior com dados fictícios">
-            <div className={styles.processNode}>Microsoft Planner</div>
-            <div className={styles.processArrow} aria-hidden="true">↓</div>
-            <div className={styles.processNode}>Atualização manual</div>
-            <div className={styles.processArrow} aria-hidden="true">↓</div>
-            <div className={styles.processNode}>Planilha</div>
-            <div className={styles.processArrow} aria-hidden="true">↓</div>
-            <div className={styles.processNode}>Power BI</div>
           </div>
 
           <div className={styles.inlineNotes}>
@@ -219,20 +178,7 @@ export default function PlannerPowerBICase() {
             <p>Foi necessário revisar a solução e reorganizar a arquitetura. Em vez de depender apenas do Power BI para consultar a origem de dados, passei a usar o Microsoft Graph para acessar as informações, o Power Automate para automatizar o fluxo e o SharePoint como camada de armazenamento em nuvem.</p>
           </div>
 
-          <div className={styles.architectureBlock} aria-label="Arquitetura final da integração com Microsoft Graph, Power Automate, SharePoint e Power BI">
-            <div className={styles.architectureNode}>Microsoft Planner / Microsoft 365</div>
-            <div className={styles.connector} aria-hidden="true">↓</div>
-            <div className={styles.architectureNode}>Microsoft Graph</div>
-            <div className={styles.connector} aria-hidden="true">↓</div>
-            <div className={styles.architectureNode}>Power Automate</div>
-            <div className={styles.connector} aria-hidden="true">↓</div>
-            <div className={styles.architectureNode}>SharePoint</div>
-            <div className={styles.architectureNodeSmall}>Arquivos JSON</div>
-            <div className={styles.connector} aria-hidden="true">↓</div>
-            <div className={styles.architectureNode}>Power BI</div>
-            <div className={styles.connector} aria-hidden="true">↓</div>
-            <div className={styles.architectureNode}>Dashboard</div>
-          </div>
+          <Pipeline label="Arquitetura final da integração" steps={[{ icon: "list", label: "Planner / Microsoft 365" }, { icon: "plug", label: "Microsoft Graph" }, { icon: "flow", label: "Power Automate" }, { icon: "folder", label: "SharePoint", note: "Arquivos JSON" }, { icon: "chart", label: "Power BI" }, { icon: "screen", label: "Dashboard" }]} />
 
           <div className={styles.architectureSummary}>
             <div>
@@ -364,15 +310,7 @@ export default function PlannerPowerBICase() {
           <div className={styles.compareGrid}>
             <div className={styles.comparePanel}>
               <p className={styles.kicker}>Antes</p>
-              <div className={styles.compareFlow}>
-                <span>Planner</span>
-                <span>↓</span>
-                <span>Pessoa consulta tarefas</span>
-                <span>↓</span>
-                <span>Atualiza planilha</span>
-                <span>↓</span>
-                <span>Power BI</span>
-              </div>
+              <Pipeline vertical muted steps={[{ icon: "list", label: "Planner" }, { icon: "user", label: "Pessoa consulta tarefas" }, { icon: "file", label: "Atualiza planilha" }, { icon: "chart", label: "Power BI" }]} />
               <ul>
                 <li>Trabalho repetitivo</li>
                 <li>Dependência de atualização humana</li>
@@ -382,17 +320,7 @@ export default function PlannerPowerBICase() {
 
             <div className={styles.comparePanel}>
               <p className={styles.kicker}>Depois</p>
-              <div className={styles.compareFlow}>
-                <span>Planner</span>
-                <span>↓</span>
-                <span>Microsoft Graph</span>
-                <span>↓</span>
-                <span>Power Automate</span>
-                <span>↓</span>
-                <span>JSON no SharePoint</span>
-                <span>↓</span>
-                <span>Power BI</span>
-              </div>
+              <Pipeline vertical steps={[{ icon: "list", label: "Planner" }, { icon: "plug", label: "Microsoft Graph" }, { icon: "flow", label: "Power Automate" }, { icon: "folder", label: "JSON no SharePoint" }, { icon: "chart", label: "Power BI" }]} />
               <ul>
                 <li>Coleta automática</li>
                 <li>Atualização recorrente</li>
@@ -455,7 +383,7 @@ export default function PlannerPowerBICase() {
       ]} />
       <footer className={styles.footer}>
         <span>© {new Date().getFullYear()} Cauã · bycauazin</span>
-        <Link href="/projetos">Ver todos os projetos ↑</Link>
+        <Link href="/projetos">Ver todos os projetos</Link>
       </footer>
     </div>
   );

@@ -3,11 +3,23 @@ import Link from "next/link";
 import CaseHeader from "./case-header";
 import { Icon, SectionIcon, StepDot } from "./case-icons";
 import CaseFloatingActions from "./case-floating-actions";
-import { BeforeAfter, FlowDiagram, LeadQuote, ReadingGuide } from "./case-shared";
+import { BeforeAfter, FlowDiagram, LeadQuote, ReadingGuide, Pipeline } from "./case-shared";
 import styles from "./course-access-case.module.css";
 
-const manualFlow = ["Consultar dados", "Identificar cursos", "Criar pasta", "Localizar a base", "Copiar módulos", "Conferir estrutura"];
-const automatedFlow = ["Informar os dados", "Validar", "Clicar em Criar", "Estrutura pronta"];
+const manualFlow = [
+  { icon: "search", label: "Consultar dados" },
+  { icon: "list", label: "Identificar cursos" },
+  { icon: "folder", label: "Criar pasta" },
+  { icon: "data", label: "Localizar a base" },
+  { icon: "copy", label: "Copiar módulos" },
+  { icon: "check", label: "Conferir estrutura" },
+];
+const automatedFlow = [
+  { icon: "file", label: "Informar os dados" },
+  { icon: "check", label: "Validar" },
+  { icon: "plus", label: "Clicar em Criar" },
+  { icon: "folder", label: "Estrutura pronta" },
+];
 const operationSteps = [
   ["file", "Recebe os dados", "Nome, matrícula, curso e configuração."],
   ["check", "Valida a entrada", "Campos obrigatórios e matrícula são verificados."],
@@ -22,13 +34,13 @@ function SectionHeading({ eyebrow, title, id }) {
   return <div className={styles.sectionHeading}><span className={styles.sectionNumber}><SectionIcon label={eyebrow} /></span><div className={styles.sectionTitle}><p>{eyebrow}</p><h2 id={id}>{title}</h2></div></div>;
 }
 
-function Flow({ label, items, accent = false, six = false }) {
-  return <div className={`${styles.flowBlock} ${accent ? styles.accentFlow : ""} ${six ? styles.sixStepFlow : ""}`}><p>{label}</p><ol>{items.map((item, index) => <li key={item}><StepDot n={index + 1} /><strong>{item}</strong></li>)}</ol></div>;
+function Flow({ label, items, accent = false }) {
+  return <div className={styles.pipelineBlock}><p>{label}</p><Pipeline steps={items} muted={!accent} /></div>;
 }
 
 export default function FolderCreationCase() {
   return (
-    <div className={styles.page} id="top">
+    <div className={styles.page} id="top" data-edge-deco="">
       <CaseHeader styles={styles} />
 
       <main>
@@ -48,6 +60,7 @@ export default function FolderCreationCase() {
 
         <ReadingGuide
           className={styles.section}
+          highlight={{ icon: "folder", value: "1 clique", text: "e a pasta do aluno novo sai pronta, com os arquivos certos dentro", href: "#folder-result" }}
           minutes={4}
           plain={["Quando um aluno novo chegava à escola, o professor parava o que estava fazendo para criar a pasta dele e copiar, um por um, os arquivos de cada curso contratado. Com dois ou três alunos começando juntos, virava fila.", "Fiz um programa em que o professor preenche nome, matrícula e curso e clica em um botão: a pasta sai pronta, já com os arquivos certos dentro."]}
           plainLink={{ label: "Ver como ficou a tela", href: "#folder-interface" }}
@@ -63,13 +76,13 @@ export default function FolderCreationCase() {
         />
 
         <FlowDiagram steps={[
-          { label: "Dados", text: "O professor informa nome, matrícula e curso." },
-          { label: "Validação", text: "A aplicação verifica campos e conflitos." },
-          { label: "Criação", text: "A pasta e a estrutura base são geradas." },
+          { icon: "file", label: "Dados", text: "O professor informa nome, matrícula e curso." },
+          { icon: "check", label: "Validação", text: "A aplicação verifica campos e conflitos." },
+          { icon: "folder", label: "Criação", text: "A pasta e a estrutura base são geradas." },
         ]} />
 
         <nav className={styles.caseNav} aria-label="Etapas do estudo de caso">
-          {[["01", "Problema", "folder-problem"], ["02", "Solução", "folder-solution"], ["03", "Personalização", "folder-custom"], ["04", "Interface", "folder-interface"], ["05", "Resultado", "folder-result"]].map(([number, label, target]) => <a href={`#${target}`} key={number}><span><Icon label={label} /></span><strong>{label}</strong><b aria-hidden="true">↓</b></a>)}
+          {[["01", "Problema", "folder-problem"], ["02", "Solução", "folder-solution"], ["03", "Personalização", "folder-custom"], ["04", "Interface", "folder-interface"], ["05", "Resultado", "folder-result"]].map(([number, label, target]) => <a href={`#${target}`} key={number}><span><Icon label={label} /></span><strong>{label}</strong><b aria-hidden="true"><Icon name="down" /></b></a>)}
         </nav>
 
         <section className={styles.section} aria-labelledby="folder-problem">
@@ -78,7 +91,7 @@ export default function FolderCreationCase() {
             <div className={styles.mainCopy}><p>Cada aluno seguia um progresso individual, marcava seus horários no laboratório e podia começar em qualquer momento do expediente. Quando alguém novo chegava, o professor precisava consultar os dados, criar a pasta e copiar cada curso ou módulo contratado.</p><p>Um mesmo aluno podia ter mais de um curso. Com dois ou três inícios simultâneos, essa preparação se tornava um gargalo enquanto a equipe também atendia os demais alunos.</p></div>
             <div className={styles.fact}><strong>5–10 min</strong><span>de espera observada em determinados momentos antes da automação</span><small>Estimativa operacional, sem medição formal.</small></div>
           </div>
-          <Flow label="Processo anterior" items={manualFlow} six />
+          <Flow label="Processo anterior" items={manualFlow} />
         </section>
 
         <section className={styles.section} aria-labelledby="folder-solution">
@@ -121,7 +134,7 @@ export default function FolderCreationCase() {
             <div className={styles.resultCopy}><p>A ferramenta reduziu o trabalho manual, padronizou as estruturas e diminuiu o risco de copiar módulos incorretos. Sem uma medição formal do tempo posterior, o resultado é apresentado como ganho operacional, não como percentual.</p><div><span>Aprendizado</span><p>O projeto reforçou como pequenas aplicações internas podem eliminar gargalos recorrentes quando traduzem as regras reais da operação.</p></div></div>
           </div>
           <div className={styles.benefitGrid}><span>Menos trabalho manual</span><span>Preparação mais rápida</span><span>Estruturas padronizadas</span><span>Menos risco nos módulos</span></div>
-          <Link className={styles.connectedCard} href="/projetos/atalho-acesso-cursos"><span>Projetos conectados</span><strong>Estrutura criada → matrícula localizada → arquivos acessados</strong><p>Ver o case “Atalho de acesso aos cursos”</p><b aria-hidden="true">→</b></Link>
+          <Link className={styles.connectedCard} href="/projetos/atalho-acesso-cursos"><span>Projetos conectados</span><strong>Estrutura criada <Icon name="arrow" /> matrícula localizada <Icon name="arrow" /> arquivos acessados</strong><p>Ver o case “Atalho de acesso aos cursos”</p><b aria-hidden="true"><Icon name="arrow" /></b></Link>
         </section>
       </main>
       <CaseFloatingActions sections={[
@@ -129,7 +142,7 @@ export default function FolderCreationCase() {
         { href: "#folder-custom", label: "Cursos personalizados" }, { href: "#folder-interface", label: "Interface" },
         { href: "#folder-result", label: "Resultado" },
       ]} />
-      <footer className={styles.footer}><span>© {new Date().getFullYear()} Cauã · bycauazin</span><Link href="/projetos">Ver todos os projetos ↑</Link></footer>
+      <footer className={styles.footer}><span>© {new Date().getFullYear()} Cauã · bycauazin</span><Link href="/projetos">Ver todos os projetos</Link></footer>
     </div>
   );
 }

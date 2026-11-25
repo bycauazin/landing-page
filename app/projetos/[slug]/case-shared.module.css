@@ -91,14 +91,14 @@
   display: grid;
   place-items: center;
   color: var(--blue);
-  font-size: 24px;
   padding-top: 24px;
 }
+.beforeAfterDivider svg { width: 26px; height: 26px; }
 
 .flowDiagram {
   width: min(1180px, calc(100% - 64px));
-  margin: 24px auto 0;
-  padding: 18px 0 0;
+  margin: 32px auto 64px;
+  padding: 28px 0 0;
   border-top: 1px solid var(--line);
 }
 
@@ -121,50 +121,11 @@
   line-height: 1.1;
 }
 
-.flowRow {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: stretch;
-  gap: 8px;
-}
 
-.flowRowItem {
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  flex: 1 1 170px;
-}
 
-.flowStep {
-  display: flex;
-  flex: 1 1 170px;
-  flex-direction: column;
-  min-height: 120px;
-  padding: 14px 14px 12px;
-  border: 1px solid var(--line);
-  background: rgb(var(--tint-rgb) / 0.04);
-}
 
-.flowStep strong {
-  color: var(--paper);
-  font-size: 18px;
-  font-weight: 520;
-}
 
-.flowStep small {
-  margin-top: 10px;
-  color: var(--muted);
-  font-size: 13px;
-  line-height: 1.5;
-}
 
-.arrow {
-  display: grid;
-  place-items: center;
-  color: var(--blue-light);
-  font-size: 20px;
-  padding: 0 6px;
-}
 
 @media (max-width: 760px) {
   .impactGrid,
@@ -177,13 +138,7 @@
     justify-self: center;
   }
 
-  .flowRow {
-    flex-direction: column;
-  }
 
-  .arrow {
-    display: none;
-  }
 }
 
 /* ---------- "Em poucas palavras" ---------- */
@@ -213,3 +168,54 @@
   .guideGrid article { padding: 22px; }
 }
 @media (prefers-reduced-motion: reduce) { .guideGrid a { transition: none; } }
+
+/* ---------- fluxo no padrão do Finance (ícones ligados por uma linha) ---------- */
+.pipeline { position: relative; display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; font-family: var(--font-ui); }
+.pipeline::before { position: absolute; top: 31px; right: 8%; left: 8%; height: 2px; border-radius: 2px; background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--blue) 55%, transparent) 10%, color-mix(in srgb, var(--blue) 55%, transparent) 90%, transparent); content: ""; }
+.pipeline li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center; }
+.pipelineIcon { display: grid; width: 64px; height: 64px; margin-bottom: 8px; place-items: center; border: 1px solid color-mix(in srgb, var(--blue) 35%, var(--line)); border-radius: 50%; color: var(--blue); background: var(--ink); box-shadow: 0 0 0 6px var(--ink); transition: transform 220ms ease, background-color 220ms ease, color 220ms ease; }
+.pipelineIcon svg { width: 26px; height: 26px; }
+.pipeline li:hover .pipelineIcon { color: var(--on-accent); background: var(--blue); transform: translateY(-3px); }
+.pipeline strong { color: var(--paper); font-size: 15px; font-weight: 650; line-height: 1.3; }
+.pipeline small { max-width: 220px; color: var(--muted); font-size: 12.5px; line-height: 1.45; }
+/* "antes": cinza e linha tracejada */
+.pipelineMuted::before { background: repeating-linear-gradient(90deg, rgb(var(--tint-rgb) / .35) 0 6px, transparent 6px 12px); }
+.pipelineMuted .pipelineIcon { color: var(--muted); border-color: var(--line); }
+.pipelineMuted li:hover .pipelineIcon { color: var(--paper); background: rgb(var(--tint-rgb) / .12); }
+/* vertical, para colunas estreitas (e no celular) */
+.pipelineVertical { grid-template-columns: 1fr; gap: 0; }
+.pipelineVertical::before { top: 30px; bottom: 30px; left: 27px; right: auto; width: 2px; height: auto; background: color-mix(in srgb, var(--blue) 45%, transparent); }
+.pipelineVertical.pipelineMuted::before { background: repeating-linear-gradient(180deg, rgb(var(--tint-rgb) / .35) 0 6px, transparent 6px 12px); }
+.pipelineVertical li { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 4px 14px; padding: 6px 0; text-align: left; }
+.pipelineVertical .pipelineIcon { width: 56px; height: 56px; margin: 0; }
+.pipelineVertical .pipelineIcon svg { width: 22px; height: 22px; }
+.pipelineVertical small { flex-basis: 100%; margin: -10px 0 0 70px; }
+
+/* ---------- resultado em destaque, no topo ---------- */
+.highlight { display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: 22px; margin-bottom: 14px; padding: 22px 26px; border: 1px solid color-mix(in srgb, var(--blue) 40%, var(--line)); border-radius: 18px; background: linear-gradient(110deg, color-mix(in srgb, var(--blue) 16%, var(--surface)), var(--surface) 60%); font-family: var(--font-ui); transition: border-color 200ms ease, transform 200ms ease; }
+.highlight:hover { border-color: var(--blue); transform: translateY(-2px); }
+.highlightIcon { display: grid; width: 52px; height: 52px; place-items: center; border-radius: 14px; color: var(--on-accent); background: var(--blue); }
+.highlightIcon svg { width: 26px; height: 26px; }
+.highlightValue { display: inline-flex; align-items: baseline; gap: 4px; color: var(--paper); font-family: var(--font-display); white-space: nowrap; }
+.highlightValue small { color: var(--blue); font-size: 26px; }
+.highlightValue strong { font-size: clamp(36px, 4.6vw, 54px); font-weight: 520; letter-spacing: -.04em; line-height: 1; }
+.highlightText { display: grid; gap: 4px; color: var(--muted); font-size: 16px; line-height: 1.45; }
+.highlightText b { color: var(--blue-light); font-size: 11px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
+.highlightGo { color: var(--blue); }
+.guideGrid a svg { width: 15px; height: 15px; color: var(--blue); }
+
+@media (max-width: 760px) {
+  .pipeline { grid-template-columns: 1fr; gap: 0; }
+  .pipeline::before { top: 30px; bottom: 30px; left: 27px; right: auto; width: 2px; height: auto; background: color-mix(in srgb, var(--blue) 45%, transparent); }
+  .pipeline li { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 4px 14px; padding: 6px 0; text-align: left; }
+  .pipeline .pipelineIcon { width: 56px; height: 56px; margin: 0; }
+  .pipeline small { flex-basis: 100%; margin: -10px 0 0 70px; }
+  .pipelineMuted::before { background: repeating-linear-gradient(180deg, rgb(var(--tint-rgb) / .35) 0 6px, transparent 6px 12px); }
+  .highlight { grid-template-columns: auto 1fr; gap: 14px 16px; padding: 18px; }
+  .highlightText { grid-column: 1 / -1; }
+  .highlightGo { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pipelineIcon, .highlight { transition: none; }
+  .pipeline li:hover .pipelineIcon, .highlight:hover { transform: none; }
+}

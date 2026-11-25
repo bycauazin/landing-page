@@ -1,7 +1,7 @@
 import Link from "next/link";
 import CaseHeader from "./case-header";
 import { Icon, SectionIcon } from "./case-icons";
-import { ReadingGuide } from "./case-shared";
+import { ReadingGuide, Pipeline } from "./case-shared";
 import CaseFloatingActions from "./case-floating-actions";
 import styles from "./access-expiration-case.module.css";
 
@@ -19,7 +19,7 @@ const expirationFlow = [
   ["refresh", "Sincronizar", "Preparar e aplicar no Moodle as mudanças externas necessárias."],
 ];
 
-const architecture = ["Endpoint autenticado", "Validação", "Controller", "ExpirationService", "ExpirationDao", "PostgreSQL", "Plano Moodle", "Moodle"];
+const architecture = [{ icon: "lock", label: "Endpoint autenticado" }, { icon: "check", label: "Validação" }, { icon: "server", label: "Controller" }, { icon: "sliders", label: "ExpirationService" }, { icon: "layers", label: "ExpirationDao" }, { icon: "data", label: "PostgreSQL" }, { icon: "list", label: "Plano Moodle" }, { icon: "learning", label: "Moodle" }];
 
 const detectionCode = [
   "async function findToExpire({ Model }, options = {}) {",
@@ -112,18 +112,6 @@ function SectionHeading({ number, eyebrow, title, id }) {
   );
 }
 
-function ArrowFlow({ items, label }) {
-  return (
-    <div className={styles.arrowFlow} aria-label={label}>
-      {items.map((item, index) => (
-        <div className={styles.arrowFlowItem} key={item}>
-          <span>{item}</span>
-          {index < items.length - 1 && <b aria-hidden="true">→</b>}
-        </div>
-      ))}
-    </div>
-  );
-}
 
 export default function AccessExpirationCase() {
   return (
@@ -154,6 +142,7 @@ export default function AccessExpirationCase() {
 
         <ReadingGuide
           className={styles.section}
+          highlight={{ icon: "shield", value: "Por vínculo", text: "cada acesso vence na sua data, com histórico e simulação antes de aplicar", href: "#result-title" }}
           minutes={6}
           plain={["Numa plataforma de cursos, um aluno pode ter vários acessos ao mesmo tempo (empresa, turma, nível, módulos), e cada um vence numa data diferente. Desligar o aluno inteiro quando só um deles vence seria um erro.", "Criei uma automação que confere o que venceu, desliga só aquele acesso, guarda o histórico e avisa a plataforma de aulas. Antes de aplicar, dá para simular e ver o que ela faria."]}
           plainLink={{ label: "Ver o resultado", href: "#result-title" }}
@@ -174,7 +163,7 @@ export default function AccessExpirationCase() {
             ["04", "Tier Open", "open-title"],
             ["05", "Arquitetura", "architecture-title"],
             ["06", "Resultado", "result-title"],
-          ].map(([number, label, target]) => <a href={`#${target}`} key={number}><span><Icon label={label} /></span><strong>{label}</strong><b aria-hidden="true">↓</b></a>)}
+          ].map(([number, label, target]) => <a href={`#${target}`} key={number}><span><Icon label={label} /></span><strong>{label}</strong><b aria-hidden="true"><Icon name="down" /></b></a>)}
         </nav>
 
         <section className={styles.section} aria-labelledby="problem-title">
@@ -219,7 +208,7 @@ export default function AccessExpirationCase() {
           <SectionHeading number="04" eyebrow="Regra de negócio" title="Do Tier expirado para o nível Open" id="open-title" />
           <div className={styles.twoColumns}>
             <div className={styles.prose}><p>Quando um vínculo de Tier expira, a relação anterior fica inativa e mantém sua data de expiração. Em seguida, o sistema localiza o Tier Open pelo nome e garante que o aluno tenha esse vínculo ativo.</p><p>Se o vínculo Open já existe, ele é reativado e fica sem prazo de expiração. Se ainda não existe, é criado. As duas mudanças deixam registros próprios no histórico: expiração e movimentação para Open.</p></div>
-            <div className={styles.openFlow}><span>Tier anterior<small>isActive: false</small></span><b>→</b><span>Histórico<small>EXPIRE + MOVE_TO_OPEN</small></span><b>→</b><span>Tier Open<small>reutilizar ou criar</small></span></div>
+            <Pipeline vertical steps={[{ icon: "history", label: "Tier anterior", note: "isActive: false" }, { icon: "file", label: "Histórico", note: "EXPIRE + MOVE_TO_OPEN" }, { icon: "refresh", label: "Tier Open", note: "reutilizar ou criar" }]} />
           </div>
           <div className={styles.codeNarrative}>
             <div className={styles.codeCopy}><span>Execução recorrente</span><h3>Sem duplicar o vínculo Open</h3><p>A rotina procura primeiro pela combinação aluno + Tier. Reexecutar o processo não cria uma nova relação quando ela já existe: o registro é reutilizado e colocado no estado esperado.</p></div>
@@ -229,7 +218,7 @@ export default function AccessExpirationCase() {
 
         <section className={styles.section} aria-labelledby="architecture-title">
           <SectionHeading number="05" eyebrow="Arquitetura" title="Responsabilidades separadas, fluxo rastreável" id="architecture-title" />
-          <ArrowFlow items={architecture} label="Fluxo do endpoint até o Moodle" />
+          <Pipeline steps={architecture} label="Fluxo do endpoint até o Moodle" />
           <div className={styles.architectureGrid}>
             <article><span>Entrada</span><h3>Endpoint, autorização e validação</h3><p>Uma rota autenticada valida o parâmetro de preview antes de entregar a operação ao controller.</p></article>
             <article><span>Orquestração</span><h3>Controller + transaction</h3><p>O controller abre a transaction Sequelize, inicia o service e monta a resposta com plano e execução.</p></article>
@@ -251,7 +240,7 @@ export default function AccessExpirationCase() {
           <SectionHeading number="06" eyebrow="Integração Moodle" title="Do estado local para o cohort Open" id="moodle-title" />
           <div className={styles.twoColumns}>
             <div className={styles.prose}><p>Para Tiers expirados, o service cria um plano de sincronização, resolve o usuário correspondente no Moodle e localiza o cohort Open. As ações são validadas e deduplicadas antes do envio.</p><p>Na implementação atual, esse fluxo adiciona o aluno ao cohort Open. A remoção do cohort anterior não faz parte deste plano e, por isso, não é representada como comportamento do case.</p></div>
-            <div className={styles.syncCard}><span>Plano atual</span><div>Tier expirado</div><b>↓</b><div>Resolver usuário e cohort</div><b>↓</b><div>ADD_TO_COHORT</div><b>↓</b><div>Moodle</div></div>
+            <div className={styles.syncCard}><span>Plano atual</span><Pipeline vertical steps={[{ icon: "history", label: "Tier expirado" }, { icon: "search", label: "Resolver usuário e cohort" }, { icon: "plus", label: "ADD_TO_COHORT" }, { icon: "learning", label: "Moodle" }]} /></div>
           </div>
         </section>
 
@@ -262,7 +251,7 @@ export default function AccessExpirationCase() {
             <article><span>Resultado</span><p>Cada acesso vence na sua própria data, com histórico guardado e simulação antes de aplicar. Menos trabalho manual.</p></article>
           </div>
           <div className={styles.outcomeGrid}>
-            {["Menos tratamento manual", "Regras aplicadas por relação", "Histórico preservado", "Preview antes da aplicação", "Integração local → Moodle", "Processo auditável"].map((item) => <span key={item}>{item}</span>)}
+            {["Menos tratamento manual", "Regras aplicadas por relação", "Histórico preservado", "Preview antes da aplicação", "Integração com o Moodle", "Processo auditável"].map((item) => <span key={item}>{item}</span>)}
           </div>
 
           <div className={styles.learningBlock}>
@@ -281,7 +270,7 @@ export default function AccessExpirationCase() {
         { href: "#architecture-title", label: "Arquitetura" }, { href: "#moodle-title", label: "Integração Moodle" },
         { href: "#result-title", label: "Resultado" },
       ]} />
-      <footer className={styles.footer}><span>© {new Date().getFullYear()} Cauã · bycauazin</span><Link href="/projetos">Ver todos os projetos ↑</Link></footer>
+      <footer className={styles.footer}><span>© {new Date().getFullYear()} Cauã · bycauazin</span><Link href="/projetos">Ver todos os projetos</Link></footer>
     </div>
   );
 }

@@ -888,3 +888,9 @@
     padding: 24px 0;
   }
 }
+
+/* fluxos no padrão do Finance (Pipeline de case-shared) e setas como ícone */
+.pipelineBlock { margin: 44px 0 40px 54px; }
+.pipelineBlock > p { margin-bottom: 24px; color: var(--blue-light); font-family: var(--font-ui); font-size: 12px; font-weight: 650; letter-spacing: .08em; text-transform: uppercase; }
+.caseNav b svg { width: 15px; height: 15px; }
+@media (max-width: 760px) { .pipelineBlock { margin-left: 0; } }

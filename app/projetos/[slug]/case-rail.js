@@ -65,7 +65,9 @@ export default function CaseRail() {
     const fit = () => {
       const hero = els.current[0];
       const right = hero ? hero.getBoundingClientRect().right : window.innerWidth;
-      setFits(window.innerWidth - right >= RAIL_ROOM && window.innerHeight >= 520);
+      // nas páginas com o circuito na borda, a barra fica mais para dentro (ver case-chrome.module.css)
+      const room = RAIL_ROOM + (document.querySelector("[data-edge-deco]") ? 36 : 0);
+      setFits(window.innerWidth - right >= room && window.innerHeight >= 520);
     };
     const onResize = () => { fit(); measure(); };
     onResize();

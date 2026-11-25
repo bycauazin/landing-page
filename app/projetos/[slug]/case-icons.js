@@ -61,6 +61,9 @@ export const ICONS = {
   sparkle: <><path d="M12 3v4M12 17v4M3 12h4M17 12h4M6 6l2.5 2.5M15.5 15.5 18 18M6 18l2.5-2.5M15.5 8.5 18 6" /></>,
   scissors: <><circle cx="6" cy="6" r="3" /><circle cx="6" cy="18" r="3" /><path d="M8.5 7.5 20 18M8.5 16.5 20 6" /></>,
   arrow: <><path d="M5 12h14M13 6l6 6-6 6" /></>,
+  down: <><path d="M12 5v14M6 13l6 6 6-6" /></>,
+  up: <><path d="M12 19V5M6 11l6-6 6 6" /></>,
+  plus: <><path d="M12 5v14M5 12h14" /></>,
   globe: <><circle cx="12" cy="12" r="9" /><path d="M3 12h18M12 3c2.5 2.5 3.5 5.5 3.5 9s-1 6.5-3.5 9c-2.5-2.5-3.5-5.5-3.5-9S9.5 5.5 12 3z" /></>,
 };
 

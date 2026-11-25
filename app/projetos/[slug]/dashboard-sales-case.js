@@ -1,7 +1,7 @@
 import Link from "next/link";
 import CaseHeader from "./case-header";
 import { Icon, SectionIcon } from "./case-icons";
-import { ReadingGuide } from "./case-shared";
+import { ReadingGuide, Pipeline } from "./case-shared";
 import CaseFloatingActions from "./case-floating-actions";
 import styles from "./dashboard-sales-case.module.css";
 
@@ -80,6 +80,7 @@ export default function DashboardSalesCase() {
 
         <ReadingGuide
           className={styles.section}
+          highlight={{ icon: "chart", value: "1 página", text: "do resultado geral ao produto e ao cliente que o explicam", href: "#dashboard-title" }}
           minutes={4}
           plain={["Uma planilha de vendas com pedidos, produtos, clientes e custos responde pouca coisa à primeira vista: são só linhas.", "Transformei essa base num painel de uma página só, que se lê de cima para baixo: primeiro quanto se vendeu, quanto custou e quanto sobrou; depois como isso mudou mês a mês; por fim, quais produtos e clientes explicam o resultado."]}
           plainLink={{ label: "Ver o painel", href: "#dashboard-title" }}
@@ -90,7 +91,7 @@ export default function DashboardSalesCase() {
         <div className={styles.leadStatement}><span>Decisão central</span><blockquote>O dashboard organiza a leitura comercial: do resultado geral até o produto ou cliente que explica esse resultado.</blockquote></div>
 
         <nav className={styles.caseNav} aria-label="Etapas do estudo de caso">
-          {[["01","Problema","problem-title"],["02","Dados","data-title"],["03","Indicadores","metrics-title"],["04","Dashboard","dashboard-title"],["05","Decisões","decisions-title"],["06","Resultado","result-title"]].map(([number,label,target]) => <a href={`#${target}`} key={number}><span><Icon label={label} /></span><strong>{label}</strong><b>↓</b></a>)}
+          {[["01","Problema","problem-title"],["02","Dados","data-title"],["03","Indicadores","metrics-title"],["04","Dashboard","dashboard-title"],["05","Decisões","decisions-title"],["06","Resultado","result-title"]].map(([number,label,target]) => <a href={`#${target}`} key={number}><span><Icon label={label} /></span><strong>{label}</strong><b aria-hidden="true"><Icon name="down" /></b></a>)}
         </nav>
 
         <section className={styles.section} aria-labelledby="problem-title">
@@ -101,7 +102,7 @@ export default function DashboardSalesCase() {
 
         <section className={styles.section} aria-labelledby="data-title">
           <SectionHeading number="02" eyebrow="Preparação dos dados" title="Uma fonte consolidada, tratada antes da análise" id="data-title" />
-          <div className={styles.dataFlow}><span>Base Excel</span><b>→</b><span>Power Query</span><b>→</b><span>Normalização</span><b>→</b><span>Modelo semântico</span><b>→</b><span>Medidas DAX</span></div>
+          <Pipeline steps={[{ icon: "file", label: "Base Excel" }, { icon: "filter", label: "Power Query" }, { icon: "sliders", label: "Normalização" }, { icon: "layers", label: "Modelo semântico" }, { icon: "code", label: "Medidas DAX" }]} />
           <div className={styles.dataCards}><article><span>Power Query</span><h3>Correções controladas</h3><p>A consulta mantém a base original e aplica normalizações pontuais em valores de origem e pagamento.</p></article><article><span>Confidencialidade</span><h3>Demonstração segura</h3><p>Esta página recria a experiência com números e nomes fictícios, sem publicar os totais ou registros da fonte.</p></article><article><span>Modelo</span><h3>Camada de negócio</h3><p>As medidas separam a lógica dos indicadores da apresentação visual do relatório.</p></article></div>
         </section>
 
@@ -121,7 +122,7 @@ export default function DashboardSalesCase() {
         <section className={styles.section} aria-labelledby="decisions-title">
           <SectionHeading number="05" eyebrow="Filtros e decisões" title="Do indicador agregado ao recorte necessário" id="decisions-title" />
           <div className={styles.filterGrid}>{["Mês","Cliente","Produto","Classificação","Origem","Pagamento","Categoria"].map((filter) => <span key={filter}>{filter}<b>⌄</b></span>)}</div>
-          <div className={styles.twoColumns}><div className={styles.prose}><p>Os filtros permitem partir da leitura geral e investigar um período, cliente, produto ou característica comercial específica. Todos os visuais permanecem na mesma página para preservar o contexto durante a análise.</p></div><aside className={styles.callout}><span>Leitura orientada</span><strong>Resumo → tendência → distribuição → detalhe</strong><p>A hierarquia reduz a necessidade de procurar informações em páginas desconectadas.</p></aside></div>
+          <div className={styles.twoColumns}><div className={styles.prose}><p>Os filtros permitem partir da leitura geral e investigar um período, cliente, produto ou característica comercial específica. Todos os visuais permanecem na mesma página para preservar o contexto durante a análise.</p></div><aside className={styles.callout}><span>Leitura orientada</span><strong>Resumo, tendência, distribuição e detalhe</strong><p>A hierarquia reduz a necessidade de procurar informações em páginas desconectadas.</p></aside></div>
         </section>
 
         <section className={`${styles.section} ${styles.resultSection}`} aria-labelledby="result-title">
@@ -137,7 +138,7 @@ export default function DashboardSalesCase() {
         { href: "#metrics-title", label: "Indicadores" }, { href: "#dashboard-title", label: "Experiência visual" },
         { href: "#decisions-title", label: "Filtros e decisões" }, { href: "#result-title", label: "Resultado" },
       ]} />
-      <footer className={styles.footer}><span>© {new Date().getFullYear()} Cauã · bycauazin</span><Link href="/projetos">Ver todos os projetos ↑</Link></footer>
+      <footer className={styles.footer}><span>© {new Date().getFullYear()} Cauã · bycauazin</span><Link href="/projetos">Ver todos os projetos</Link></footer>
     </div>
   );
 }
