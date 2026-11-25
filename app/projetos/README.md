@@ -13,7 +13,7 @@
 - [case-icons.js]([slug]/case-icons.js): o conjunto de ícones (`Icon`, `SectionIcon`, `StepDot`) e o mapa palavra → ícone usado pela barra lateral. Regra da casa: nada de "01, 02" ao lado de títulos e listas; use um ícone que faça sentido ou, quando a ordem importa, `StepDot` (número simples num círculo).
 - [case-gallery.js]([slug]/case-gallery.js): galeria de telas em abas (moldura de navegador ou de celular), alimentada pelo campo `screens` dos dados.
 - [case-motion.js]([slug]/case-motion.js): animações de entrada e barra de progresso no topo.
-- `*-case.js` + `*.module.css`: cada estudo de caso. Telas recriadas sempre com dados fictícios.
+- `*-case.js` + `*.module.css`: cada estudo de caso. Telas recriadas sempre com dados fictícios. Veja [o guia de edição dos estudos de caso]([slug]/README.md).
 
 ## Fotos de capa
 

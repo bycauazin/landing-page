@@ -84,7 +84,7 @@ export default function PlannerPowerBICase() {
           technicalLink={{ label: "Ir para a solução", href: "#architecture-title" }}
         />
 
-        <LeadQuote text="O painel deixou de depender de uma planilha atualizada à mão: os dados chegam sozinhos, e o painel virou uma página que cabe no site da empresa." />
+        <LeadQuote text="Automatizei a coleta de tarefas e migrei o painel para a web. A atualização deixou de depender de uma planilha manual." />
 
         <nav className={styles.caseNav} aria-label="Etapas do estudo de caso">
           {[
@@ -140,7 +140,7 @@ export default function PlannerPowerBICase() {
         <section className={styles.section} aria-labelledby="dashboard-title">
           <SectionHeading eyebrow="O painel" title="Do Power BI para uma página web" id="dashboard-title" />
           <div className={styles.mainCopy}>
-            <p>O painel original era em Power BI, feito por uma colega. Depois precisei levá-lo para dentro do site da empresa: migrei para uma página web (HTML, CSS e JavaScript) embutida por iframe e redesenhei as telas.</p>
+            <p>O painel original era em Power BI. Migrei a visualização para uma página em HTML, CSS e JavaScript e redesenhei as telas para que pudessem ser incorporadas via iframe.</p>
             <p>São duas visões. Em <strong>Conformidade</strong>, o que precisa de atenção: tarefas sem prazo, sem responsável e em atraso. Em <strong>Individual</strong>, o andamento de cada pessoa. Clicar num indicador ou numa barra filtra o painel inteiro.</p>
           </div>
           <div className={styles.galleryBlock}>
@@ -160,7 +160,7 @@ export default function PlannerPowerBICase() {
             <ul>
               <li>Fim da planilha atualizada à mão</li>
               <li>Dados atualizados todo dia, sozinhos</li>
-              <li>Painel web dentro do site da empresa</li>
+              <li>Painel web incorporável</li>
             </ul>
           </div>
           <ul className={styles.roleLine}>

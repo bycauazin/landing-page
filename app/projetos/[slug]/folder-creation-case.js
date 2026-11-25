@@ -52,7 +52,7 @@ export default function FolderCreationCase() {
               <div className={`${styles.heroPhoto} ${styles.folderHeroVisual}`} aria-label="Representação conceitual da criação automática da estrutura do aluno">
                 <div><span>Aluno_10245</span><small>estrutura criada</small></div><p>├─ Windows</p><p>├─ Word</p><p>└─ Excel</p>
               </div>
-              <span>Contexto do projeto</span><p>Desenvolvido na Onbyte Penha para apoiar professores durante o início das aulas.</p><small>Imagem conceitual — não é um registro histórico.</small>
+              <span>Contexto do projeto</span><p>Criei a ferramenta em uma escola de cursos para automatizar a preparação dos arquivos dos alunos antes das aulas.</p><small>Imagem conceitual — não é um registro histórico.</small>
             </aside>
           </div>
           <div className={styles.tags} aria-label="Tecnologias e características do projeto">{[["Py", "Python"], ["Tk", "Tkinter"], ["Au", "Automação"], ["PC", "Desktop"]].map(([mark, label]) => <span key={label}><b aria-hidden="true">{mark}</b>{label}</span>)}</div>

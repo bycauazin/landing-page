@@ -36,7 +36,7 @@ Cada projeto possui uma página individual preparada para documentar:
 - links para GitHub e demonstrações;
 - imagens, fluxos e trechos de código.
 
-Nos trabalhos profissionais, a documentação prioriza a explicação do processo e preserva dados, regras e códigos confidenciais.
+Nos estudos de caso profissionais, a documentação apresenta o problema, a solução, minha contribuição e o resultado. As demonstrações usam dados fictícios e os contextos são descritos de forma genérica.
 
 ## Tecnologias
 
