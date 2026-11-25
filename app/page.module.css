@@ -315,7 +315,7 @@
   .contactSection { margin: 0 8px 8px; padding: 100px 20px; border-radius: 24px; }
   .caseItem { padding: 20px; border-radius: 22px; }
   .aboutCopy { padding: 28px; }
-  .hero h1 { font-size: clamp(44px, 13vw, 68px); }
+  .hero h1 { font-size: clamp(28px, 9.5vw, 52px); }
   .heroVisual { width: min(100%, 320px); margin: 0 auto; justify-self: center; }
   .heroCircuit { right: -4%; }
   .servicesSection, .casesSection, .techSection { padding: 84px 0; }
