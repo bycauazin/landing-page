@@ -125,6 +125,7 @@ screens: [{ src, label, icon, caption, phone? }], // galeria de telas (prints co
 features: [{ icon, title, text }],           // recursos curtos, com ícone (nada de 01, 02, 03)
 flow: [{ icon, label, note }],               // como as partes se conectam
 progress: { done: ["..."], next: ["..."] },   // projetos em desenvolvimento: o que está pronto e o que vem depois
+brand: { logo, logoLight?, colors: [{ name, hex }] }, // logo do próprio app (troca com o tema) e paleta, ao lado do título; suba o ?v= ao trocar o SVG
 ```
 
 Use foto de capa só em projetos que têm tela (app, site, dashboard, janela desktop). Projetos só de código ficam com os ícones.

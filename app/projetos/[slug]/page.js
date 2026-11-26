@@ -55,6 +55,23 @@ function HeroShot({ project, preview = false }) {
   );
 }
 
+// Identidade do produto (campo brand): a logo do próprio app, trocando com o tema, e a paleta.
+function ProductBrand({ brand, title }) {
+  return (
+    <div className={styles.productBrand}>
+      {/* eslint-disable-next-line @next/next/no-img-element -- SVG pequeno com ?v=, sem otimização */}
+      <img className={`${styles.productLogo} ${styles.productLogoDark}`} src={brand.logo} alt={`Logo do ${title}`} height={44} />
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img className={`${styles.productLogo} ${styles.productLogoLight}`} src={brand.logoLight ?? brand.logo} alt="" height={44} />
+      {brand.colors && (
+        <ul className={styles.palette} aria-label="Cores do app">
+          {brand.colors.map((c) => <li key={c.hex}><i style={{ background: c.hex }} />{c.name} <span>{c.hex}</span></li>)}
+        </ul>
+      )}
+    </div>
+  );
+}
+
 function Footer() {
   return (
     <footer className={styles.footer}>
@@ -239,6 +256,7 @@ async function ProjectContent({ params }) {
             </div>
             <h1 id="project-title">{project.title}</h1>
             <p className={styles.projectGroup}>{project.group} · {project.type}</p>
+            {project.brand && <ProductBrand brand={project.brand} title={project.title} />}
             <p className={styles.summary}>{project.description}</p>
             <div className={styles.tags}>{project.technologies.map((technologyId) => <TechnologyIcon className={styles.techTag} technology={technologyId} size="sm" showLabel key={technologyId} />)}</div>
             {project.liveUrl && <a className={styles.liveLink} href={project.liveUrl} target="_blank" rel="noreferrer">{project.liveLabel ?? "Abrir o app e testar a demonstração"} <span aria-hidden="true">↗</span></a>}

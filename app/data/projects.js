@@ -47,6 +47,17 @@ export const projects = [
     // Endereço antigo, que já mostra o Cacau. Trocar por https://cacaubc.vercel.app quando o domínio novo estiver ativo na Vercel.
     liveUrl: "https://financebycauazin.vercel.app",
     image: "/project-images/cacau-app.jpg",
+    // Logo do próprio app (fita bycauazin nas cores dele) e a paleta. Ao trocar um SVG, suba o ?v=.
+    brand: {
+      logo: "/project-images/cacau/logo-sticker.svg?v=1",
+      logoLight: "/project-images/cacau/logo-sticker-light.svg?v=1",
+      colors: [
+        { name: "Carvão", hex: "#222222" },
+        { name: "Verde", hex: "#c8f25a" },
+        { name: "Cacau", hex: "#694633" },
+        { name: "Bege", hex: "#f4ede0" },
+      ],
+    },
     // Telas da conta de demonstração (dados fictícios), na galeria da página.
     screens: [
       { src: "/project-images/cacau/resumo-do-mes.jpg", label: "Resumo do mês", icon: "wallet", caption: "Quanto entrou, quanto saiu e quanto sobra." },
@@ -277,36 +288,70 @@ export const projects = [
     title: "nuCorre App",
     group: "Projeto autoral",
     type: "Aplicativo web",
-    status: "em-desenvolvimento",
+    status: "no-ar",
     category: "desenvolvimento",
     technologies: ["javascript", "react", "nodejs", "postgresql"],
     featured: true,
     featuredOrder: 2,
-    // Foto do site para o destaque: coloque em /public/project-images/ e preencha aqui quando estiver no ar.
+    description: "Controle de rotina no formato da planilha da semana. Cada dia vira uma lista em ordem de horário, com um check para cada coisa feita. Tem relatórios, controle de água e um bot no Telegram.",
+    liveUrl: "https://nucorrebc.vercel.app",
     image: "/project-images/nucorre-app.jpg",
-    description: "Controle de rotina no formato da planilha da semana: blocos fixos com dia e horário, rotinas com afazeres, hábitos com sequência e tarefas. Cada dia vira uma lista em ordem de horário, com um check para cada coisa feita.",
-    developmentSummary: "Irmão do CACAU App, com a mesma estrutura: API em Node.js com PostgreSQL e interface em React, pensada primeiro para o celular. As três primeiras etapas já estão prontas; a página ganha o link quando a primeira versão for publicada.",
-    features: [
-      { icon: "calendar", title: "Semana fixa", text: "Trabalho, estudo e treino com dia e horário" },
-      { icon: "clock", title: "Hoje", text: "O dia em ordem de horário, com check" },
-      { icon: "layers", title: "Semana em grade", text: "Horas × dias, blocos lado a lado quando batem" },
-      { icon: "list", title: "Rotinas com afazeres", text: "Manhã, hora de dormir" },
-      { icon: "refresh", title: "Hábitos", text: "Com sequência de dias" },
-      { icon: "check", title: "Tarefas", text: "Sem data, com data ou com período" },
-    ],
-    progress: {
-      done: ["Login, cadastro e verificação em duas etapas", "Rotina fixa e tela Hoje", "Abas Dia e Semana, rotinas com afazeres e tarefas"],
-      next: ["Controle de água", "Aulas, alunos, feriados e folgas", "Metas e relatórios", "Bot do Telegram", "Refeições do dia"],
+    // Logo do próprio app (fita bycauazin nas cores dele) e a paleta "Cream Routine". Ao trocar um SVG, suba o ?v=.
+    brand: {
+      logo: "/project-images/nucorre/logo-sticker.svg?v=1",
+      logoLight: "/project-images/nucorre/logo-sticker-light.svg?v=1",
+      colors: [
+        { name: "Creme", hex: "#faf3e8" },
+        { name: "Azul-marinho", hex: "#253b57" },
+        { name: "Rosa", hex: "#f4a6c1" },
+      ],
     },
-    flow: ["Semana planejada", "Lista do dia", "Check do que foi feito", "Sequência dos hábitos"],
-    publication: "Projeto em desenvolvimento",
-    confidentiality: "Este projeto continua em desenvolvimento e não apresenta funcionalidades que ainda não tenham sido concluídas.",
+    // Telas da conta de demonstração (dados fictícios da "Marina Costa"), na galeria da página.
+    screens: [
+      { src: "/project-images/nucorre/semana.jpg", label: "Semana", icon: "calendar", caption: "A semana em grade: horas por dias, com o que já foi feito." },
+      { src: "/project-images/nucorre/relatorios.jpg", label: "Relatórios", icon: "chart", caption: "Cumprimento, nota, água e treinos por período." },
+      { src: "/project-images/nucorre/atrasos.jpg", label: "Mapa de atrasos", icon: "clock", caption: "Em que dia e hora as coisas ficam para trás." },
+      { src: "/project-images/nucorre/abertura.jpg", label: "Abertura", icon: "sparkle", caption: "A logo gira, o nome é digitado e a página aparece." },
+      { src: "/project-images/nucorre/bot.jpg", label: "Bot no Telegram", icon: "bot", caption: "Anotar, marcar como feito, água e o resumo da manhã. Conversa recriada com as respostas reais do bot.", phone: true },
+      { src: "/project-images/nucorre/hoje-celular.jpg", label: "Hoje no celular", icon: "phone", caption: "O dia com o progresso, a água e o que ficou atrasado.", phone: true },
+    ],
+    features: [
+      { icon: "calendar", title: "Rotina fixa", text: "Blocos com dia e horário, rotinas com afazeres, hábitos com sequência e tarefas avulsas" },
+      { icon: "clock", title: "Hoje, Dia e Semana", text: "A lista do dia em ordem de horário, com linha do tempo, e a semana em grade" },
+      { icon: "drop", title: "Água", text: "Meta diária e registro rápido" },
+      { icon: "flag", title: "Dias especiais e imprevistos", text: "Feriado, férias e doença pulam os blocos certos; um imprevisto tira do caminho o que estava planejado" },
+      { icon: "chart", title: "Relatórios e metas", text: "Cumprimento e nota por período, sequências, mapa de atrasos e metas pessoais" },
+      { icon: "compare", title: "Simular", text: "Testa uma rotina nova sem mexer na atual" },
+      { icon: "bot", title: "Bot no Telegram", text: "\"anotar comprar pão amanhã\", \"fiz o treino\" e o resumo do dia toda manhã" },
+      { icon: "phone", title: "App instalável", text: "Funciona como app no celular; os dados privados nunca vão para o cache" },
+      { icon: "lock", title: "Conta e segurança", text: "Duas etapas, códigos de recuperação, exportação de dados e exclusão da conta" },
+      { icon: "eye", title: "Demonstração", text: "Teste com dados fictícios, sem cadastro" },
+    ],
+    guide: {
+      plain: [
+        "Minha semana ficava numa planilha: trabalho, aulas, treino, hábitos e tarefas, tudo junto. Planejar era fácil. Difícil era saber, no meio do dia, o que vinha agora e o que já tinha ficado para trás.",
+        "O nuCorre transforma a semana planejada na lista de cada dia, em ordem de horário. É só marcar o que fez. Feriado e imprevisto mudam o dia sem bagunçar a semana, e os relatórios mostram onde a rotina costuma falhar.",
+      ],
+      technical: [
+        "React 19 + Vite + Tailwind 4; Express 5 + Prisma 7 + PostgreSQL",
+        "API em camadas: rotas, validação com Zod, controllers, services e DAOs",
+        "Bot do Telegram: regras para as frases comuns, IA (Gemini, Claude de reserva) para o resto",
+        "Vercel + Neon; 139 testes no backend e 28 no frontend",
+      ],
+    },
+    flow: [
+      { icon: "screen", label: "React + Vite", note: "As telas, instaláveis" },
+      { icon: "bot", label: "Telegram", note: "Tarefas por mensagem" },
+      { icon: "server", label: "API Express", note: "Rotas e validação" },
+      { icon: "sliders", label: "Regras da rotina", note: "Dias, blocos, sequências" },
+      { icon: "data", label: "PostgreSQL", note: "Via Prisma, no Neon" },
+    ],
     sections: {
       problem: "A rotina da semana ficava numa planilha: blocos fixos, aulas, hábitos e tarefas espalhados, difícil de acompanhar no dia a dia.",
-      solution: "Um aplicativo que transforma a semana planejada na lista de cada dia, em ordem de horário, com check e sequência dos hábitos.",
-      role: "Projeto autoral do início ao fim: regras, modelagem, API e interface.",
-      result: "Em desenvolvimento; a página será atualizada quando a primeira versão estiver no ar.",
-      evidence: "A página será atualizada com demonstração quando a primeira versão estiver no ar.",
+      solution: "Um app que transforma a semana planejada na lista de cada dia, em ordem de horário, com check, sequência dos hábitos e um bot para anotar sem abrir o app.",
+      result: "No ar e completo. A segurança foi revisada (OWASP Top 10 e dependências) sem nenhum achado explorável.",
+      role: "Projeto meu, do início ao fim: regras, modelagem, API e interface.",
+      evidence: "No ar, com conta de demonstração.",
     },
   },
   {

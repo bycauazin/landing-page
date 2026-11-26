@@ -3,7 +3,7 @@
 `/projetos` (catálogo) e `/projetos/[slug]` (uma página por projeto, gerada no build).
 
 - [page.js](page.js): só os metadados; a página é [../components/projects-page.js](../components/projects-page.js).
-- [[slug]/page.js]([slug]/page.js): roteador dos projetos. Projetos com estudo de caso escrito à mão estão no mapa `caseComponents`; os outros usam a página gerada pelos dados de [../data/projects.js](../data/projects.js) (foto de capa no topo quando há `image`, resumo quando há `guide`, galeria quando há `screens`, recursos com ícone em `features` e "pronto / próximas etapas" quando há `progress`).
+- [[slug]/page.js]([slug]/page.js): roteador dos projetos. Projetos com estudo de caso escrito à mão estão no mapa `caseComponents`; os outros usam a página gerada pelos dados de [../data/projects.js](../data/projects.js) (foto de capa no topo quando há `image`, resumo quando há `guide`, galeria quando há `screens`, recursos com ícone em `features`, logo e paleta do app quando há `brand` (componente `ProductBrand`) e "pronto / próximas etapas" quando há `progress`, só na página de projeto em desenvolvimento).
 
 ## Peças comuns dos estudos de caso (`[slug]/`)
 
