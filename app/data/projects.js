@@ -35,7 +35,7 @@ export const projects = [
   {
     id: "cacau",
     slug: "cacau",
-    title: "Cacau",
+    title: "CACAU App",
     group: "Projeto autoral",
     type: "Aplicativo web",
     status: "no-ar",
@@ -69,7 +69,7 @@ export const projects = [
     guide: {
       plain: [
         "Eu controlava o dinheiro numa planilha e achava que estava tudo sob controle. Não estava: os gastos avulsos do dia a dia (o lanche, o Uber, a compra rápida) quase nunca entravam, e muita coisa ficava de fora.",
-        "O Cacau tira esse atrito. Para anotar um gasto, basta mandar uma mensagem no Telegram. As contas fixas entram sozinhas, cada parcela cai na fatura certa e os relatórios mostram para onde o dinheiro foi de verdade.",
+        "O CACAU tira esse atrito. Para anotar um gasto, basta mandar uma mensagem no Telegram. As contas fixas entram sozinhas, cada parcela cai na fatura certa e os relatórios mostram para onde o dinheiro foi de verdade.",
       ],
       technical: [
         "React + Vite + Tailwind; API Express em camadas",
@@ -272,9 +272,9 @@ export const projects = [
     },
   },
   {
-    id: "routine-app",
-    slug: "routine-app",
-    title: "Routine App",
+    id: "nucorre",
+    slug: "nucorre",
+    title: "nuCorre",
     group: "Projeto autoral",
     type: "Aplicativo web",
     status: "em-desenvolvimento",
@@ -283,9 +283,9 @@ export const projects = [
     featured: true,
     featuredOrder: 2,
     // Foto do site para o destaque: coloque em /public/project-images/ e preencha aqui quando estiver no ar.
-    image: "/project-images/routine-app.jpg",
+    image: "/project-images/nucorre-app.jpg",
     description: "Controle de rotina no formato da planilha da semana: blocos fixos com dia e horário, rotinas com afazeres, hábitos com sequência e tarefas. Cada dia vira uma lista em ordem de horário, com um check para cada coisa feita.",
-    developmentSummary: "Irmão do Cacau, com a mesma estrutura: API em Node.js com PostgreSQL e interface em React, pensada primeiro para o celular. As três primeiras etapas já estão prontas; a página ganha o link quando a primeira versão for publicada.",
+    developmentSummary: "Irmão do CACAU App, com a mesma estrutura: API em Node.js com PostgreSQL e interface em React, pensada primeiro para o celular. As três primeiras etapas já estão prontas; a página ganha o link quando a primeira versão for publicada.",
     features: [
       { icon: "calendar", title: "Semana fixa", text: "Trabalho, estudo e treino com dia e horário" },
       { icon: "clock", title: "Hoje", text: "O dia em ordem de horário, com check" },
