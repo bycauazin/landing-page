@@ -87,10 +87,11 @@
   display: flex;
   align-items: center;
   height: 1.25em;
-  font-size: clamp(30px, 7vw, 54px);
-  font-weight: 600;
+  font-family: var(--font-brand), "Geist Mono", ui-monospace, monospace;
+  font-size: clamp(26px, 6.4vw, 50px);
+  font-weight: 400;
   line-height: 1;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.02em;
   white-space: pre;
   opacity: 0;
   transition: opacity 0.3s ease;
@@ -108,6 +109,10 @@
 .by {
   color: var(--blue);
   transition: color 0.3s ease;
+}
+
+.tag {
+  opacity: 0.5;
 }
 
 .enter {

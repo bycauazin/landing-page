@@ -12,7 +12,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 200;
+  z-index: 1001; /* acima da abertura (site-intro, z-index 1000) */
   pointer-events: none;
   opacity: 0;
   transition: opacity 200ms ease;

@@ -10,10 +10,10 @@
 /* Circuito vivo atrás da página inteira (fixo na tela, abaixo de todo o conteúdo) */
 .pageField { position: fixed; z-index: -1; inset: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0; transition: opacity 900ms ease; }
 .pageField[data-ready] { opacity: 1; }
-/* Tema claro: fundo neutro quase branco, azul-gelo só como toque, laranja mais fechado (não estoura no claro) */
+/* Tema claro: fundo azul-gelo claro (#e3edf3), cartões brancos, laranja mais fechado (não estoura no claro) */
 .light {
-  --light-bg: #f4f6f8;
-  --light-bg-rgb: 244 246 248;
+  --light-bg: #e3edf3;
+  --light-bg-rgb: 227 237 243;
   --accent-rgb: 207 74 44;
   --ink: var(--light-bg);
   --surface: #fff;
@@ -51,8 +51,8 @@
   --base-rgb: var(--light-bg-rgb);
 }
 /* Página clara: barra de rolagem e fundo do navegador (ao puxar além do fim) acompanham o tema */
-:global(html):has(.light) { color-scheme: light; background: #f4f6f8; scrollbar-color: rgb(var(--midnight-ink-rgb) / 0.3) #f4f6f8; }
-:global(body):has(.light) { background: #f4f6f8; }
+:global(html):has(.light) { color-scheme: light; background: #e3edf3; scrollbar-color: rgb(var(--midnight-ink-rgb) / 0.3) #e3edf3; }
+:global(body):has(.light) { background: #e3edf3; }
 .header { position: absolute; z-index: 6; top: 12px; right: 0; left: 0; display: flex; align-items: center; justify-content: space-between; height: 92px; }
 .brand { display: inline-flex; align-items: center; gap: 10px; color: var(--paper); font-size: 15px; font-weight: 650; }
 .brandMark { display: block; flex: none; }
@@ -303,7 +303,7 @@
 
 /* Celulares pequenos: o nome ao lado do logo cede espaço ao menu e ao botão de contato */
 @media (max-width: 420px) {
-  .brand > span { display: none; }
+  .brand > span, .brand > b { display: none; }
 }
 
 .page :global(.motion-mask-line) { display: block; overflow: hidden; padding: .055em 0; margin: -.055em 0; perspective: 900px; }

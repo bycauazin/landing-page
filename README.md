@@ -53,6 +53,7 @@ O projeto utiliza o App Router do Next.js e uma fonte de dados centralizada para
 Essa estrutura facilita a manutenção: um novo projeto pode ser cadastrado sem duplicar páginas ou componentes.
 
 ```text
+brand/                       # Modelo da logo oficial e gerador de cores (mapa em brand/README.md)
 app/
 ├── components/              # Componentes reutilizáveis (mapa em app/components/README.md)
 ├── data/projects.js         # Projetos, tecnologias e documentação

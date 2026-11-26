@@ -26,10 +26,10 @@
 }
 
 /* Tema claro escolhido no botão ☼ (vale em todas as páginas; ver components/use-theme.js).
-   Mesmos valores da classe .light da home: fundo neutro, cartões brancos, laranja mais fechado. */
+   Mesmos valores da classe .light da home: fundo azul-gelo claro, cartões brancos, laranja mais fechado. */
 :root[data-theme="light"] {
-  --light-bg: #f4f6f8;
-  --light-bg-rgb: 244 246 248;
+  --light-bg: #e3edf3;
+  --light-bg-rgb: 227 237 243;
   --accent-rgb: 207 74 44;
   --ink: var(--light-bg);
   --surface: #fff;

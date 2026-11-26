@@ -7,6 +7,7 @@ import RevealText from "./reveal-text";
 import homeStyles from "../page.module.css";
 import styles from "../projetos/projects.module.css";
 import BrandLogo from "./brand-logo";
+import BrandName from "./brand-name";
 import HeroCircuitField from "./hero-circuit-field";
 import MobileMenu from "./mobile-menu";
 import SnapCursor from "./snap-cursor";
@@ -31,7 +32,7 @@ export default function ProjectsPage() {
       <ProjectsMotion />
       <CaseRail fitSelector="#catalogo" controlsCaseActions={false} />
       <header className={homeStyles.header}>
-        <Link className={homeStyles.brand} href="/" aria-label="Voltar ao início"><BrandLogo className={homeStyles.brandMark} size={50} /><span>bycauazin</span></Link>
+        <Link className={homeStyles.brand} href="/" aria-label="Voltar ao início"><BrandLogo className={homeStyles.brandMark} size={50} /><BrandName /></Link>
         <nav className={homeStyles.nav} aria-label="Navegação principal"><Link href="/projetos" aria-current="page">Projetos</Link><Link href="/#sobre">Sobre</Link></nav>
         <div className={homeStyles.headerActions}>
           <button className={homeStyles.themeToggle} type="button" onClick={toggleTheme} aria-label={lightMode ? "Ativar tema escuro" : "Ativar tema claro"} title={lightMode ? "Ativar tema escuro" : "Ativar tema claro"}><span aria-hidden="true">{lightMode ? "☾" : "☼"}</span></button>

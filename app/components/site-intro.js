@@ -5,7 +5,7 @@ import BrandLogo from "./brand-logo";
 import { INTRO_EVENT, INTRO_KEY } from "./intro-script";
 import styles from "./site-intro.module.css";
 
-// Abertura do site: a logo aparece no centro, "BC" é digitado, vira "bycauazin" e a cortina
+// Abertura do site: a logo aparece no centro, "BC" é digitado, vira "<bycauazin/>" (fonte da marca) e a cortina
 // sobe mostrando a página. Só roda quando o script do <head> marcou data-intro="on"
 // (uma vez por sessão, sem prefers-reduced-motion). Clique ou qualquer tecla pula.
 
@@ -19,10 +19,13 @@ const FRAMES = [
   [1540, [["b", "b"], ["c", "c"]]],
   [1700, word("byc")],
   ...["byca", "bycau", "bycaua", "bycauaz", "bycauazi", "bycauazin"].map((text, i) => [1830 + i * 62, word(text)]),
+  // Fecha como a marca: <bycauazin/>
+  [2230, [["lt", "<"], ...word("bycauazin")]],
+  [2330, [["lt", "<"], ...word("bycauazin"), ["end", "/>"]]],
 ];
 const TYPE_AT = 620;     // a logo sobe e a linha de digitação aparece
-const DONE_AT = 2220;    // palavra completa: entra a legenda
-const LIFT_AT = 2700;    // a cortina começa a subir (espera o load da página, se ainda não terminou)
+const DONE_AT = 2400;    // marca completa: entra a legenda
+const LIFT_AT = 2880;    // a cortina começa a subir (espera o load da página, se ainda não terminou)
 const LIFT_MS = 900;     // igual à transição de .intro[data-phase="lift"]
 
 export default function SiteIntro() {
@@ -90,7 +93,7 @@ export default function SiteIntro() {
         </div>
         <p className={styles.word}>
           {letters.map(([slot, ch]) => (
-            <span key={slot} className={slot === "b" || slot === "y" ? styles.by : undefined}>
+            <span key={slot} className={slot === "b" || slot === "y" ? styles.by : slot === "lt" || slot === "end" ? styles.tag : undefined}>
               <span key={ch} className={before.has(slot) && before.get(slot) !== ch ? styles.flip : before.has(slot) ? undefined : styles.enter}>{ch}</span>
             </span>
           ))}

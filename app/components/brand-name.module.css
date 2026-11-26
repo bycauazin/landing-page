@@ -1,0 +1,18 @@
+.name {
+  font-family: var(--font-brand), "Geist Mono", ui-monospace, monospace;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  white-space: nowrap;
+}
+
+.name i {
+  font-style: normal;
+}
+
+.by {
+  color: var(--blue);
+}
+
+.tag {
+  opacity: 0.5;
+}
