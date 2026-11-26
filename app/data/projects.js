@@ -274,7 +274,7 @@ export const projects = [
   {
     id: "nucorre",
     slug: "nucorre",
-    title: "nuCorre",
+    title: "nuCorre App",
     group: "Projeto autoral",
     type: "Aplicativo web",
     status: "em-desenvolvimento",
