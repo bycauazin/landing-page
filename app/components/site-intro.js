@@ -25,7 +25,7 @@ const FRAMES = [
 ];
 const TYPE_AT = 620;     // a logo sobe e a linha de digitação aparece
 const DONE_AT = 2400;    // marca completa: entra a legenda
-const LIFT_AT = 2880;    // a cortina começa a subir (espera o load da página, se ainda não terminou)
+const LIFT_AT = 3380;    // a cortina começa a subir (espera o load da página, se ainda não terminou)
 const LIFT_MS = 900;     // igual à transição de .intro[data-phase="lift"]
 
 export default function SiteIntro() {

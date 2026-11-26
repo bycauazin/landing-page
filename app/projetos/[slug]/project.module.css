@@ -285,7 +285,7 @@
   .chapterGrid a, .relatedSection > a { transition: none; }
 }
 
-/* ---------- topo com foto de capa (Finance, Routine, portfólio) ---------- */
+/* ---------- topo com foto de capa (Cacau, Routine, portfólio) ---------- */
 .heroWithShot { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, .95fr); gap: 56px; align-items: center; }
 .heroWithShot h1 { font-size: clamp(46px, 6.4vw, 88px); }
 .heroShot { position: relative; margin: 0; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); box-shadow: 0 30px 70px rgb(0 0 0 / .32); transform: perspective(1400px) rotateY(-6deg) rotateX(2deg); transition: transform 500ms cubic-bezier(.2, .8, .2, 1); }

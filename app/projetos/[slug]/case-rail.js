@@ -26,7 +26,7 @@ function findSections(main) {
 const RAIL_ROOM = 88; // largura da barra + folga até o texto
 
 /**
- * Barra lateral do portfólio, no estilo do SectionRail do Finance:
+ * Barra lateral do portfólio, no estilo do SectionRail do Cacau (antigo Finance):
  * uma coluna de ícones à direita, um por seção. O da seção na tela fica em
  * destaque (o fundo desliza até ele), o clique leva à seção, o nome aparece ao
  * passar o mouse e a barrinha embaixo mostra quanto da página já foi lido.

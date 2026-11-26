@@ -1,8 +1,12 @@
 .name {
   font-family: var(--font-brand), "Geist Mono", ui-monospace, monospace;
+  font-size: 1.18em;
   font-weight: 400;
-  letter-spacing: -0.02em;
+  letter-spacing: 0.01em;
   white-space: nowrap;
+  /* A fonte só tem um peso e fica fina em tamanho pequeno: um traço da própria cor engrossa as letras. */
+  -webkit-text-stroke: 0.08em currentColor;
+  paint-order: stroke fill;
 }
 
 .name i {

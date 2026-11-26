@@ -205,7 +205,7 @@ async function ProjectContent({ params }) {
     return <ProjectUnderDevelopment project={project} />;
   }
 
-  // Página gerada pelos dados (Finance, o próprio portfólio).
+  // Página gerada pelos dados (Cacau, o próprio portfólio).
   const relatedProjects = (project.related ?? [])
     .map((relatedSlug) => getProject(relatedSlug))
     .filter(Boolean);

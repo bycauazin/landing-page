@@ -19,6 +19,17 @@ Escolhidos em 2026-11-25 na página de opções de marca: **Major Mono Display**
 - Nome: `<bycauazin/>`. "by" na cor de destaque, `<` e `/>` com 50% de opacidade, "cauazin" na cor do texto.
 - Abreviação: `BC`, com o B na cor de destaque.
 - No site: componente [../app/components/brand-name.js](../app/components/brand-name.js); a fonte entra no [layout](../app/layout.js) como `--font-brand`.
+- **Espessura no cabeçalho:** a Major Mono Display só tem um peso e fica fina em tamanho pequeno. No nome ao lado da logo (canto superior esquerdo) use `font-size: 1.18em`, `letter-spacing: 0.01em`, `-webkit-text-stroke: 0.08em currentColor` e `paint-order: stroke fill`. O usuário pediu duas vezes para engrossar; com 0.045em ainda ficou fino. Na abertura, em tamanho grande, fica sem o traço extra.
+- **Abertura animada:** logo no centro → `BC` digitado → vira `bycauazin` → fecha com `<` e `/>` → legenda `// desenvolvedor & instrutor` (fica ~1 s na tela para dar tempo de ler) → cortina sobe. Código em [../app/components/site-intro.js](../app/components/site-intro.js).
+
+## Levar para outro projeto (ex.: Cacau, o antigo Finance)
+
+1. Escolha as três cores do projeto (contorno, fita, interior) e gere a logo com `make-logo.mjs`, uma versão para cada tema e uma `--quadrado` para a aba.
+2. Sem quadrado atrás da logo, também no ícone da aba.
+3. Assinatura `<bycauazin/>` em Major Mono Display, com o mesmo tratamento: "by" na cor de destaque, `<` `/>` a 50%, traço extra no cabeçalho. O produto pode ter o próprio nome ao lado.
+
+**Como ficou no Cacau (2026-11-25, decisões em `finance-app/.agents/DECISIONS.md`):** nome `CACAU` em DM Serif Display ao lado da assinatura `<bycauazin/>`; visual do Finance com o azul-marinho trocado por carvão `#222222`, verde mantido e marrom `#694633` como detalhe; logo com contorno bege, fita marrom e interior verde. No portfólio, o estudo de caso fica em `/projetos/cacau` (o endereço antigo `/projetos/finance-app` redireciona, ver `firebase.json`).
+4. Ao trocar um SVG já publicado, mude o `?v=N` no endereço: o Firebase deixa o navegador guardar por 1 hora e a pessoa continua vendo a versão antiga.
 
 ## Arquivos
 

@@ -49,7 +49,7 @@ export function BeforeAfter({ before, after, beforeLabel = "Antes", afterLabel =
 }
 
 /**
- * Fluxo no padrão do Finance: ícones em círculos ligados por uma linha, sem números.
+ * Fluxo no padrão do Cacau: ícones em círculos ligados por uma linha, sem números.
  * steps: [{ icon?, label, note? }] ou textos. `vertical` para colunas estreitas;
  * `muted` para o "antes" (processo manual), em cinza.
  */

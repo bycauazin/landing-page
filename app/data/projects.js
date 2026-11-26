@@ -33,9 +33,9 @@ export const technologyFilters = technologyFilterOrder.map((id) => technologies[
 
 export const projects = [
   {
-    id: "finance-app",
-    slug: "finance-app",
-    title: "Finance App",
+    id: "cacau",
+    slug: "cacau",
+    title: "Cacau",
     group: "Projeto autoral",
     type: "Aplicativo web",
     status: "no-ar",
@@ -44,15 +44,16 @@ export const projects = [
     featured: true,
     featuredOrder: 1,
     description: "Controle financeiro pessoal: contas fixas, cartões, empréstimos, reserva e relatórios num lugar só. Para anotar um gasto, basta mandar uma mensagem no Telegram.",
+    // Endereço antigo, que já mostra o Cacau. Trocar por https://cacaubc.vercel.app quando o domínio novo estiver ativo na Vercel.
     liveUrl: "https://financebycauazin.vercel.app",
-    image: "/project-images/finance-app.jpg",
+    image: "/project-images/cacau-app.jpg",
     // Telas da conta de demonstração (dados fictícios), na galeria da página.
     screens: [
-      { src: "/project-images/finance/resumo-do-mes.jpg", label: "Resumo do mês", icon: "wallet", caption: "Quanto entrou, quanto saiu e quanto sobra." },
-      { src: "/project-images/finance/saidas.jpg", label: "Saídas", icon: "list", caption: "Contas fixas, cartões e avulsos, cada um com pago ou não pago." },
-      { src: "/project-images/finance/relatorios.jpg", label: "Relatórios", icon: "chart", caption: "Para onde foi o dinheiro, comparado ao mês anterior." },
-      { src: "/project-images/finance/meu-dinheiro.jpg", label: "Meu dinheiro", icon: "piggy", caption: "Patrimônio, reserva de emergência e investimentos." },
-      { src: "/project-images/finance/celular.jpg", label: "No celular", icon: "phone", caption: "Pensado primeiro para a tela pequena.", phone: true },
+      { src: "/project-images/cacau/resumo-do-mes.jpg", label: "Resumo do mês", icon: "wallet", caption: "Quanto entrou, quanto saiu e quanto sobra." },
+      { src: "/project-images/cacau/saidas.jpg", label: "Saídas", icon: "list", caption: "Contas fixas, cartões e avulsos, cada um com pago ou não pago." },
+      { src: "/project-images/cacau/relatorios.jpg", label: "Relatórios", icon: "chart", caption: "Para onde foi o dinheiro, comparado ao mês anterior." },
+      { src: "/project-images/cacau/meu-dinheiro.jpg", label: "Meu dinheiro", icon: "piggy", caption: "Patrimônio, reserva de emergência e investimentos." },
+      { src: "/project-images/cacau/celular.jpg", label: "No celular", icon: "phone", caption: "Pensado primeiro para a tela pequena.", phone: true },
     ],
     features: [
       { icon: "check", title: "O mês na tela", text: "Salário, contas fixas e gastos, com pago ou não pago" },
@@ -68,7 +69,7 @@ export const projects = [
     guide: {
       plain: [
         "Eu controlava o dinheiro numa planilha e achava que estava tudo sob controle. Não estava: os gastos avulsos do dia a dia (o lanche, o Uber, a compra rápida) quase nunca entravam, e muita coisa ficava de fora.",
-        "O Finance tira esse atrito. Para anotar um gasto, basta mandar uma mensagem no Telegram. As contas fixas entram sozinhas, cada parcela cai na fatura certa e os relatórios mostram para onde o dinheiro foi de verdade.",
+        "O Cacau tira esse atrito. Para anotar um gasto, basta mandar uma mensagem no Telegram. As contas fixas entram sozinhas, cada parcela cai na fatura certa e os relatórios mostram para onde o dinheiro foi de verdade.",
       ],
       technical: [
         "React + Vite + Tailwind; API Express em camadas",
@@ -284,7 +285,7 @@ export const projects = [
     // Foto do site para o destaque: coloque em /public/project-images/ e preencha aqui quando estiver no ar.
     image: "/project-images/routine-app.jpg",
     description: "Controle de rotina no formato da planilha da semana: blocos fixos com dia e horário, rotinas com afazeres, hábitos com sequência e tarefas. Cada dia vira uma lista em ordem de horário, com um check para cada coisa feita.",
-    developmentSummary: "Irmão do Finance App, com a mesma estrutura: API em Node.js com PostgreSQL e interface em React, pensada primeiro para o celular. As três primeiras etapas já estão prontas; a página ganha o link quando a primeira versão for publicada.",
+    developmentSummary: "Irmão do Cacau, com a mesma estrutura: API em Node.js com PostgreSQL e interface em React, pensada primeiro para o celular. As três primeiras etapas já estão prontas; a página ganha o link quando a primeira versão for publicada.",
     features: [
       { icon: "calendar", title: "Semana fixa", text: "Trabalho, estudo e treino com dia e horário" },
       { icon: "clock", title: "Hoje", text: "O dia em ordem de horário, com check" },

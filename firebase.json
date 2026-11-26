@@ -32,6 +32,18 @@
           }
         ]
       }
+    ],
+    "redirects": [
+      {
+        "source": "/projetos/finance-app",
+        "destination": "/projetos/cacau",
+        "type": 301
+      },
+      {
+        "source": "/projetos/finance-app/**",
+        "destination": "/projetos/cacau",
+        "type": 301
+      }
     ]
   }
 }
